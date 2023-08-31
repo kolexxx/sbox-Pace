@@ -30,6 +30,8 @@ public partial class WeaponPickup : ModelEntity
 
 	public override void Touch( Entity other )
 	{
+		Log.Info( $"{other} has touched a pickup" );
+
 		if ( !Game.IsServer || other is not Pawn player || !TimeUntilRespawn )
 			return;
 

@@ -101,11 +101,7 @@ public partial class Pawn : AnimatedEntity
 		Velocity = Vector3.Zero;
 		EnableAllCollisions = true;
 		EnableDrawing = true;
-
 		Inventory.DeleteContents();
-		Inventory.Add( new Pistol(), true );
-		Inventory.Add( new SMG() );
-		Inventory.Add( new Shotgun() );
 
 		MyGame.Instance.Gamemode.OnPlayerSpawned( this );
 	}

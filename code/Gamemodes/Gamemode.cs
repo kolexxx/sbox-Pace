@@ -66,6 +66,7 @@ public abstract partial class Gamemode : Entity
 
 	public virtual void OnPlayerSpawned( Pawn player )
 	{
+		player.Inventory.Add( new Pistol(), true );
 		MyGame.Instance.MoveToSpawnpoint( player );
 	}
 
