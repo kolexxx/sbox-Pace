@@ -1,0 +1,19 @@
+{
+  "ClassName": "shotgun",
+  "IconPath": "ui/shotgun.png",
+  "Slot": 3,
+  "HoldType": "Shotgun",
+  "ModelPath": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",
+  "DeployTime": 0.6,
+  "ReloadTime": 0.7,
+  "FireSound": "weapons/rust_pumpshotgun/sounds/rust_pumpshotgun.shoot.sound",
+  "BulletsPerFire": 4,
+  "FireMode": "Semi",
+  "ClipSize": 5,
+  "Damage": 10,
+  "Spread": 10,
+  "PrimaryRate": 1,
+  "EjectParticle": null,
+  "MuzzleFlashParticle": "particles/pistol_muzzleflash.vpcf",
+  "TracerParticle": "particles/tracer.vpcf"
+}

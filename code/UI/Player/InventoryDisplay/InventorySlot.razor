@@ -1,0 +1,31 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@using System;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+@if (Game.LocalPawn is not Pawn player)
+{
+	return;
+}
+
+<root style=@(Weapon.IsValid() ? "" : "opacity: 0.3")>
+	@if (Weapon.IsValid())
+	{
+		<img src=@Weapon.Definition.IconPath />
+	}
+	<InputGlyph action=@Pace.InputAction.SlotToAction(Slot) />
+</root>
+
+@code
+{
+	public int Slot { get; set; }
+	public Weapon Weapon => ((Pawn)Game.LocalPawn).Inventory[Slot];
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine(Weapon);
+	}
+}

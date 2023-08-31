@@ -1,0 +1,22 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+
+</root>
+
+@code
+{
+    [GameEvent.Client.Frame]
+    public void UpdatePosition()
+    {
+        var mousePosition = Mouse.Position / Screen.Size;
+
+        Style.Left = Length.Fraction(mousePosition.x);
+        Style.Top = Length.Fraction(mousePosition.y);
+    }
+}

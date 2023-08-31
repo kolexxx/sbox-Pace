@@ -1,0 +1,25 @@
+﻿@using Sandbox.UI;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	<label class="left" text=@Left></label>
+	<label class="method" text=@Weapon.ClassName></label>
+	<label class="right" text=@Right></label>
+</root>
+
+@code
+{
+	public string Left { get; set; }
+	public string Right { get; set; }
+	public WeaponDefinition Weapon { get; set; }
+
+	public KillFeedEntry(string left, string right, WeaponDefinition weapon)
+	{
+		Left = left;
+		Right = right;
+		Weapon = weapon;
+	}
+}
