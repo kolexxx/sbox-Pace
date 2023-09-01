@@ -14,35 +14,4 @@
 	public static KillFeed Instance { get; private set; }
 
 	public KillFeed() => Instance = this;
-
-	private const int MaxMessagesDisplayed = 10;
-	private const float DisplayDuration = 1f;
-	private readonly Queue<KillFeedEntry> _entryQueue = new();
-	private RealTimeUntil _timeUntilNextDisplay = 0f;
-	private RealTimeSince _timeSinceLastDisplayed = 0f;
-	private RealTimeUntil _timeUntilNextDelete = 0f;
-
-	public void AddToFeed(KillFeedEntry entry)
-	{
-		_entryQueue.Enqueue(entry);
-	}
-
-	public override void Tick()
-	{
-		if (_entryQueue.Any() && _timeUntilNextDisplay && ChildrenCount < MaxMessagesDisplayed)
-		{
-			var newEntry = _entryQueue.Dequeue();
-			AddChild(newEntry);
-
-			_timeUntilNextDisplay = 1f;
-			_timeSinceLastDisplayed = 0f;
-		}
-
-		if (Children.Any() && _timeUntilNextDelete && _timeSinceLastDisplayed > DisplayDuration)
-		{
-			var oldEntry = Children.ElementAt(0);
-			oldEntry.Delete();
-			_timeUntilNextDelete = DisplayDuration;
-		}
-	}
 }

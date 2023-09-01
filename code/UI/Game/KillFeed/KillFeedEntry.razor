@@ -1,4 +1,5 @@
-﻿@using Sandbox.UI;
+﻿@using Sandbox;
+@using Sandbox.UI;
 
 @namespace Pace.UI
 @attribute [StyleSheet]
@@ -15,11 +16,18 @@
 	public string Left { get; set; }
 	public string Right { get; set; }
 	public WeaponDefinition Weapon { get; set; }
+	private RealTimeSince _timeSinceCreated = 0;
 
 	public KillFeedEntry(string left, string right, WeaponDefinition weapon)
 	{
 		Left = left;
 		Right = right;
 		Weapon = weapon;
+	}
+
+	public override void Tick()
+	{
+		if (_timeSinceCreated > 6f)
+			Delete();
 	}
 }
