@@ -1,4 +1,4 @@
-﻿using Sandbox;
+using Sandbox;
 using System;
 using System.Linq;
 
@@ -54,7 +54,7 @@ public partial class MyGame : GameManager
 		pawn.DressFromClient( client );
 
 		UI.TextChat.AddInfoEntry( $"{client.Name} has joined" );
-		Gamemode.OnClientJoined( client );
+		Gamemode.OnClientJoined( pawn );
 	}
 
 	/// <summary>
@@ -63,7 +63,7 @@ public partial class MyGame : GameManager
 	public override void ClientDisconnect( IClient cl, NetworkDisconnectionReason reason )
 	{
 		UI.TextChat.AddInfoEntry( $"{cl.Name} has left the game ({reason})" );
-		Gamemode.OnClientLeft( cl, reason );
+		Gamemode.OnClientLeft( cl.Pawn as Pawn, reason );
 
 		base.ClientDisconnect( cl, reason );
 	}

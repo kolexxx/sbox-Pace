@@ -102,6 +102,7 @@ public partial class Pawn : AnimatedEntity
 		EnableAllCollisions = true;
 		EnableDrawing = true;
 		Inventory.DeleteContents();
+		ResetInterpolation();
 
 		MyGame.Instance.Gamemode.OnPlayerSpawned( this );
 	}
@@ -159,13 +160,17 @@ public partial class Pawn : AnimatedEntity
 	{
 		Game.AssertServer();
 
-		LastDamage = info;
-		LastAttacker = info.Attacker;
-		LastAttackerWeapon = info.Weapon;
 
 		if ( LifeState != LifeState.Alive )
 			return;
 
+		// Headshot
+		if ( info.Hitbox.HasTag( "head" ) )
+			info.Damage *= 1.5f;
+
+		LastDamage = info;
+		LastAttacker = info.Attacker;
+		LastAttackerWeapon = info.Weapon;
 		Health -= info.Damage;
 		this.ProceduralHitReaction( info );
 

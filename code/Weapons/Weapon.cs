@@ -40,7 +40,7 @@ public abstract partial class Weapon : AnimatedEntity
 	/// <summary>
 	/// How much ammo is in reserve.
 	/// </summary>
-	[Net, Predicted] public int ReserveAmmo { get; protected set; }
+	[Net, Predicted] public int ReserveAmmo { get; set; }
 
 	/// <summary>
 	/// How long since we started reloading.
@@ -194,7 +194,7 @@ public abstract partial class Weapon : AnimatedEntity
 
 		var trace = Trace.Ray( ray, distance )
 				.UseHitboxes()
-				.WithAnyTags( "solid", "player", "npc" )
+				.WithAnyTags( "solid", "player" )
 				.Ignore( this )
 				.Size( radius );
 
@@ -218,7 +218,7 @@ public abstract partial class Weapon : AnimatedEntity
 		for ( var i = 0; i < Definition.BulletsPerFire; i++ )
 		{
 			var newRay = ray;
-			newRay.Forward *= Rotation.FromAxis( MyGame.Plane.Normal, Game.Random.Float(-1f, 1f) * spread );
+			newRay.Forward *= Rotation.FromAxis( MyGame.Plane.Normal, Game.Random.Float( -1f, 1f ) * spread );
 
 			//
 			// ShootBullet is coded in a way where we can have bullets pass through shit
