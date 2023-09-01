@@ -2,15 +2,17 @@ using Sandbox;
 
 namespace Pace;
 
-internal class Deathmatch : Gamemode
+public class Deathmatch : Gamemode
 {
 	public override void ClientSpawn()
 	{
 		Game.RootPanel.AddChild<UI.Leaderboard>();
 	}
 
-	protected override void OnStateChanged( State before, State after )
+	public override void OnClientJoined( Pawn player )
 	{
-		base.OnStateChanged( before, after );
+		base.OnClientJoined( player );
+
+		player.Respawn();
 	}
 }

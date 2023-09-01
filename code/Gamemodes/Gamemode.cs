@@ -1,6 +1,4 @@
 using Sandbox;
-using Sandbox.UI;
-using Sandbox.Diagnostics;
 using System;
 
 namespace Pace;
@@ -17,6 +15,7 @@ public abstract partial class Gamemode : Entity
 {
 	[Net] public State State { get; protected set; }
 	[Net] public TimeUntil TimeUntilNextState { get; protected set; }
+	public int PlayerCount { get; set; }
 
 	/// <summary>
 	/// Decides whether or not players can move
@@ -26,12 +25,7 @@ public abstract partial class Gamemode : Entity
 
 	public virtual string GetTimeLeftLabel()
 	{
-		return TimeSpan.FromSeconds( TimeUntilNextState ).ToString( @"mm\:ss" );
-	}
-
-	public virtual string GetGameStateLabel()
-	{
-		return "N/A";
+		return State == State.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( TimeUntilNextState ).ToString( @"mm\:ss" );
 	}
 
 	public override void Spawn()
@@ -45,8 +39,8 @@ public abstract partial class Gamemode : Entity
 	/// <param name="player"></param>
 	public virtual void OnClientJoined( Pawn player )
 	{
+		PlayerCount++;
 		VerifyEnoughPlayers();
-		player.LifeState = LifeState.Respawning;
 	}
 
 	/// <summary>
@@ -54,7 +48,11 @@ public abstract partial class Gamemode : Entity
 	/// </summary>
 	/// <param name="player"></param>
 	/// <param name="reason"></param>
-	public virtual void OnClientLeft( Pawn player, NetworkDisconnectionReason reason ) { }
+	public virtual void OnClientLeft( Pawn player, NetworkDisconnectionReason reason )
+	{
+		PlayerCount--;
+		VerifyEnoughPlayers();
+	}
 
 	/// <summary>
 	/// Called when a player dies.
@@ -101,11 +99,16 @@ public abstract partial class Gamemode : Entity
 
 	protected void VerifyEnoughPlayers()
 	{
-		if ( State != State.WaitingForPlayers )
-			return;
-
-		if ( Game.Clients.Count >= 2 )
-			SetState( State.Countdown );
+		if ( State == State.WaitingForPlayers )
+		{
+			if ( PlayerCount >= 2 )
+				SetState( State.Countdown );
+		}
+		else
+		{
+			if ( PlayerCount < 2 )
+				SetState( State.WaitingForPlayers );
+		}
 	}
 
 	public override void BuildInput()

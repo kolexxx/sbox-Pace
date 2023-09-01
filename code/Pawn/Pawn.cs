@@ -49,7 +49,7 @@ public partial class Pawn : AnimatedEntity
 	/// <summary>
 	/// The position and direction we are aiming from.
 	/// </summary>
-	public override Ray AimRay => new Ray( EyePosition, EyeRotation.Forward );
+	public override Ray AimRay => new( EyePosition, EyeRotation.Forward );
 
 	public BBox Hull
 	{
@@ -162,7 +162,6 @@ public partial class Pawn : AnimatedEntity
 	public override void TakeDamage( DamageInfo info )
 	{
 		Game.AssertServer();
-
 
 		if ( LifeState != LifeState.Alive )
 			return;
