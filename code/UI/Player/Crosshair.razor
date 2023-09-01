@@ -6,17 +6,34 @@
 @inherits Panel
 
 <root>
-
+	<label></label>
 </root>
 
 @code
 {
-    [GameEvent.Client.Frame]
-    public void UpdatePosition()
-    {
-        var mousePosition = Mouse.Position / Screen.Size;
+	[GameEvent.Client.Frame]
+	public void UpdatePosition()
+	{
+		var mousePosition = Mouse.Position / Screen.Size;
 
-        Style.Left = Length.Fraction(mousePosition.x);
-        Style.Top = Length.Fraction(mousePosition.y);
-    }
+		Style.Left = Length.Fraction(mousePosition.x);
+		Style.Top = Length.Fraction(mousePosition.y);
+
+		if (Game.LocalPawn is not Pawn player)
+			return;
+
+		if (GetChild(0) is not Label label)
+			return;
+
+		if (player.LifeState != LifeState.Alive || player.Inventory.ActiveWeapon is null)
+		{
+			label.Text = string.Empty;
+			return;
+		}
+
+		var ammo = player.Inventory.ActiveWeapon.AmmoInClip;
+		var reserve = player.Inventory.ActiveWeapon.ReserveAmmo;
+
+		label.Text = $"{ammo}/{reserve}";
+	}
 }

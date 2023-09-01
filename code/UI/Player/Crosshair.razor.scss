@@ -2,13 +2,20 @@
 {
     position: absolute;
     z-index: -1;
-    align-items: flex-end;
-    background-color: #fff4;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
     mix-blend-mode: lighten;
-    width: 5px;
-    height: 5px;
+    width: 8px;
+    height: 8px;
     top: 50%;
     left: 50%;
     border-radius: 100px;
     transform: translate( -50% -50% );
+
+    label
+    {
+        top: 10px;
+        position: absolute;
+    }
 }
