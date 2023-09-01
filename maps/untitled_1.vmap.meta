@@ -18,7 +18,8 @@
       "PackageReferences": [],
       "EditorReferences": [
         "kole.traze#local",
-        "kole.raze#local"
+        "kole.raze#local",
+        "kole.pace#local"
       ],
       "Metadata": {
         "SingleAssetSource": "maps/untitled_1.vmap"
