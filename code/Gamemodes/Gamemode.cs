@@ -42,18 +42,19 @@ public abstract partial class Gamemode : Entity
 	/// <summary>
 	/// Called when a client joins the game
 	/// </summary>
-	/// <param name="cl"></param>
-	public virtual void OnClientJoined( IClient cl )
+	/// <param name="player"></param>
+	public virtual void OnClientJoined( Pawn player )
 	{
 		VerifyEnoughPlayers();
+		player.LifeState = LifeState.Respawning;
 	}
 
 	/// <summary>
 	/// Called when a client leaves the game
 	/// </summary>
-	/// <param name="cl"></param>
+	/// <param name="player"></param>
 	/// <param name="reason"></param>
-	public virtual void OnClientLeft( IClient cl, NetworkDisconnectionReason reason ) { }
+	public virtual void OnClientLeft( Pawn player, NetworkDisconnectionReason reason ) { }
 
 	/// <summary>
 	/// Called when a player dies.
@@ -61,6 +62,8 @@ public abstract partial class Gamemode : Entity
 	public virtual void OnPlayerKilled( Pawn player )
 	{
 		player.LifeState = LifeState.Respawning;
+		player.LastAttacker?.Client?.AddInt( "kills" );
+
 		UI.KillFeed.AddEntry( player.LastAttacker.Client.Name, ((Weapon)player.LastAttackerWeapon).Definition, player.Client.Name );
 	}
 
@@ -111,7 +114,9 @@ public abstract partial class Gamemode : Entity
 			return;
 
 		Input.AnalogMove = Vector3.Zero;
-		Input.ClearActions();
+		Input.Clear( "jump" );
+		Input.Clear( "duck" );
+		Input.Clear( "attack1" );
 		Input.StopProcessing = true;
 	}
 

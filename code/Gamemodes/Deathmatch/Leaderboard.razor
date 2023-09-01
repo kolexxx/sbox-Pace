@@ -1,0 +1,77 @@
+﻿@using Sandbox;
+@using Sandbox.UI;
+@using System.Linq;
+@using System.Collections.Generic;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	<label class="first"></label>
+	<label class="second"></label>
+	<label class="third"></label>
+	<label></label>
+</root>
+
+@code
+{
+	public override void Tick()
+	{
+		if (!Children.Any())
+			return;
+
+		var clients = new List<IClient>(Game.Clients);
+
+		clients.Sort(delegate (IClient x, IClient y)
+		{
+			return y.GetInt("kills").CompareTo(x.GetInt("kills"));
+		});
+
+		var index = clients.IndexOf(Game.LocalClient);
+
+		for (var i = 0; i <= 3; i++)
+		{
+			if (GetChild(i) is not Label label)
+				break;
+
+			if (i >= clients.Count)
+			{
+				label.Text = string.Empty;
+				continue;
+			}
+
+			if (i == 3)
+			{
+				if(index > 3)
+					label.Text = GetFormatString(Game.LocalClient, index);
+				else
+					label.Text = GetFormatString(clients[i], i);
+
+				label.SetClass("me", index > 3);
+			}
+			else
+			{
+				label.Text = GetFormatString(clients[i], i);
+				label.SetClass("me", i == index);
+			}
+
+		}
+	}
+
+	private string GetPlaceClass(int i)
+	{
+		return i switch
+		{
+			1 => "first",
+			2 => "second",
+			3 => "third",
+			_ => string.Empty,
+		};
+	}
+
+	private string GetFormatString(IClient client, int i)
+	{
+		return $"{i + 1}. {client.Name} - {client.GetInt("kills")}";
+	}
+}
