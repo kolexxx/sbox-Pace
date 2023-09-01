@@ -1,4 +1,4 @@
-﻿using Sandbox;
+using Sandbox;
 using System;
 using System.Collections.Generic;
 
@@ -11,17 +11,14 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 	public int JumpSpeed => 300;
 	public float Gravity => 500f;
 
-	HashSet<string> ControllerEvents = new( StringComparer.OrdinalIgnoreCase );
+	readonly HashSet<string> _controllerEvents = new( StringComparer.OrdinalIgnoreCase );
 
 	bool Grounded => Entity.GroundEntity.IsValid();
 	bool _doubleJump = true;
 
 	public void Simulate( IClient cl )
 	{
-		ControllerEvents.Clear();
-
-		// Player should always be in map's plane.
-		Entity.Position += MyGame.Plane.Origin - Entity.Position.Dot( MyGame.Plane.Normal ) * MyGame.Plane.Normal;
+		_controllerEvents.Clear();
 
 		var movement = Entity.InputDirection.Normal;
 		var moveVector = movement * 320f;
@@ -61,6 +58,9 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 		}
 
 		Entity.GroundEntity = groundEntity;
+
+		// Player should always be in map's plane.
+		Entity.Position = MyGame.Plane.SnapToPlane( Entity.Position );
 	}
 
 	void DoJump()
@@ -168,7 +168,7 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 
 	public bool HasEvent( string eventName )
 	{
-		return ControllerEvents.Contains( eventName );
+		return _controllerEvents.Contains( eventName );
 	}
 
 	void AddEvent( string eventName )
@@ -176,6 +176,6 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 		if ( HasEvent( eventName ) )
 			return;
 
-		ControllerEvents.Add( eventName );
+		_controllerEvents.Add( eventName );
 	}
 }

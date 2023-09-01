@@ -1,31 +1,20 @@
 using Editor;
 using Sandbox;
-using System;
 
 namespace Pace;
 
+[Category( "Pickups" )]
+[ClassName( "pickup_weapon" )]
 [HammerEntity]
-[ClassName( "weapon_spawn" )]
-public partial class WeaponPickup : ModelEntity
+[Title("Weapon Pickup")]
+public partial class WeaponPickup : BasePickup
 {
+	/// <summary>
+	/// The weapon that will be spawned.
+	/// </summary>
 	[Net, Property] public WeaponDefinition Weapon { get; set; }
-	[Net] private TimeUntil TimeUntilRespawn { get; set; } = 0f;
 
-	private SceneObject _sceneObject;
-
-	public override void Spawn()
-	{
-		SetupPhysicsFromAABB( PhysicsMotionType.Static, new Vector3( -1, -40, 0 ), new Vector3( 1, 40, 80 ) );
-
-		Tags.Add( "trigger" );
-		EnableTouch = true;
-		EnableTouchPersists = true;
-	}
-
-	public override void ClientSpawn()
-	{
-		_sceneObject = new( Game.SceneWorld, Weapon.Model, new Transform( Position, Rotation, 1.2f ) );
-	}
+	protected override string ModelPath => Weapon.ModelPath;
 
 	public override void Touch( Entity other )
 	{
@@ -48,17 +37,5 @@ public partial class WeaponPickup : ModelEntity
 			TimeUntilRespawn = 10f;
 			player.Inventory.Pickup( TypeLibrary.Create<Weapon>( Weapon.ClassName ) );
 		}
-	}
-
-	[GameEvent.Client.Frame]
-	private void Tick()
-	{
-		_sceneObject.RenderingEnabled = TimeUntilRespawn;
-
-		if ( !_sceneObject.RenderingEnabled )
-			return;
-
-		_sceneObject.Position = Position + (MathF.Sin( RealTime.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
-		_sceneObject.Rotation = Rotation.FromAxis( Vector3.Up, RealTime.Now * 100f );
 	}
 }

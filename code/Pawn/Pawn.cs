@@ -46,6 +46,9 @@ public partial class Pawn : AnimatedEntity
 	[Net, Predicted, Browsable( false )]
 	public Rotation EyeLocalRotation { get; set; }
 
+	/// <summary>
+	/// The position and direction we are aiming from.
+	/// </summary>
 	public override Ray AimRay => new Ray( EyePosition, EyeRotation.Forward );
 
 	public BBox Hull

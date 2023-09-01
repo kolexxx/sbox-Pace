@@ -15,8 +15,8 @@
 
 	public KillFeed() => Instance = this;
 
-	private const int MaxMessagesDisplayed = 8;
-	private const float DisplayDuration = 3f;
+	private const int MaxMessagesDisplayed = 10;
+	private const float DisplayDuration = 1f;
 	private readonly Queue<KillFeedEntry> _entryQueue = new();
 	private RealTimeUntil _timeUntilNextDisplay = 0f;
 	private RealTimeSince _timeSinceLastDisplayed = 0f;

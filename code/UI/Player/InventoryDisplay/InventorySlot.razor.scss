@@ -1,4 +1,6 @@
-﻿InventorySlot
+﻿@import "../../Hud.razor.scss";
+
+InventorySlot
 {
     width: 75px;
     height: 75px;
@@ -6,7 +8,7 @@
     border-radius: 10px;
     align-items: center;
     justify-content: center;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: $primary;
     border: 1px solid black;
     opacity: 0.3;
 
