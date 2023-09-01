@@ -8,6 +8,7 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.9);
     border: 1px solid black;
+    opacity: 0.3;
 
     img
     {
@@ -19,5 +20,10 @@
     InputGlyph
     {
         margin-top: 80px;
+    }
+
+    &.active
+    {
+        opacity: 1;
     }
 }

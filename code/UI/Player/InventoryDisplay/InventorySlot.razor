@@ -11,7 +11,7 @@
 	return;
 }
 
-<root style=@(Weapon.IsValid() ? "" : "opacity: 0.3")>
+<root class=@(Weapon?.IsActive ?? false ? "active" : "")>
 	@if (Weapon.IsValid())
 	{
 		<img src=@Weapon.Definition.IconPath />
@@ -26,6 +26,6 @@
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine(Weapon);
+		return HashCode.Combine(Weapon, Weapon?.IsActive);
 	}
 }
