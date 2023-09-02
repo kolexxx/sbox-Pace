@@ -28,34 +28,37 @@
 			return y.GetInt("kills").CompareTo(x.GetInt("kills"));
 		});
 
-		var index = clients.IndexOf(Game.LocalClient);
-
-		for (var i = 0; i <= 3; i++)
+		var j = 0;
+		var place = 1;
+		var localInTop3 = false;
+		for (var i = 0; i < clients.Count && j < 4; i++)
 		{
-			if (GetChild(i) is not Label label)
+			if (GetChild(j) is not Label label)
 				break;
 
-			if (i >= clients.Count)
+			if (j >= clients.Count)
 			{
+				j++;
 				label.Text = string.Empty;
 				continue;
 			}
 
-			if (i == 3)
-			{
-				if(index > 3)
-					label.Text = GetFormatString(Game.LocalClient, index);
-				else
-					label.Text = GetFormatString(clients[i], i);
+			if (i > 0 && clients[i - 1].GetInt("kills") != clients[i].GetInt("kills"))
+				place++;
 
-				label.SetClass("me", index >= 3);
-			}
-			else
-			{
-				label.Text = GetFormatString(clients[i], i);
-				label.SetClass("me", i == index);
-			}
+			if (j == 3 && !localInTop3 && clients[i] != Game.LocalClient)
+				continue;
 
+			label.Text = GetFormatString(clients[i], place);
+			label.SetClass("me", clients[i] == Game.LocalClient);
+			label.SetClass("first", place == 1);
+			label.SetClass("second", place == 2);
+			label.SetClass("third", place == 3);
+
+			if (clients[i] == Game.LocalClient)
+				localInTop3 = true;
+
+			j++;
 		}
 	}
 
@@ -70,8 +73,8 @@
 		};
 	}
 
-	private string GetFormatString(IClient client, int i)
+	private string GetFormatString(IClient client, int place)
 	{
-		return $"{i + 1}. {client.Name} - {client.GetInt("kills")}";
+		return $"{place}. {client.Name} - {client.GetInt("kills")}";
 	}
 }

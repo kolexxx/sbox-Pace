@@ -1,12 +1,12 @@
 {
   "publish": {
     "Allowed": true,
-    "Enabled": false,
+    "Enabled": true,
     "ProjectConfig": {
-      "Title": "untitled_1",
+      "Title": "Pace Test Map",
       "Type": "map",
-      "Org": "local",
-      "Ident": "untitled_1",
+      "Org": "kole",
+      "Ident": "testmap",
       "Tags": null,
       "Schema": 0,
       "HasAssets": false,
@@ -19,10 +19,14 @@
       "EditorReferences": [
         "kole.traze#local",
         "kole.raze#local",
-        "kole.pace#local"
+        "kole.pace#local",
+        "kole.pace"
       ],
       "Metadata": {
-        "SingleAssetSource": "maps/untitled_1.vmap"
+        "SingleAssetSource": "maps/untitled_1.vmap",
+        "GameSupport": [
+          "kole.pace"
+        ]
       }
     }
   }
