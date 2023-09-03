@@ -30,6 +30,7 @@ public partial class HealthPickup : BasePickup
 			return;
 
 		TimeUntilRespawn = 10f;
+		Sound.FromEntity( "pickup_health", player );
 		player.Health = MathF.Min( 100f, player.Health + Amount );
 	}
 }
