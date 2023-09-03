@@ -174,6 +174,8 @@ public partial class Pawn : AnimatedEntity
 		LastAttacker = info.Attacker;
 		LastAttackerWeapon = info.Weapon;
 		Health -= info.Damage;
+
+		Sound.FromEntity( "damage_taken", this );
 		this.ProceduralHitReaction( info );
 
 		if ( Health <= 0f )
@@ -195,10 +197,6 @@ public partial class Pawn : AnimatedEntity
 		BecomeRagdollOnClient( Velocity, LastDamage.Position, LastDamage.Force, LastDamage.BoneIndex );
 
 		MyGame.Instance.Gamemode.OnPlayerKilled( this );
-		/*	Event.Run( TTTEvent.Player.Killed, this );
-			GameManager.Current.State.OnPlayerKilled( this );
-
-			ClientOnKilled( this );*/
 	}
 
 	public TraceResult TraceBBox( Vector3 start, Vector3 end, float liftFeet = 0.0f )

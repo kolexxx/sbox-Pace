@@ -1,4 +1,4 @@
-﻿using Sandbox;
+using Sandbox;
 
 namespace Pace;
 
@@ -7,7 +7,7 @@ public partial class Pawn
 	public ModelEntity Ragdoll { get; set; }
 
 	[ClientRpc]
-	private void BecomeRagdollOnClient( Vector3 velocity, Vector3 forcePos, Vector3 force, int bone )
+	private void BecomeRagdollOnClient( Vector3 velocity, Vector3 forcePosition, Vector3 force, int bone )
 	{
 		var ent = new ModelEntity();
 		ent.Tags.Add( "ragdoll", "solid", "debris" );
