@@ -8,7 +8,7 @@
   "HasAssets": true,
   "AssetsPath": "",
   "Resources": "ui/*",
-  "MenuResources": "/UI/*",
+  "MenuResources": "/UI/Menu/*",
   "HasCode": true,
   "CodePath": "/code/",
   "PackageReferences": [],
