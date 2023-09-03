@@ -1,5 +1,7 @@
 ﻿KillFeedEntry
 {
+    align-items: center;
+    justify-content: center;
     margin-bottom: 5px;
     color: white;
     transition: all 0.2s ease-out;
@@ -27,24 +29,17 @@
         transition: all 0.2s ease-in;
     }
 
-    image
+    img
     {
-        width: 32px;
-        height: 32px;
-        min-height: 32px;
+        width: 64px;
+        height: 64px;
         border-radius: 100px;
-        position: absolute;
-        left: 6px;
-        top: 6px;
+        background-size: cover;
+        opacity: 0.4;
     }
 
-    .left, .right
+    label
     {
         padding: 0 12px;
-    }
-
-    .method
-    {
-        opacity: 0.3;
     }
 }

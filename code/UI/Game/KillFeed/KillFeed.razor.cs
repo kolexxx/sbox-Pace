@@ -5,8 +5,8 @@ namespace Pace.UI;
 public partial class KillFeed
 {
 	[ClientRpc]
-	public static void AddEntry(string left, WeaponDefinition weapon, string right)
+	public static void AddEntry(IClient left, WeaponDefinition weapon, IClient right)
 	{
-		Instance.AddChild( new KillFeedEntry( left, right, weapon ) );
+		Instance.AddChild( new KillFeedEntry( left.Name, weapon, right.Name ) );
 	}
 }

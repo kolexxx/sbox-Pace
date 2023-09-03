@@ -7,22 +7,22 @@
 
 <root>
 	<label class="left" text=@Left></label>
-	<label class="method" text=@Weapon.ClassName></label>
+	<img class="method" src=@Weapon.IconPath/>
 	<label class="right" text=@Right></label>
 </root>
 
 @code
 {
 	public string Left { get; set; }
-	public string Right { get; set; }
 	public WeaponDefinition Weapon { get; set; }
+	public string Right { get; set; }
 	private RealTimeSince _timeSinceCreated = 0;
 
-	public KillFeedEntry(string left, string right, WeaponDefinition weapon)
+	public KillFeedEntry(string left, WeaponDefinition weapon, string right)
 	{
 		Left = left;
-		Right = right;
 		Weapon = weapon;
+		Right = right;
 	}
 
 	public override void Tick()
