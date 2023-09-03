@@ -20,7 +20,6 @@ public abstract partial class Gamemode : Entity
 	/// <summary>
 	/// Decides whether or not players can move
 	/// </summary>
-	/// <returns></returns>
 	public virtual bool AllowMovement => State != State.Countdown;
 
 	public virtual string GetTimeLeftLabel()
@@ -62,7 +61,7 @@ public abstract partial class Gamemode : Entity
 		player.LifeState = LifeState.Respawning;
 		player.LastAttacker?.Client?.AddInt( "kills" );
 
-		UI.KillFeed.AddEntry( player.LastAttacker.Client.Name, ((Weapon)player.LastAttackerWeapon).Definition, player.Client.Name );
+		UI.KillFeed.AddEntry( player.LastAttacker.Client, ((Weapon)player.LastAttackerWeapon).Definition, player.Client );
 	}
 
 	public virtual void OnPlayerSpawned( Pawn player )
@@ -117,9 +116,7 @@ public abstract partial class Gamemode : Entity
 			return;
 
 		Input.AnalogMove = Vector3.Zero;
-		Input.Clear( "jump" );
-		Input.Clear( "duck" );
-		Input.Clear( "attack1" );
+		Input.ClearActions();
 		Input.StopProcessing = true;
 	}
 
