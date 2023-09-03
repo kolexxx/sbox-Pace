@@ -1,6 +1,5 @@
 ﻿@using Sandbox;
 @using Sandbox.UI;
-@using System.Linq;
 @using System.Collections.Generic;
 
 @namespace Pace.UI
@@ -8,19 +7,25 @@
 @inherits Panel
 
 <root>
-	<label class="first"></label>
-	<label class="second"></label>
-	<label class="third"></label>
+	<label></label>
+	<label></label>
+	<label></label>
 	<label></label>
 </root>
 
 @code
 {
+	private RealTimeUntil _timeUntilUpdate = 0;
+
 	public override void Tick()
 	{
-		if (!Children.Any())
-			return;
+		if (_timeUntilUpdate)	
+			Update();
+	}
 
+	private void Update()
+	{
+		_timeUntilUpdate = 0.1f;
 		var clients = new List<IClient>(Game.Clients);
 
 		clients.Sort(delegate (IClient x, IClient y)
@@ -60,17 +65,6 @@
 
 			j++;
 		}
-	}
-
-	private string GetPlaceClass(int i)
-	{
-		return i switch
-		{
-			1 => "first",
-			2 => "second",
-			3 => "third",
-			_ => string.Empty,
-		};
 	}
 
 	private string GetFormatString(IClient client, int place)
