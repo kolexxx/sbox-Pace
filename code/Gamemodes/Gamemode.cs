@@ -56,13 +56,7 @@ public abstract partial class Gamemode : Entity
 	/// <summary>
 	/// Called when a player dies.
 	/// </summary>
-	public virtual void OnPlayerKilled( Pawn player )
-	{
-		player.LifeState = LifeState.Respawning;
-		player.LastAttacker?.Client?.AddInt( "kills" );
-
-		UI.KillFeed.AddEntry( player.LastAttacker.Client, ((Weapon)player.LastAttackerWeapon).Definition, player.Client );
-	}
+	public virtual void OnPlayerKilled( Pawn player ) { }
 
 	public virtual void OnPlayerSpawned( Pawn player )
 	{
