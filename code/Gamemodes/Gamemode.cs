@@ -14,7 +14,7 @@ public enum State
 public abstract partial class Gamemode : Entity
 {
 	[Net] public State State { get; protected set; }
-	[Net] public TimeUntil TimeUntilNextState { get; protected set; }
+	[Net] public RealTimeUntil TimeUntilNextState { get; protected set; }
 	public int PlayerCount { get; set; }
 
 	/// <summary>
@@ -132,35 +132,7 @@ public abstract partial class Gamemode : Entity
 		OnStateChanged( oldState, state );
 	}
 
-	protected virtual void OnStateChanged( State before, State after )
-	{
-		switch ( after )
-		{
-			case State.WaitingForPlayers:
-			{
-				ResetStats();
-				VerifyEnoughPlayers();
-				break;
-			}
-			case State.Countdown:
-			{
-				TimeUntilNextState = 5f;
-
-				RespawnAllPlayers();
-				break;
-			}
-			case State.Playing:
-			{
-				TimeUntilNextState = 180f;
-				break;
-			}
-			case State.GameOver:
-			{
-				TimeUntilNextState = 10f;
-				break;
-			}
-		}
-	}
+	protected virtual void OnStateChanged( State before, State after ) { }
 
 	[GameEvent.Tick.Server]
 	protected void EventServerTick()
@@ -168,20 +140,5 @@ public abstract partial class Gamemode : Entity
 		Tick();
 	}
 
-	protected virtual void Tick()
-	{
-		if ( State == State.WaitingForPlayers )
-			return;
-
-		if ( !TimeUntilNextState )
-			return;
-
-		// If the round counts down to 0, start the round
-		if ( State == State.Countdown )
-			SetState( State.Playing );
-		else if ( State == State.Playing )
-			SetState( State.GameOver );
-		else if ( State == State.GameOver )
-			SetState( State.WaitingForPlayers );
-	}
+	protected virtual void Tick() { }
 }
