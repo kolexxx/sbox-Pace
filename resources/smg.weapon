@@ -10,7 +10,7 @@
   "BulletsPerFire": 1,
   "FireMode": "Automatic",
   "ClipSize": 30,
-  "Damage": 5,
+  "Damage": 10,
   "Spread": 5,
   "PrimaryRate": 10,
   "EjectParticle": "particles/pistol_ejectbrass.vpcf",

@@ -10,7 +10,7 @@
   "BulletsPerFire": 4,
   "FireMode": "Semi",
   "ClipSize": 5,
-  "Damage": 10,
+  "Damage": 15,
   "Spread": 8,
   "PrimaryRate": 1,
   "EjectParticle": null,
