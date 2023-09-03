@@ -24,7 +24,7 @@ public abstract partial class Gamemode : Entity
 
 	public virtual string GetTimeLeftLabel()
 	{
-		return State == State.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( TimeUntilNextState ).ToString( @"mm\:ss" );
+		return State == State.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( TimeUntilNextState.Relative.CeilToInt() ).ToString( @"mm\:ss" );
 	}
 
 	public override void Spawn()
@@ -151,7 +151,7 @@ public abstract partial class Gamemode : Entity
 			}
 			case State.Playing:
 			{
-				TimeUntilNextState = 120f;
+				TimeUntilNextState = 180f;
 				break;
 			}
 			case State.GameOver:
