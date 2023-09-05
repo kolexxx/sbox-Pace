@@ -18,7 +18,13 @@ public partial class Deathmatch : Gamemode
 			return;
 
 		player.LastAttacker?.Client?.AddInt( "kills" );
-		UI.KillFeed.AddEntry( player.LastAttacker.Client, ((Weapon)player.LastAttackerWeapon).Definition, player.Client );
+		UI.KillFeed.AddEntry( player.LastAttacker?.Client, (player.LastAttackerWeapon as Weapon)?.Definition, player.Client );
+	}
+
+	public override void OnPlayerSpawned( Pawn player )
+	{
+		player.Inventory.Add( new Pistol(), true );
+		MoveToSpawnpoint( player );
 	}
 
 	public override void OnClientJoined( Pawn player )
@@ -81,7 +87,7 @@ public partial class Deathmatch : Gamemode
 		if ( State == State.GameOver )
 		{
 			var timeSince = 10 - TimeUntilNextState.Relative;
-			Game.TimeScale = 1 - timeSince.Remap( 0, 3, 0.1f, 0.75f, true );
+			Game.TimeScale = 1 - timeSince.Remap( 0, 3, 0.3f, 0.75f, true );
 		}
 	}
 

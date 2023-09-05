@@ -45,7 +45,7 @@
 		return HashCode.Combine(Player.Health);
 	}
 
-	[GameEvent.Client.Frame]
+	[GameEvent.PreRender]
 	private void Frame()
 	{
 		SceneObject.RenderingEnabled = Player.LifeState == LifeState.Alive;

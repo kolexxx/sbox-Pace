@@ -1,6 +1,6 @@
 {
   "ClassName": "shotgun",
-  "IconPath": "ui/shotgun.png",
+  "IconPath": "ui/weapons/shotgun.png",
   "Slot": 3,
   "HoldType": "Shotgun",
   "ModelPath": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",

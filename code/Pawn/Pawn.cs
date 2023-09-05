@@ -5,14 +5,20 @@ namespace Pace;
 
 public partial class Pawn : AnimatedEntity
 {
-	[ClientInput]
-	public Vector3 InputDirection { get; set; }
+	/// <summary>
+	/// The direction we want to move.
+	/// </summary>
+	[ClientInput] public Vector3 InputDirection { get; set; }
 
-	[ClientInput]
-	public Vector3 MousePosition { get; set; }
+	/// <summary>
+	/// The mouse's position on the game's plane.
+	/// </summary>
+	[ClientInput] public Vector3 MousePosition { get; set; }
 
-	[ClientInput]
-	public Weapon ActiveChildInput { get; set; }
+	/// <summary>
+	/// The weapon we want to equip.
+	/// </summary>
+	[ClientInput] public Weapon ActiveChildInput { get; set; }
 
 	/// <summary>
 	/// Position a player should be looking from in world space.
@@ -63,6 +69,7 @@ public partial class Pawn : AnimatedEntity
 	[BindComponent] public PawnController Controller { get; }
 	[BindComponent] public PawnAnimator Animator { get; }
 	[BindComponent] public Inventory Inventory { get; }
+	[BindComponent] public ProjectileSimulator Projectiles { get; }
 	[Net] public TimeSince TimeSinceDeath { get; private set; }
 	public DamageInfo LastDamage { get; private set; }
 
@@ -85,6 +92,7 @@ public partial class Pawn : AnimatedEntity
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
 		Components.Create<Inventory>();
+		Components.Create<ProjectileSimulator>();
 	}
 
 	/// <summary>
@@ -119,6 +127,8 @@ public partial class Pawn : AnimatedEntity
 
 	public override void Simulate( IClient cl )
 	{
+		Projectiles?.Simulate( cl );
+
 		if ( LifeState == LifeState.Respawning )
 		{
 			if ( Game.IsServer && TimeSinceDeath > 5f )
@@ -170,12 +180,14 @@ public partial class Pawn : AnimatedEntity
 		if ( info.Hitbox.HasTag( "head" ) )
 			info.Damage *= 1.5f;
 
+		if ( info.Tags.Contains( "bullet" ) )
+			Sound.FromEntity( "damage_taken", this );
+
 		LastDamage = info;
 		LastAttacker = info.Attacker;
 		LastAttackerWeapon = info.Weapon;
 		Health -= info.Damage;
 
-		Sound.FromEntity( "damage_taken", this );
 		this.ProceduralHitReaction( info );
 
 		if ( Health <= 0f )

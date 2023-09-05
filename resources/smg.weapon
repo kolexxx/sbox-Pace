@@ -1,6 +1,6 @@
 {
   "ClassName": "smg",
-  "IconPath": "ui/smg.png",
+  "IconPath": "ui/weapons/smg.png",
   "Slot": 2,
   "HoldType": "Rifle",
   "ModelPath": "weapons/rust_smg/rust_smg.vmdl",

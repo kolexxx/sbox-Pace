@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using System.Linq;
 
 namespace Pace;
 
@@ -24,7 +25,7 @@ public abstract partial class Gamemode : Entity
 
 	public virtual string GetTimeLeftLabel()
 	{
-		return State == State.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( TimeUntilNextState.Relative.CeilToInt() ).ToString( @"mm\:ss" );
+		return State == State.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( MathF.Max( 0, TimeUntilNextState.Relative.CeilToInt() ) ).ToString( @"mm\:ss" );
 	}
 
 	public override void Spawn()
@@ -58,10 +59,24 @@ public abstract partial class Gamemode : Entity
 	/// </summary>
 	public virtual void OnPlayerKilled( Pawn player ) { }
 
-	public virtual void OnPlayerSpawned( Pawn player )
+	/// <summary>
+	/// Called when a player respawns.
+	/// </summary>
+	/// <param name="player"></param>
+	public virtual void OnPlayerSpawned( Pawn player ) { }
+
+	public void MoveToSpawnpoint( Pawn player )
 	{
-		player.Inventory.Add( new Pistol(), true );
-		MyGame.Instance.MoveToSpawnpoint( player );
+		var spawnpoint = Entity.All.OfType<SpawnPoint>()
+			.OrderByDescending( x => GetSpawnpointWeight( player, x ) )
+			.FirstOrDefault();
+
+		if ( spawnpoint is null )
+			return;
+
+		var tx = spawnpoint.Transform;
+		tx.Position = tx.Position + Vector3.Up * 10f;
+		player.Transform = tx;
 	}
 
 	public float GetSpawnpointWeight( Pawn pawn, Entity spawnpoint )
@@ -75,11 +90,9 @@ public abstract partial class Gamemode : Entity
 			if ( player == pawn ) continue;
 			if ( player.LifeState != LifeState.Alive ) continue;
 
-			var spawnDist = (spawnpoint.Position - client.Pawn.Position).Length;
+			var spawnDist = (spawnpoint.Position - client.Pawn.Position).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
-
-		//Log.Info( $"{spawnpoint} is {distance} away from any player" );
 
 		return distance;
 	}

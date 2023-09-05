@@ -24,6 +24,7 @@ public abstract partial class BasePickup : ModelEntity
 		Tags.Add( "trigger" );
 		EnableTouch = true;
 		EnableTouchPersists = true;
+		EnableTraceAndQueries = false;
 	}
 
 	public override void ClientSpawn()
@@ -32,15 +33,15 @@ public abstract partial class BasePickup : ModelEntity
 		Preview = new( Game.SceneWorld, ModelPath, new Transform( Position, Rotation, 1.2f ) );
 	}
 
-	[GameEvent.Client.Frame]
-	private void Tick()
+	[GameEvent.PreRender]
+	private void PreRender()
 	{
 		Preview.RenderingEnabled = TimeUntilRespawn;
 
 		if ( !Preview.RenderingEnabled )
 			return;
 
-		Preview.Position = Position + (MathF.Sin( RealTime.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
-		Preview.Rotation = Rotation.FromAxis( Vector3.Up, RealTime.Now * 100f );
+		Preview.Position = Position + (MathF.Sin( Time.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
+		Preview.Rotation = Rotation.FromAxis( Vector3.Up, Time.Now * 100f );
 	}
 }

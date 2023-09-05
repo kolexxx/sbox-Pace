@@ -55,6 +55,7 @@ public abstract partial class Weapon : AnimatedEntity
 	public override void Spawn()
 	{
 		EnableDrawing = false;
+		EnableAllCollisions = false;
 
 		Definition = WeaponDefinition.Get( GetType() );
 		AmmoInClip = Definition.ClipSize;
@@ -108,6 +109,7 @@ public abstract partial class Weapon : AnimatedEntity
 			{
 				using ( LagCompensation() )
 				{
+					AmmoInClip--;
 					TimeSincePrimaryAttack = 0;
 					PrimaryAttack();
 				}
@@ -143,7 +145,6 @@ public abstract partial class Weapon : AnimatedEntity
 	/// </summary>
 	protected virtual void PrimaryAttack()
 	{
-		AmmoInClip--;
 		Pawn.SetAnimParameter( "b_attack", true );
 		Pawn.PlaySound( Definition.FireSound );
 		ShootEffects();
@@ -274,7 +275,8 @@ public abstract partial class Weapon : AnimatedEntity
 	[ClientRpc]
 	protected virtual void ShootEffects()
 	{
-		Particles.Create( Definition.MuzzleFlashParticle, this, "muzzle" );
+		if ( !string.IsNullOrEmpty( Definition.MuzzleFlashParticle ) )
+			Particles.Create( Definition.MuzzleFlashParticle, this, "muzzle" );
 	}
 
 	[ClientRpc]

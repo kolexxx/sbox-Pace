@@ -1,6 +1,6 @@
 {
   "ClassName": "pistol",
-  "IconPath": "ui/pistol.png",
+  "IconPath": "ui/weapons/pistol.png",
   "Slot": 1,
   "HoldType": "Pistol",
   "ModelPath": "weapons/rust_pistol/rust_pistol.vmdl",
@@ -10,7 +10,7 @@
   "BulletsPerFire": 1,
   "FireMode": "Semi",
   "ClipSize": 10,
-  "Damage": 10,
+  "Damage": 7.5,
   "Spread": 0,
   "PrimaryRate": 7,
   "EjectParticle": "particles/pistol_ejectbrass.vpcf",
