@@ -3,7 +3,7 @@
   "Type": "game",
   "Org": "kole",
   "Ident": "pace",
-  "Tags": "shooter action platformer",
+  "Tags": "shooter action platformer arena",
   "Schema": 1,
   "HasAssets": true,
   "AssetsPath": "",

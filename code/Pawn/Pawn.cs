@@ -88,6 +88,7 @@ public partial class Pawn : AnimatedEntity
 		EnableAllCollisions = false;
 		EnableDrawing = false;
 		EnableHitboxes = true;
+		EnableLagCompensation = true;
 
 		Components.Create<PawnController>();
 		Components.Create<PawnAnimator>();
