@@ -17,7 +17,9 @@ public partial class Deathmatch : Gamemode
 		if ( State != State.Playing )
 			return;
 
-		player.LastAttacker?.Client?.AddInt( "kills" );
+		if ( player.LastAttacker != player )
+			player.LastAttacker?.Client?.AddInt( "kills" );
+
 		UI.KillFeed.AddEntry( player.LastAttacker?.Client, (player.LastAttackerWeapon as Weapon)?.Definition, player.Client );
 	}
 
