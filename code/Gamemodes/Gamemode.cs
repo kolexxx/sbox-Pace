@@ -14,7 +14,7 @@ public enum State
 
 public abstract partial class Gamemode : Entity
 {
-	[Net] public State State { get; protected set; }
+	[Net, Change] public State State { get; protected set; }
 	[Net] public RealTimeUntil TimeUntilNextState { get; protected set; }
 	public int PlayerCount { get; set; }
 
@@ -139,6 +139,8 @@ public abstract partial class Gamemode : Entity
 
 	protected void SetState( State state )
 	{
+		Game.AssertServer();
+
 		var oldState = State;
 		State = state;
 

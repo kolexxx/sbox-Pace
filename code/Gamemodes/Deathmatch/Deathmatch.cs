@@ -36,6 +36,14 @@ public partial class Deathmatch : Gamemode
 
 	protected override void OnStateChanged( State before, State after )
 	{
+		if ( Game.IsClient )
+		{
+			if ( after == State.GameOver )
+				ShowBestPlayer();
+
+			return;
+		}
+
 		switch ( after )
 		{
 			case State.WaitingForPlayers:
@@ -59,8 +67,6 @@ public partial class Deathmatch : Gamemode
 			case State.GameOver:
 			{
 				TimeUntilNextState = 10f;
-
-				ShowBestPlayer();
 				break;
 			}
 		}
@@ -100,12 +106,7 @@ public partial class Deathmatch : Gamemode
 			return y.GetInt( "kills" ).CompareTo( x.GetInt( "kills" ) );
 		} );
 
-		ShowPopup( clients[0].GetInt( "kills" ) != clients[1].GetInt( "kills" ) ? clients[0] : null );
-	}
-
-	[ClientRpc]
-	private void ShowPopup( IClient winner )
-	{
+		var winner = clients[0].GetInt( "kills" ) != clients[1].GetInt( "kills" ) ? clients[0] : null;
 		Game.RootPanel.AddChild( new UI.GameOverPopup( winner ) );
 	}
 }

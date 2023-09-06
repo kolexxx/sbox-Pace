@@ -6,9 +6,7 @@
 @inherits Panel
 
 <root>
-
 	<label>@(Winner.IsValid() ? $"{Winner.Name} is the ultimate Pace player" : "The ultimate Pace player is yet to be decided...")</label>
-
 </root>
 
 @code
@@ -22,12 +20,18 @@
 
 	public override void Tick()
 	{
+		if (IsDeleting)
+			return;
+
 		var gamemode = MyGame.Instance.Gamemode;
 
 		if (gamemode.State != State.GameOver)
+		{
+			Delete(true);
 			return;
+		}
 
-		if (gamemode.TimeUntilNextState <= 1f)
+		if (gamemode.TimeUntilNextState <= 2f)
 			Delete();
 	}
 }
