@@ -33,25 +33,28 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 				AddEvent( "grounded" );
 			}
 
-			Entity.Velocity = Accelerate( Entity.Velocity, moveVector.Normal, moveVector.Length, 300.0f * (Input.Down( "run" ) ? 2.5f : 1f), 7.5f );
+			Entity.Velocity = Accelerate( Entity.Velocity, moveVector.Normal, moveVector.Length, 300.0f, 7.5f );
 			Entity.Velocity = ApplyFriction( Entity.Velocity, 4.0f );
 		}
 		else
 		{
-			Entity.Velocity = Accelerate( Entity.Velocity, moveVector.Normal, moveVector.Length, 100, 20f );
+			Entity.Velocity = Accelerate( Entity.Velocity, moveVector.Normal, moveVector.Length, 200, 20f );
 			Entity.Velocity += Vector3.Down * Gravity * Time.Delta;
 		}
 
-		if ( Input.Pressed( "jump" ) )
+		if ( Input.Pressed( InputAction.Jump ) )
 			DoJump();
 
 		var mh = new MoveHelper( Entity.Position, Entity.Velocity );
 		mh.Trace = mh.Trace.Size( Entity.Hull ).Ignore( Entity );
 
-		if ( mh.TryMoveWithStep( Time.Delta, StepSize ) > 0 )
+		if ( mh.TryMoveWithStep( Time.Delta, StepSize ) >= 0 )
 		{
 			if ( Grounded )
 				mh.Position = StayOnGround( mh.Position );
+
+			mh.Position = MyGame.Plane.SnapToPlane( mh.Position );
+			mh.TryUnstuck();
 
 			Entity.Position = mh.Position;
 			Entity.Velocity = mh.Velocity;
@@ -60,7 +63,7 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 		Entity.GroundEntity = groundEntity;
 
 		// Player should always be in map's plane.
-		Entity.Position = MyGame.Plane.SnapToPlane( Entity.Position );
+
 	}
 
 	void DoJump()

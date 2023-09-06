@@ -241,7 +241,7 @@ public partial class Projectile : ModelEntity
 
 	protected override void OnDestroy()
 	{
-		((Pawn)Owner).Projectiles.Remove( this );
+		(Owner as Pawn)?.Projectiles.Remove( this );
 		RemoveEffects();
 
 		base.OnDestroy();

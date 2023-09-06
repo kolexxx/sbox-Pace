@@ -159,7 +159,7 @@ public partial class Pawn : AnimatedEntity
 		SimulateRotation();
 
 		Camera.Rotation = (-MyGame.Plane.Normal).EulerAngles.ToRotation();
-		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( Game.Preferences.FieldOfView );
+		Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 75f );
 		Camera.FirstPersonViewer = null;
 
 		Camera.Position = (EyePosition + MousePosition) / 2f;

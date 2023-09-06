@@ -36,7 +36,7 @@
       {
         "Name": "Test",
         "GameIdent": "kole.pace#local",
-        "MapName": "untitled_1.vmap",
+        "MapName": "facepunch.construct23",
         "MaxPlayers": 64,
         "GameSettings": {},
         "Addons": "",
