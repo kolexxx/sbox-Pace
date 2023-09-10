@@ -20,7 +20,14 @@ public class RocketLauncher : Weapon
 		Game.SetRandomSeed( Time.Tick );
 
 		var position = (GetAttachment( "muzzle" ) ?? new Transform()).Position;
+		var dir = (Pawn.MousePosition - position).Normal;
+		var startPosition = position - dir * 50f;
 
-		new Projectile( new Ray( position, (Pawn.MousePosition - position).Normal ), Pawn );
+		var tr = Trace.Ray( startPosition, position )
+			.Ignore( this )
+			.Ignore( Owner )
+			.Run();
+
+		new Projectile( new Ray( tr.EndPosition, dir ), Pawn );
 	}
 }

@@ -1,7 +1,5 @@
 using Sandbox;
-using Sandbox.Html;
 using System;
-using static Sandbox.Gizmo;
 
 namespace Pace;
 
@@ -10,6 +8,7 @@ public partial class Projectile : ModelEntity
 	public TimeUntil CanHitTime { get; set; } = 0.1f;
 	public string Attachment { get; set; } = null;
 	public bool ExplodeOnDestroy { get; set; } = true;
+	public bool StopAdvancing { get; set; }
 
 	public virtual float LifeTime => 5f;
 	public virtual float Gravity => 0f;
@@ -53,7 +52,7 @@ public partial class Projectile : ModelEntity
 				var tickDifference = ((float)(Owner.Client.Ping / 2000f) / Time.Delta).CeilToInt();
 
 				// Advance the simulation by that number of ticks.
-				for ( var i = 0; i < tickDifference; i++ )
+				for ( var i = 0; i < tickDifference && !StopAdvancing; i++ )
 				{
 					if ( IsValid )
 					{
@@ -112,14 +111,14 @@ public partial class Projectile : ModelEntity
 
 		var newPosition = GetTargetPosition();
 
-		var trace = Trace.Ray( Position, newPosition )
+		var tr = Trace.Ray( Position, newPosition )
 			.UseHitboxes()
 			.WithoutTags( "trigger" )
 			.Size( Radius )
 			.Ignore( Owner )
 			.Run();
 
-		Position = trace.EndPosition;
+		Position = tr.EndPosition;
 
 		if ( LifeTime > 0f && DestroyTime )
 		{
@@ -131,12 +130,12 @@ public partial class Projectile : ModelEntity
 			return;
 		}
 
-		if ( HasHitTarget( trace ) )
+		if ( HasHitTarget( tr ) )
 		{
 			if ( Game.IsServer )
 				DoExplosion( Origin.Definition.Damage, 120f );
 
-			PlayHitEffects( trace.Normal );
+			PlayHitEffects( tr.Normal );
 			Delete();
 		}
 	}
@@ -153,6 +152,8 @@ public partial class Projectile : ModelEntity
 
 	protected void DoExplosion( float damage, float radius )
 	{
+		StopAdvancing = true;
+
 		foreach ( var entity in Entity.FindInSphere( Position, radius ) )
 		{
 			var dmgPos = Position;

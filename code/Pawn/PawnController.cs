@@ -53,17 +53,13 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 			if ( Grounded )
 				mh.Position = StayOnGround( mh.Position );
 
-			mh.Position = MyGame.Plane.SnapToPlane( mh.Position );
-			mh.TryUnstuck();
+			// mh.TryUnstuck();
 
-			Entity.Position = mh.Position;
-			Entity.Velocity = mh.Velocity;
+			Entity.Position = MyGame.Plane.SnapToPlane( mh.Position );
+			Entity.Velocity = MyGame.Plane.SnapToPlane( mh.Velocity );
 		}
 
 		Entity.GroundEntity = groundEntity;
-
-		// Player should always be in map's plane.
-
 	}
 
 	void DoJump()

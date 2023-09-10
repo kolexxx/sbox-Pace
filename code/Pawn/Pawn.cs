@@ -177,12 +177,15 @@ public partial class Pawn : AnimatedEntity
 		if ( LifeState != LifeState.Alive )
 			return;
 
-		// Headshot
-		if ( info.Hitbox.HasTag( "head" ) )
-			info.Damage *= 1.5f;
 
 		if ( info.Tags.Contains( "bullet" ) )
+		{
+			// Headshot
+			if ( info.Hitbox.HasTag( "head" ) )
+				info.Damage *= 1.5f;
+
 			Sound.FromEntity( "damage_taken", this );
+		}
 
 		LastDamage = info;
 		LastAttacker = info.Attacker;
