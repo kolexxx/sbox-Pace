@@ -1,0 +1,44 @@
+@using Sandbox;
+@using Sandbox.UI;
+@using System;
+@using System.Collections.Generic;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+@if (!Input.Down(Pace.InputAction.Score))
+{
+	return;
+}
+
+<root class="container rounded background-color-primary">
+	<ScoreboardInfo />
+	<div class="groups">
+		<ScoreboardGroup />
+		@foreach (var client in Game.Clients)
+		{
+			<ScoreboardEntry Client=@client />
+		}
+	</div>
+</root>
+@*	<div style="width: 45%;">
+	<button class="spectate-button text-shadow" @onclick=@ToggleSpectating icon=@(Spectating.IsForced ? "videocam_off" : "videocam")>
+	@(Spectating.IsForced ? "Disable Forced Spectating" : "Enable Forced Spectating")
+	</button>
+	</div>*@
+
+@code
+{
+	/*
+	private void ToggleSpectating()
+	{
+		Spectating.IsForced = !Spectating.IsForced;
+	}
+	*/
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine(Input.Down(Pace.InputAction.Score), Game.Clients.HashCombine(c => HashCode.Combine(c.SteamId)));
+	}
+}

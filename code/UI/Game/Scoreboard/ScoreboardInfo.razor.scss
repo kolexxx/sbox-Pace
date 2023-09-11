@@ -1,0 +1,45 @@
+﻿ScoreboardInfo
+{
+    flex-direction: row;
+    max-height: 100px;
+    width: 100%;
+    justify-content: space-between;
+    padding: 15px;
+    flex-shrink: 0;
+    align-items: center;
+
+    .logo
+    {
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 75px;
+        height: 75px;
+    }
+
+    .server-information
+    {
+        flex-grow: 1;
+        flex-direction: column;
+        padding: 5px;
+
+        .title
+        {
+            font-size: 30px;
+            font-weight: bolder;
+        }
+
+        .url
+        {
+            font-weight: 300;
+            font-size: 15px;
+        }
+    }
+
+    .server-data
+    {
+        flex-direction: column;
+        align-items: flex-end;
+        font-weight: 300;
+        font-size: 15px;
+    }
+}
