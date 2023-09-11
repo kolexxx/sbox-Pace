@@ -9,14 +9,14 @@ InventorySlot
     align-items: center;
     justify-content: center;
     background-color: $primary;
-    border: 1px solid black;
+    backdrop-filter-blur: 20px;
     opacity: 0.3;
+    transition: transform 0.2s ease-out;
 
     img
     {
-        width: 100%;
-        height: 100%;
         position: absolute;
+        background-size: cover;
     }
 
     InputGlyph
@@ -26,6 +26,7 @@ InventorySlot
 
     &.active
     {
-        opacity: 1;
+        opacity: 0.9;
+        transform: scale(1.2);
     }
 }
