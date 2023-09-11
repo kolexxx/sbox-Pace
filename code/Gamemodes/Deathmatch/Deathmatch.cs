@@ -28,6 +28,7 @@ public partial class Deathmatch : Gamemode
 	public override void OnPlayerSpawned( Pawn player )
 	{
 		player.Inventory.Add( new Pistol(), true );
+
 		MoveToSpawnpoint( player );
 	}
 
