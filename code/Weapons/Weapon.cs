@@ -148,7 +148,7 @@ public abstract partial class Weapon : AnimatedEntity
 		Pawn.SetAnimParameter( "b_attack", true );
 		Pawn.PlaySound( Definition.FireSound );
 		ShootEffects();
-		ShootBullet( Definition.Spread, 50, Definition.Damage, 1 );
+		ShootBullet();
 	}
 
 	protected virtual bool CanReload()
@@ -212,20 +212,22 @@ public abstract partial class Weapon : AnimatedEntity
 	}
 
 	/// <summary>
-	/// Shoot a single bullet
+	/// Shoot a single or multiple bullets.
 	/// </summary>
-	public virtual void ShootBullet( Ray ray, float spread, float force, float damage, float bulletSize )
+	public virtual void ShootBullet()
 	{
+		Game.SetRandomSeed( Time.Tick );
+
 		for ( var i = 0; i < Definition.BulletsPerFire; i++ )
 		{
-			var newRay = ray;
-			newRay.Forward *= Rotation.FromAxis( MyGame.Plane.Normal, Game.Random.Float( -1f, 1f ) * spread );
+			var ray = Owner.AimRay;
+			ray.Forward *= Rotation.FromAxis( MyGame.Plane.Normal, Game.Random.Float( -1f, 1f ) * Definition.Spread );
 
 			//
 			// ShootBullet is coded in a way where we can have bullets pass through shit
 			// or bounce off shit, in which case it'll return multiple results
 			//
-			foreach ( var tr in TraceBullet( newRay, 5000f, bulletSize ) )
+			foreach ( var tr in TraceBullet( ray, 5000f, 1f ) )
 			{
 				tr.Surface.DoBulletImpact( tr );
 
@@ -243,7 +245,7 @@ public abstract partial class Weapon : AnimatedEntity
 				//
 				using ( Prediction.Off() )
 				{
-					var damageInfo = DamageInfo.FromBullet( tr.EndPosition, newRay.Forward * force, damage )
+					var damageInfo = DamageInfo.FromBullet( tr.EndPosition, ray.Forward * 50, Definition.Damage )
 						.UsingTraceResult( tr )
 						.WithAttacker( Owner )
 						.WithWeapon( this );
@@ -255,15 +257,9 @@ public abstract partial class Weapon : AnimatedEntity
 	}
 
 	/// <summary>
-	/// Shoot a single bullet from owners view point
+	/// Takes ammo from the reserve and adds it in our clip.
 	/// </summary>
-	public virtual void ShootBullet( float spread, float force, float damage, float bulletSize )
-	{
-		Game.SetRandomSeed( Time.Tick );
-
-		ShootBullet( Owner.AimRay, spread, force, damage, bulletSize );
-	}
-
+	/// <param name="amount"></param>
 	protected void TakeAmmo( int amount )
 	{
 		var ammo = Math.Min( ReserveAmmo, amount );

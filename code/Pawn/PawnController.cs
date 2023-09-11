@@ -47,13 +47,12 @@ public class PawnController : EntityComponent<Pawn>, ISingletonComponent
 
 		var mh = new MoveHelper( Entity.Position, Entity.Velocity );
 		mh.Trace = mh.Trace.Size( Entity.Hull ).Ignore( Entity );
+		mh.TryUnstuck();
 
 		if ( mh.TryMoveWithStep( Time.Delta, StepSize ) >= 0 )
 		{
 			if ( Grounded )
-				mh.Position = StayOnGround( mh.Position );
-
-			// mh.TryUnstuck();
+				mh.Position = StayOnGround( mh.Position );		
 
 			Entity.Position = MyGame.Plane.SnapToPlane( mh.Position );
 			Entity.Velocity = MyGame.Plane.SnapToPlane( mh.Velocity );

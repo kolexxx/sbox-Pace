@@ -1,5 +1,6 @@
 using Sandbox;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Pace;
 
@@ -152,8 +153,6 @@ public partial class Projectile : ModelEntity
 
 	protected void DoExplosion( float damage, float radius )
 	{
-		StopAdvancing = true;
-
 		foreach ( var entity in Entity.FindInSphere( Position, radius ) )
 		{
 			var dmgPos = Position;
@@ -242,6 +241,7 @@ public partial class Projectile : ModelEntity
 
 	protected override void OnDestroy()
 	{
+		StopAdvancing = true;
 		(Owner as Pawn)?.Projectiles.Remove( this );
 		RemoveEffects();
 
