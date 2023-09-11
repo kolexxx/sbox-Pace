@@ -6,11 +6,6 @@
 @attribute [StyleSheet]
 @inherits Panel
 
-@if (Game.LocalPawn.LifeState != LifeState.Alive)
-{
-	return;
-}
-
 <root class="rounded @(Weapon?.IsActive ?? false ? "active" : "")">
 	@if (Weapon.IsValid())
 	{
@@ -26,6 +21,6 @@
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine(Game.LocalPawn.LifeState, Weapon, Weapon?.IsActive);
+		return HashCode.Combine(Weapon, Weapon?.IsActive);
 	}
 }

@@ -26,16 +26,41 @@
 		if (Game.LocalPawn is not Pawn player)
 			return;
 
+		var currentSlot = player.Inventory.ActiveWeapon.Definition.Slot;
+
 		foreach (InventorySlot child in Children)
 		{
-			//if (!child.Weapon.IsValid())
-			//	continue;
+			if (!child.Weapon.IsValid())
+				continue;
 
 			var action = Pace.InputAction.SlotToAction(child.Slot);
 
 			if (Input.Pressed(action))
+			{
 				player.ActiveChildInput = child.Weapon;
+				currentSlot = child.Slot;
+			}
+		}
 
+		if (Input.MouseWheel == 0)
+			return;
+
+		var incr = Input.MouseWheel.Clamp(-1, 1);
+		var i = currentSlot + incr;
+
+		for (; i != currentSlot; i += incr)
+		{
+			if (i < 0)
+				i = 4;
+
+			if (i > 4)
+				i = 0;
+
+			if (!player.Inventory[i].IsValid())
+				continue;
+
+			player.ActiveChildInput = player.Inventory[i];
+			break;
 		}
 	}
 
