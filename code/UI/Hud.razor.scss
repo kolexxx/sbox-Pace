@@ -1,4 +1,4 @@
-$primary: #1a1a1a;
+﻿$primary: #1a1a1a;
 $secondary: #242424;
 $tertiary: #fdc418;
 
@@ -10,8 +10,10 @@ $button-size: 45px;
 
 Hud
 {
+    width: 100%;
+    height: 100%;
     cursor: none;
-    font-family: RobotoMono;
+    font-family: Roboto Mono;
     flex-shrink: 0;
     color: #fafafa;
     letter-spacing: 0.5px;

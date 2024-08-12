@@ -1,0 +1,81 @@
+﻿@using Sandbox;
+﻿@using Sandbox.UI;
+@using System.Collections.Generic;
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="text-shadow">
+	<div class="output">
+		@foreach (var entry in Entries)
+		{
+			<div class="entry">
+				<div class="author">@entry.author</div>
+				<div class="message">@entry.message</div>
+			</div>
+		}
+	</div>
+
+	<TextEntry class="background-color-primary" @ref="InputBox" onsubmit="@OnSubmit" />
+</root>
+
+@code
+{
+	private static TextChat Instance { get; set; }
+
+	TextEntry InputBox;
+
+	public record Entry(string author, string message, RealTimeSince timeSinceAdded);
+	List<Entry> Entries = new();
+
+	public TextChat()
+	{
+		Instance = this;
+	}
+
+	public override void Tick()
+	{
+		if (InputBox is null)
+			return;
+
+		AcceptsFocus = false;
+
+		if (Input.Down("chat"))
+		{
+			InputBox.Focus();
+		}
+
+		if (Entries.RemoveAll(x => x.timeSinceAdded > 30.0f) > 0)
+		{
+			StateHasChanged();
+		}
+
+		SetClass("open", InputBox.HasFocus);
+	}
+
+	void OnSubmit()
+	{
+		var text = InputBox.Text;
+		InputBox.Text = "";
+
+		if (string.IsNullOrWhiteSpace(text))
+			return;
+
+		AddText(Sandbox.Utility.Steam.PersonaName, text);
+	}
+
+	[Broadcast]
+	public static void AddText(string author, string message)
+	{
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info($"{author}: {message}");
+
+		Instance.Entries.Add(new Entry(author, message, 0.0f));
+		Instance.StateHasChanged();
+	}
+}

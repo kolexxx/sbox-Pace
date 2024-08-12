@@ -1,105 +1,126 @@
 using Sandbox;
+using System;
 using System.Collections.Generic;
 
 namespace Pace;
 
-public partial class Inventory : EntityComponent<Pawn>, ISingletonComponent
+public class Inventory : Component, Component.ITriggerListener
 {
-	[Net, Predicted] public Weapon ActiveWeapon { get; set; }
-	[Net] private IList<Weapon> Weapons { get; set; }
-	public Weapon this[int i] => Weapons[i];
-	public int Count => Weapons.Count;
-	private Weapon _lastActive;
+    public Equipment ActiveEquipment { get; private set; }
+    public Equipment InputEquipment { get; private set; }
+    public List<Equipment> Equipment { get; private set; } = new List<Equipment>( new Equipment[4] );
+	public Equipment this[int i] => Equipment[i];
 
-	public Inventory()
+	protected override void OnEnabled()
+    {
+        var go = GameObject.Clone( "prefabs/pistol.prefab" );
+        Add( go.Components.Get<Equipment>() );
+        go = GameObject.Clone( "prefabs/rifle.prefab" );
+        Add( go.Components.Get<Equipment>() );
+    }
+
+	protected override void OnUpdate()
 	{
-		Weapons = new List<Weapon>( new Weapon[10] );
-	}
+		var currentSlot = ActiveEquipment?.Slot ?? 1;
 
-	public void Simulate( IClient cl )
-	{
-		if ( Entity.ActiveChildInput.IsValid() )
-			SetActive( Entity.ActiveChildInput );
-
-		if ( _lastActive != ActiveWeapon )
+		foreach ( var eq in Equipment )
 		{
-			_lastActive?.OnHolster();
-			_lastActive = ActiveWeapon;
-			ActiveWeapon?.OnEquip( Entity );
+			if ( !eq.IsValid() )
+				continue;
+
+			var action = GetInputString(eq.Slot);
+			
+			if ( Input.Pressed( action ) )
+			{
+				InputEquipment = eq;
+				currentSlot = eq.Slot;
+			}
 		}
 
-		if ( !ActiveWeapon.IsValid() || !ActiveWeapon.IsAuthority )
+		if ( Input.MouseWheel == 0 )
 			return;
 
-		if ( ActiveWeapon.TimeSinceDeployed > ActiveWeapon.Definition.DeployTime )
-			ActiveWeapon.Simulate( cl );
+		var incr = (int)Input.MouseWheel.y.Clamp( -1, 1 );
+		
+		for ( var i = currentSlot + incr; i != currentSlot; i += incr )
+		{
+			if ( i < 0 )
+				i = Equipment.Count - 1;
+
+			if ( i >= Equipment.Count )
+				i = 0;
+
+			if ( !Equipment[i].IsValid() )
+				continue;
+
+			InputEquipment = Equipment[i];
+			break;
+		}
 	}
 
-	public bool Add( Weapon weapon, bool makeActive = false )
-	{
-		Game.AssertServer();
+	protected override void OnFixedUpdate()
+    {
+        if ( InputEquipment != ActiveEquipment )
+        {
+            ActiveEquipment?.OnHolster();
+            ActiveEquipment = InputEquipment;
+            ActiveEquipment?.OnEquip();
+        }
+    }
 
-		if ( !weapon.IsValid() )
+    public bool Add( Equipment eq, bool makeActive = false )
+    {
+        if ( !Networking.IsHost )
+            return false;
+
+		if ( !CanAdd( eq ) )
 			return false;
 
-		if ( weapon.Owner is not null )
-			return false;
+        eq.GameObject.SetParent( GameObject );
+		Equipment[eq.Slot] = eq;
 
-		if ( !CanAdd( weapon ) )
-			return false;
-
-		weapon.Owner = Entity;
-		weapon.SetParent( Entity, true );
-		Weapons[weapon.Definition.Slot] = weapon;
 
 		if ( makeActive )
-			SetActive( weapon );
+            InputEquipment = eq;
 
 		return true;
-	}
+    }
 
-	public bool CanAdd( Weapon carriable )
+	public bool CanAdd( Equipment eq )
 	{
-		if ( Weapons[carriable.Definition.Slot] is not null )
+		if ( Equipment[eq.Slot].IsValid() )
 			return false;
 
 		return true;
 	}
 
-	public bool Contains( Weapon entity )
+	public void Clear()
+    {
+        if ( !Networking.IsHost )
+            return;
+
+        foreach ( var eq in Equipment )
+        {
+			if ( !eq.IsValid() )
+				continue;
+
+            eq.GameObject.Destroy();
+            eq.Enabled = false;
+        }
+    }
+
+    public static string GetInputString( int slot )
+    {
+        return "Slot" + slot.ToString();
+    }
+
+	public override int GetHashCode()
 	{
-		return Weapons.Contains( entity );
-	}
+		var result = 0;
 
-	public void Pickup( Weapon carriable )
-	{
-		if ( Add( carriable ) )
-			Sound.FromEntity( "pickup_weapon", Entity );
-	}
+		foreach ( var eq in Equipment )
+			result = HashCode.Combine( result, eq.IsValid(), eq?.IsActive );
 
-	public bool SetActive( Weapon carriable )
-	{
-		if ( ActiveWeapon == carriable )
-			return false;
-
-		if ( carriable.IsValid() && !Contains( carriable ) )
-			return false;
-
-		ActiveWeapon = carriable;
-
-		return true;
-	}
-
-	public void DeleteContents()
-	{
-		Game.AssertServer();
-
-		for ( var i = 0; i < Weapons.Count; i++ )
-		{
-			Weapons[i]?.Delete();
-			Weapons[i] = null;
-		}
-
-		ActiveWeapon = null;
+		return result;
 	}
 }

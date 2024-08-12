@@ -1,0 +1,77 @@
+{
+  "RootObject": {
+    "__guid": "8bf15255-47ee-4f88-bab7-d330c2848443",
+    "Flags": 0,
+    "Name": "rifle",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
+        "BodyGroups": 18446744073709551615,
+        "CreateBoneObjects": true,
+        "Model": "weapons/rust_smg/rust_smg.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      },
+      {
+        "__type": "Pace.Equipment",
+        "__guid": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
+        "DeployTime": 0.6,
+        "Handedness": "Both",
+        "HoldType": "Rifle",
+        "Icon": "ui/equipment/m4_01.png",
+        "ModelRenderer": {
+          "_type": "component",
+          "component_id": "32bace39-b163-4008-94cf-991f7e322dbd",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "PrimaryAction": {
+          "_type": "component",
+          "component_id": "19e7088d-7ffb-4326-926f-3edf59ab769e",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
+          "component_type": "HitscanBullet"
+        },
+        "Slot": 1
+      },
+      {
+        "__type": "Pace.HitscanBullet",
+        "__guid": "19e7088d-7ffb-4326-926f-3edf59ab769e",
+        "BulletsPerFire": 1,
+        "Damage": 10,
+        "FireMode": "Automatic",
+        "FireRate": 10,
+        "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
+        "Spread": 5,
+        "Tracer": "particles/tracer.vpcf"
+      },
+      {
+        "__type": "Pace.Magazine",
+        "__guid": "9a7a3107-b208-46d1-a5de-5282bc07cdd9",
+        "ClipSize": 30,
+        "ReloadTime": 1.7
+      }
+    ],
+    "Children": [
+      {
+        "__guid": "d073f2f6-b4aa-4f1d-89cf-dbefb019fb53",
+        "Flags": 4,
+        "Name": "hold_R",
+        "Position": "1.4,5.500001,-1.2",
+        "Rotation": "0,0,-0.7071068,0.7071067",
+        "Enabled": true
+      }
+    ],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "roomfield.rust_smg"
+  ],
+  "__version": 1
+}
