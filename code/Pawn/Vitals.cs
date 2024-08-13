@@ -17,9 +17,6 @@ public sealed class Vitals : Component, Component.IDamageable
 
         Health = MathF.Max(0f, Health - info.Damage);
         LastDamage = info;
-
-        if (!info.IsExplosion && info.Hitbox.Tags.Has("head"))
-            info.Damage *= 1.5f;
 		
         if (Health <= 0f)
             Player.OnKilled();

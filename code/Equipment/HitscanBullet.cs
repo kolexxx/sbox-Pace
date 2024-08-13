@@ -103,10 +103,11 @@ public sealed class HitscanBullet : Component
     /// </summary>
     private IEnumerable<SceneTraceResult> TraceBullet(Ray ray, float distance, float radius = 2.0f)
     {
-        var trace = Scene.Trace.Ray(ray, distance)
-            .IgnoreGameObjectHierarchy(GameObject.Parent)
-            .Radius(radius);
-
+		var trace = Scene.Trace.Ray( ray, distance )
+			.IgnoreGameObjectHierarchy( GameObject.Parent )
+			.UseHitboxes()
+			.Radius( radius );
+			
         var tr = trace.Run();
 
         if (tr.Hit)

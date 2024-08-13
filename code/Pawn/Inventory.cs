@@ -21,6 +21,9 @@ public class Inventory : Component, Component.ITriggerListener
 
 	protected override void OnUpdate()
 	{
+		if ( IsProxy )
+			return;
+
 		var currentSlot = ActiveEquipment?.Slot ?? 1;
 
 		foreach ( var eq in Equipment )

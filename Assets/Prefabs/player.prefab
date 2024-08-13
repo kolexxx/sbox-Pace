@@ -95,6 +95,24 @@
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "Pawn"
         }
+      },
+      {
+        "__type": "Sandbox.BoxCollider",
+        "__guid": "408a5e6b-d9ce-4340-896e-0fcba16f9b91",
+        "Center": "0,0,36",
+        "IsTrigger": false,
+        "Scale": "32,32,72",
+        "Static": false
+      },
+      {
+        "__type": "Sandbox.ModelHitboxes",
+        "__guid": "9223a64f-cee2-4e77-92d4-9fd6fcec4767",
+        "Renderer": {
+          "_type": "component",
+          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "SkinnedModelRenderer"
+        }
       }
     ],
     "Children": [
@@ -953,32 +971,6 @@
                 "Enabled": true
               }
             ]
-          }
-        ]
-      },
-      {
-        "__guid": "725088e1-b985-4b73-8a96-94e637777e7b",
-        "Flags": 0,
-        "Name": "Camera",
-        "Tags": "maincamera",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.CameraComponent",
-            "__guid": "0973947a-9e5e-431f-af56-f31043cbebf0",
-            "BackgroundColor": "0.33333,0.46275,0.52157,1",
-            "ClearFlags": "All",
-            "FieldOfView": 60,
-            "IsMainCamera": false,
-            "Orthographic": false,
-            "OrthographicHeight": 1204,
-            "Priority": 1,
-            "RenderExcludeTags": "",
-            "RenderTags": "",
-            "TargetEye": "None",
-            "Viewport": "0,0,1,1",
-            "ZFar": 10000,
-            "ZNear": 10
           }
         ]
       },

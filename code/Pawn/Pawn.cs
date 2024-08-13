@@ -20,7 +20,7 @@ public class Pawn : Component
 	/// <summary>
 	/// The mouse position inside the world.
 	/// </summary>
-	public Vector3 MousePosition { get; private set; }
+	[Sync] public Vector3 MousePosition { get; private set; }
 
 	/// <summary>
 	/// The direction and position from where we are aiming.
@@ -44,16 +44,27 @@ public class Pawn : Component
 	protected override void OnAwake()
 	{
 		if ( !IsProxy )
+		{
 			Local = this;
+		}
+	}
+
+	protected override void OnStart()
+	{
+		if(!IsProxy)
+		{
+			GameObject.Clone( "templates/gameobject/camera.prefab", new CloneConfig
+			{
+				Parent = GameObject,
+				StartEnabled = true
+			} ) ;
+		}
 	}
 
 	protected override void OnFixedUpdate()
 	{
 		if ( IsProxy || IsFrozen )
 			return;
-
-		if ( Input.Pressed( "crouch" ) )
-			Respawn();
 
 		_isCrouching = Input.Down("Crouch");
 		CalculateWishVelocity();
@@ -68,10 +79,10 @@ public class Pawn : Component
 	{
 		if (!IsProxy)
 		{
-			MouseInput();
-			UpdateRotation();
+			MouseInput();	
 		}
 
+		UpdateRotation();
 		Animate();
 	}
 
@@ -116,7 +127,7 @@ public class Pawn : Component
 
 	private void MouseInput()
 	{
-		var camera = Scene.GetAllComponents<CameraComponent>().Where(x => x.IsMainCamera).FirstOrDefault();
+		var camera = Components.Get<CameraComponent>( FindMode.InChildren );
 
 		if (camera is null)
 			return;
@@ -188,8 +199,8 @@ public class Pawn : Component
 
 	private void UpdateCamera()
 	{
-		var camera = Components.Get<CameraComponent>(FindMode.InDescendants);
-
+		var camera = Components.Get<CameraComponent>(FindMode.InChildren);
+		
 		if (camera is null)
 			return;
 
@@ -199,7 +210,6 @@ public class Pawn : Component
 		camera.FieldOfView = Screen.CreateVerticalFieldOfView(60f);
 		camera.Transform.Rotation = (-Settings.Plane.Normal).EulerAngles;
 		camera.Transform.Position = position + offset.ClampLength(150f) + Settings.Plane.Normal * 400f;
-		camera.IsMainCamera = !IsProxy;
 	}
 
 	private void UpdateRotation()
