@@ -18,7 +18,7 @@ public sealed class Pickup : Component
     /// <summary>
 	/// The time until the item respawns.
 	/// </summary>
-	[HostSync] public TimeUntil TimeUntilRespawn { get; private set; } = 0f;
+	[HostSync] public TimeUntil TimeUntilRespawn { get; set; } = 0f;
 
     /// <summary>
     /// A reference to our item once spawned.
@@ -54,5 +54,11 @@ public sealed class Pickup : Component
         } );
 
         SpawnedObject.NetworkSpawn();
+    }
+
+    public void Delete()
+    {
+        SpawnedObject.Destroy();
+        TimeUntilRespawn = RespawnTime;
     }
 }

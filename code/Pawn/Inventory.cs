@@ -148,7 +148,12 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( !pickup.SpawnedObject.Components.TryGet<Equipment>( out var eq ) )
 			return;
 
-		Add( eq );
+		if ( !Add( eq ) )
+		{
+			pickup.Delete();
+			Equipment[eq.Slot].Components.Get<Magazine>()?.RefillAmmo();
+		}
+
 	}
 
 	public static string GetInputString( int slot )

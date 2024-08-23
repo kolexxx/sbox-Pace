@@ -51,7 +51,13 @@
         "__type": "Pace.Magazine",
         "__guid": "184eaf10-1e52-45da-8095-e3532a3b33ac",
         "ClipSize": 10,
-        "ReloadTime": 1.5
+        "Equipment": {
+          "_type": "component",
+          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Equipment"
+        },
+        "ReloadTime": 1.6
       }
     ],
     "Children": [],

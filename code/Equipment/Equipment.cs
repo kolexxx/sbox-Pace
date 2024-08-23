@@ -20,27 +20,26 @@ public class Equipment : Component
     /// <summary>
     /// The holder of this equipment.
     /// </summary>
-    [Sync] public Pawn Pawn { get; set; }
+    [Sync] public Pawn Owner { get; set; }
 
     /// <summary>
     /// Is this equipment currently equiped by the player?
     /// </summary>
-    public bool IsActive { get; private set; } = false;
+    public bool IsActive => Owner?.Inventory.ActiveEquipment == this;
 
     /// <summary>
     /// How long since we equiped this weapon.
     /// </summary>
     public TimeSince TimeSinceDeployed { get; private set; }
 
+    /// <summary>
+    /// Have we finished deploying?
+    /// </summary>
+    public bool IsDeployed => IsActive && TimeSinceDeployed > DeployTime;
+
     protected override void OnUpdate()
     {
-        if ( Pawn.IsValid() )
-            ModelRenderer.BoneMergeTarget = Pawn.BodyRenderer;
-
-        if ( IsProxy )
-            return;
-
-        ModelRenderer.Enabled = !Tags.Has( "player" ) || IsActive;
+        ModelRenderer.Enabled = !Owner.IsValid() || IsActive;
     }
 
     protected override void OnFixedUpdate()
@@ -48,10 +47,7 @@ public class Equipment : Component
         if ( IsProxy )
             return;
 
-        if ( !IsActive )
-            return;
-
-        if ( TimeSinceDeployed < DeployTime )
+        if ( !IsDeployed )
             return;
 
         if ( Input.Down( "Attack1" ) )
@@ -60,13 +56,11 @@ public class Equipment : Component
 
     public void OnEquip( Pawn pawn )
     {
-        Pawn = pawn;
-        IsActive = true;
+        Owner = pawn;
         TimeSinceDeployed = 0f;
     }
 
     public void OnHolster()
     {
-        IsActive = false;
     }
 }

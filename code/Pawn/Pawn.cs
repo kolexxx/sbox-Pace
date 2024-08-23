@@ -53,10 +53,9 @@ public class Pawn : Component
 	public bool IsFrozen => !IsAlive || GameMode.Current.State == GameState.Countdown;
 
 	private Vector3 _wishVelocity;
-	private bool _isCrouching;
 	private bool _hasDoubleJumped;
 
-	protected override void OnAwake()
+	protected override void OnStart()
 	{
 		if ( !IsProxy )
 		{
@@ -242,7 +241,7 @@ public class Pawn : Component
 		AnimationHelper.IsGrounded = CharacterController.IsOnGround;
 		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
-		AnimationHelper.DuckLevel = _isCrouching ? 1f : 0f;
+		AnimationHelper.DuckLevel = 0f;
 		AnimationHelper.HoldType = equipment.IsValid() ? equipment.HoldType : CitizenAnimationHelper.HoldTypes.None;
 		AnimationHelper.Handedness = equipment.IsValid() ? equipment.Handedness : CitizenAnimationHelper.Hand.Both;
 	}

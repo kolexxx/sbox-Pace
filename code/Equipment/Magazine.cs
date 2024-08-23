@@ -5,8 +5,9 @@ namespace Pace;
 
 public class Magazine : Component
 {
-    [Property, Group( "Stats" )] public float ReloadTime { get; set; } = 0.6f;
-    [Property, Group( "Stats" )] public int ClipSize { get; set; } = 30;
+    [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
+    [Property, Group( "Stats" )] public float ReloadTime { get; private set; } = 0.6f;
+    [Property, Group( "Stats" )] public int ClipSize { get; private set; } = 30;
 
     /// <summary>
     /// How much ammo is currently in the clip.
@@ -39,6 +40,14 @@ public class Magazine : Component
         if ( IsProxy )
             return;
 
+        if ( !Equipment.IsDeployed )
+        {
+            if ( IsReloading )
+                CancelReload();
+
+            return;
+        }
+
         if ( CanReload() )
         {
             Reload();
@@ -46,7 +55,7 @@ public class Magazine : Component
         }
 
         if ( IsReloading && TimeSinceReload >= ReloadTime )
-            OnReloadFinish();
+            FinishReload();
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
@@ -61,7 +70,7 @@ public class Magazine : Component
             IsReloading = true;
         }
 
-        GameObject.Root.Components.Get<Pawn>()?.Body.Components.Get<SkinnedModelRenderer>()?.Set( "b_reload", true );
+        Equipment.Owner.BodyRenderer.Set( "b_reload", true );
     }
 
     protected bool CanReload()
@@ -78,10 +87,23 @@ public class Magazine : Component
         return Input.Pressed( "reload" );
     }
 
-    protected void OnReloadFinish()
+    protected void FinishReload()
     {
         IsReloading = false;
         TakeAmmo( ClipSize - AmmoInClip );
+    }
+
+    [Broadcast( NetPermission.OwnerOnly )]
+    protected void CancelReload()
+    {
+        IsReloading = false;
+        Equipment.Owner.BodyRenderer.ClearParameters();
+    }
+
+    [Authority( NetPermission.HostOnly )]
+    public void RefillAmmo()
+    {
+        ReserveAmmo = 2 * ClipSize;
     }
 
     /// <summary>

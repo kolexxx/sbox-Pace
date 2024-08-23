@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "8bf15255-47ee-4f88-bab7-d330c2848443",
     "Flags": 0,
-    "Name": "Rifle",
+    "Name": "rifle",
     "Enabled": true,
     "Components": [
       {
@@ -51,7 +51,13 @@
         "__type": "Pace.Magazine",
         "__guid": "9a7a3107-b208-46d1-a5de-5282bc07cdd9",
         "ClipSize": 30,
-        "ReloadTime": 1.7
+        "Equipment": {
+          "_type": "component",
+          "component_id": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
+          "component_type": "Equipment"
+        },
+        "ReloadTime": 1.8
       }
     ],
     "Children": [
