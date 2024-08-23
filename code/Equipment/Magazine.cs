@@ -97,7 +97,7 @@ public class Magazine : Component
     protected void CancelReload()
     {
         IsReloading = false;
-        Equipment.Owner.BodyRenderer.ClearParameters();
+        Equipment.Owner.BodyRenderer.Set( "b_reload", false );
     }
 
     [Authority( NetPermission.HostOnly )]

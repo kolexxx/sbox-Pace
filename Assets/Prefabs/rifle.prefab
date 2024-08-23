@@ -39,8 +39,20 @@
       {
         "__type": "Pace.HitscanBullet",
         "__guid": "19e7088d-7ffb-4326-926f-3edf59ab769e",
+        "Ammo": {
+          "_type": "component",
+          "component_id": "9a7a3107-b208-46d1-a5de-5282bc07cdd9",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
+          "component_type": "Magazine"
+        },
         "BulletsPerFire": 1,
         "Damage": 10,
+        "Equipment": {
+          "_type": "component",
+          "component_id": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
+          "component_type": "Equipment"
+        },
         "FireMode": "Automatic",
         "FireRate": 10,
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",

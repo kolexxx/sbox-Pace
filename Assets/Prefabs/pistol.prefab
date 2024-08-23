@@ -39,8 +39,20 @@
       {
         "__type": "Pace.HitscanBullet",
         "__guid": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
+        "Ammo": {
+          "_type": "component",
+          "component_id": "184eaf10-1e52-45da-8095-e3532a3b33ac",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Magazine"
+        },
         "BulletsPerFire": 1,
         "Damage": 20,
+        "Equipment": {
+          "_type": "component",
+          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Equipment"
+        },
         "FireMode": "Semi",
         "FireRate": 6,
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",

@@ -40,18 +40,7 @@ public class Equipment : Component
     protected override void OnUpdate()
     {
         ModelRenderer.Enabled = !Owner.IsValid() || IsActive;
-    }
-
-    protected override void OnFixedUpdate()
-    {
-        if ( IsProxy )
-            return;
-
-        if ( !IsDeployed )
-            return;
-
-        if ( Input.Down( "Attack1" ) )
-            PrimaryAction?.InputAction();
+        ModelRenderer.BoneMergeTarget = Owner.IsValid() ? Owner.BodyRenderer : null;
     }
 
     public void OnEquip( Pawn pawn )
