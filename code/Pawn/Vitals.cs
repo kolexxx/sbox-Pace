@@ -14,7 +14,7 @@ public sealed class Vitals : Component, Component.IDamageable
     {
         if (Health <= 0f)
             return;
-
+        
         Health = MathF.Max(0f, Health - info.Damage);
         LastDamage = info;
 		

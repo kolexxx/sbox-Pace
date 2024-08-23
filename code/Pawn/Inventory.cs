@@ -1,23 +1,37 @@
 using Sandbox;
-using System;
-using System.Collections.Generic;
+using Sandbox.Diagnostics;
 
 namespace Pace;
 
 public class Inventory : Component, Component.ITriggerListener
 {
-    public Equipment ActiveEquipment { get; private set; }
-    public Equipment InputEquipment { get; private set; }
-    public List<Equipment> Equipment { get; private set; } = new List<Equipment>( new Equipment[4] );
+	/// <summary>
+	/// A reference to our Pawn component.
+	/// </summary>
+	[Property] public Pawn Pawn { get; private set; }
+
+	/// <summary>
+	/// The equipment we have currently equiped.
+	/// </summary>
+	[Sync] public Equipment ActiveEquipment { get; private set; }
+
+	/// <summary>
+	/// The equipment we want to equip next. If null, we will holster.
+	/// </summary>
+	[Sync, HostSync] public Equipment InputEquipment { get; private set; }
+
+	/// <summary>
+	/// A list of all our inventory slots.
+	/// </summary>
+	[HostSync] public NetList<Equipment> Equipment { get; private set; } = new();
+
 	public Equipment this[int i] => Equipment[i];
 
-	protected override void OnEnabled()
-    {
-        var go = GameObject.Clone( "prefabs/pistol.prefab" );
-        Add( go.Components.Get<Equipment>() );
-        go = GameObject.Clone( "prefabs/rifle.prefab" );
-        Add( go.Components.Get<Equipment>() );
-    }
+	protected override void OnAwake()
+	{
+		for ( var i = 0; i < 4; i++ )
+			Equipment.Add( null );
+	}
 
 	protected override void OnUpdate()
 	{
@@ -31,8 +45,8 @@ public class Inventory : Component, Component.ITriggerListener
 			if ( !eq.IsValid() )
 				continue;
 
-			var action = GetInputString(eq.Slot);
-			
+			var action = GetInputString( eq.Slot );
+
 			if ( Input.Pressed( action ) )
 			{
 				InputEquipment = eq;
@@ -44,7 +58,7 @@ public class Inventory : Component, Component.ITriggerListener
 			return;
 
 		var incr = (int)Input.MouseWheel.y.Clamp( -1, 1 );
-		
+
 		for ( var i = currentSlot + incr; i != currentSlot; i += incr )
 		{
 			if ( i < 0 )
@@ -62,32 +76,40 @@ public class Inventory : Component, Component.ITriggerListener
 	}
 
 	protected override void OnFixedUpdate()
-    {
-        if ( InputEquipment != ActiveEquipment )
-        {
-            ActiveEquipment?.OnHolster();
-            ActiveEquipment = InputEquipment;
-            ActiveEquipment?.OnEquip();
-        }
-    }
+	{
+		if ( IsProxy )
+			return;
 
-    public bool Add( Equipment eq, bool makeActive = false )
-    {
-        if ( !Networking.IsHost )
-            return false;
+		if ( InputEquipment != ActiveEquipment )
+		{
+			ActiveEquipment?.OnHolster();
+			ActiveEquipment = InputEquipment;
+			ActiveEquipment?.OnEquip( Pawn );
+		}
+	}
+
+	/// <summary>
+	/// Try to add equipment to our inventory.
+	/// </summary>
+	/// <param name="eq">Equipment we want to add.</param>
+	/// <param name="makeActive">If true, equip if added.</param>
+	/// <returns>True if we added equipment, false otherwise.</returns>
+	public bool Add( Equipment eq, bool makeActive = false )
+	{
+		Assert.True( Networking.IsHost );
 
 		if ( !CanAdd( eq ) )
 			return false;
 
-        eq.GameObject.SetParent( GameObject );
+		eq.GameObject.SetParent( GameObject );
+		eq.Network.AssignOwnership( Network.OwnerConnection );
 		Equipment[eq.Slot] = eq;
 
-
 		if ( makeActive )
-            InputEquipment = eq;
+			InputEquipment = eq;
 
 		return true;
-    }
+	}
 
 	public bool CanAdd( Equipment eq )
 	{
@@ -98,32 +120,39 @@ public class Inventory : Component, Component.ITriggerListener
 	}
 
 	public void Clear()
-    {
-        if ( !Networking.IsHost )
-            return;
+	{
+		if ( !Networking.IsHost )
+			return;
 
-        foreach ( var eq in Equipment )
-        {
+		foreach ( var eq in Equipment )
+		{
 			if ( !eq.IsValid() )
 				continue;
 
-            eq.GameObject.Destroy();
-            eq.Enabled = false;
-        }
-    }
+			eq.GameObject.Destroy();
+			eq.Enabled = false;
+		}
+	}
 
-    public static string GetInputString( int slot )
-    {
-        return "Slot" + slot.ToString();
-    }
-
-	public override int GetHashCode()
+	void ITriggerListener.OnTriggerEnter( Collider other )
 	{
-		var result = 0;
+		if ( !Networking.IsHost )
+			return;
 
-		foreach ( var eq in Equipment )
-			result = HashCode.Combine( result, eq.IsValid(), eq?.IsActive );
+		if ( !other.Components.TryGet<Pickup>( out var pickup ) )
+			return;
 
-		return result;
+		if ( !pickup.SpawnedObject.IsValid() )
+			return;
+
+		if ( !pickup.SpawnedObject.Components.TryGet<Equipment>( out var eq ) )
+			return;
+
+		Add( eq );
+	}
+
+	public static string GetInputString( int slot )
+	{
+		return "Slot" + slot.ToString();
 	}
 }

@@ -9,7 +9,7 @@ public class Equipment : Component
     /// A reference to the equipment's model renderer.
     /// </summary>
     [Property] public EquipmentResource Resource { get; private set; }
-	[Property, ImageAssetPath] public string Icon { get; private set; }
+    [Property, ImageAssetPath] public string Icon { get; private set; }
     [Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; private set; }
     [Property, Group( "Components" )] public HitscanBullet PrimaryAction { get; private set; }
     [Property, Group( "Animation" )] public CitizenAnimationHelper.HoldTypes HoldType { get; private set; } = CitizenAnimationHelper.HoldTypes.Rifle;
@@ -18,9 +18,14 @@ public class Equipment : Component
     [Property, Group( "Stats" )] public float DeployTime { get; private set; } = 0.6f;
 
     /// <summary>
+    /// The holder of this equipment.
+    /// </summary>
+    [Sync] public Pawn Pawn { get; set; }
+
+    /// <summary>
     /// Is this equipment currently equiped by the player?
     /// </summary>
-    public bool IsActive { get; private set; }
+    public bool IsActive { get; private set; } = false;
 
     /// <summary>
     /// How long since we equiped this weapon.
@@ -29,7 +34,13 @@ public class Equipment : Component
 
     protected override void OnUpdate()
     {
-        ModelRenderer.Enabled = IsActive;
+        if ( Pawn.IsValid() )
+            ModelRenderer.BoneMergeTarget = Pawn.BodyRenderer;
+
+        if ( IsProxy )
+            return;
+
+        ModelRenderer.Enabled = !Tags.Has( "player" ) || IsActive;
     }
 
     protected override void OnFixedUpdate()
@@ -47,14 +58,11 @@ public class Equipment : Component
             PrimaryAction?.InputAction();
     }
 
-    public void OnEquip()
+    public void OnEquip( Pawn pawn )
     {
+        Pawn = pawn;
         IsActive = true;
         TimeSinceDeployed = 0f;
-
-        GameObject.Root.Components.Get<Pawn>().AnimationHelper.TriggerDeploy();
-		var c = GameObject.Root.Components.Get<SkinnedModelRenderer>( FindMode.InChildren );
-		ModelRenderer.BoneMergeTarget = c;
     }
 
     public void OnHolster()

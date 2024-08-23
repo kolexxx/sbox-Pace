@@ -2,7 +2,7 @@
   "RootObject": {
     "__guid": "8bf15255-47ee-4f88-bab7-d330c2848443",
     "Flags": 0,
-    "Name": "rifle",
+    "Name": "Rifle",
     "Enabled": true,
     "Components": [
       {

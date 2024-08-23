@@ -19,6 +19,12 @@
           "_type": "gameobject",
           "go": "200b90ba-0937-463b-8e93-62d7bc33571d"
         },
+        "BodyRenderer": {
+          "_type": "component",
+          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "SkinnedModelRenderer"
+        },
         "CharacterController": {
           "_type": "component",
           "component_id": "75f5135c-07ed-4c76-8b73-0feec390a9e7",
@@ -72,7 +78,13 @@
       },
       {
         "__type": "Pace.Inventory",
-        "__guid": "b4efc7f7-a477-423c-a682-b91bd02e4e0e"
+        "__guid": "b4efc7f7-a477-423c-a682-b91bd02e4e0e",
+        "Pawn": {
+          "_type": "component",
+          "component_id": "6af42084-e4b4-4618-8f29-3274c45f8fbd",
+          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_type": "Pawn"
+        }
       },
       {
         "__type": "Pace.Dresser",

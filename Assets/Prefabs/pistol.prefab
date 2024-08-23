@@ -3,7 +3,6 @@
     "__guid": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
     "Flags": 0,
     "Name": "pistol",
-    "Scale": "2,2,2",
     "Enabled": true,
     "Components": [
       {
@@ -11,7 +10,7 @@
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
         "BodyGroups": 18446744073709551615,
         "CreateBoneObjects": false,
-        "Model": "pistol/pistol_model.vmdl",
+        "Model": "weapons/rust_pistol/rust_pistol.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -63,7 +62,7 @@
   "MenuIcon": null,
   "ResourceVersion": 1,
   "__references": [
-    "gex.pistol"
+    "rust.rust_pistol"
   ],
   "__version": 1
 }

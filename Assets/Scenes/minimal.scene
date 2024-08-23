@@ -267,6 +267,57 @@
       "Name": "Spawnpoint",
       "Position": "5.78355,607.066,0",
       "Enabled": true
+    },
+    {
+      "__guid": "0b2aa296-fe79-48b5-92c6-efcdb9c0082f",
+      "Flags": 0,
+      "Name": "Pickup",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "130a515d-86e0-4d55-83c2-4d6806a88741",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        },
+        {
+          "__type": "Pace.Pickup",
+          "__guid": "b55e2e8e-d93b-418d-b355-c9bb393de921",
+          "PrefabToSpawn": {
+            "_type": "gameobject",
+            "prefab": "prefabs/rifle.prefab"
+          },
+          "RespawnTime": 10
+        }
+      ]
+    },
+    {
+      "__guid": "57da7771-e134-4c48-8e27-7256f048186e",
+      "Flags": 0,
+      "Name": "Pickup (1)",
+      "Position": "0,160.1268,0",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "0f77269a-0a9b-442c-8a9d-421ff29b5d9f",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        },
+        {
+          "__type": "Pace.Pickup",
+          "__guid": "408bdc7b-90fa-4144-aa73-cb23b9715249",
+          "PrefabToSpawn": {
+            "_type": "gameobject",
+            "prefab": "prefabs/pistol.prefab"
+          },
+          "RespawnTime": 10
+        }
+      ]
     }
   ],
   "SceneProperties": {
