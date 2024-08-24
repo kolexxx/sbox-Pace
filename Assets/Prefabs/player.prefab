@@ -31,6 +31,12 @@
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "CharacterController"
         },
+        "Collider": {
+          "_type": "component",
+          "component_id": "f1b8efdc-676e-4dd2-b70b-d4f0447c895e",
+          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_type": "CapsuleCollider"
+        },
         "Friction": 4,
         "Head": {
           "_type": "gameobject",
@@ -58,7 +64,7 @@
         "GroundAngle": 45,
         "Height": 64,
         "IgnoreLayers": "",
-        "Radius": 16,
+        "Radius": 7.5,
         "StepHeight": 18,
         "UseCollisionRules": false
       },
@@ -87,16 +93,6 @@
         }
       },
       {
-        "__type": "Pace.Dresser",
-        "__guid": "e83b385d-4b1f-4480-87e5-5f22e209b6af",
-        "BodyRenderer": {
-          "_type": "component",
-          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
-          "component_type": "SkinnedModelRenderer"
-        }
-      },
-      {
         "__type": "Pace.Vitals",
         "__guid": "20931141-55ea-41c4-82a0-c2ebe885522b",
         "Armor": 0,
@@ -109,22 +105,13 @@
         }
       },
       {
-        "__type": "Sandbox.BoxCollider",
-        "__guid": "408a5e6b-d9ce-4340-896e-0fcba16f9b91",
-        "Center": "0,0,36",
+        "__type": "Sandbox.CapsuleCollider",
+        "__guid": "f1b8efdc-676e-4dd2-b70b-d4f0447c895e",
+        "End": "1.5,0,65",
         "IsTrigger": false,
-        "Scale": "32,32,72",
+        "Radius": 7,
+        "Start": "1.5,0,8",
         "Static": false
-      },
-      {
-        "__type": "Sandbox.ModelHitboxes",
-        "__guid": "9223a64f-cee2-4e77-92d4-9fd6fcec4767",
-        "Renderer": {
-          "_type": "component",
-          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
-          "component_type": "SkinnedModelRenderer"
-        }
       }
     ],
     "Children": [
@@ -150,6 +137,31 @@
             "RenderType": "On",
             "Tint": "1,1,1,1",
             "UseAnimGraph": true
+          },
+          {
+            "__type": "Pace.Dresser",
+            "__guid": "76cadf46-774f-4c65-a672-28f835375ad9",
+            "BodyRenderer": {
+              "_type": "component",
+              "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+              "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.ModelPhysics",
+            "__guid": "bf6e4f8b-e072-402f-9344-b76bc3962ad5",
+            "__enabled": false,
+            "Locking": {},
+            "Model": "models/citizen/citizen.vmdl",
+            "MotionEnabled": true,
+            "Renderer": {
+              "_type": "component",
+              "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+              "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+              "component_type": "SkinnedModelRenderer"
+            },
+            "RigidbodyFlags": "DisableCollisionSounds"
           }
         ],
         "Children": [
@@ -983,35 +995,35 @@
                 "Enabled": true
               }
             ]
-          }
-        ]
-      },
-      {
-        "__guid": "3da18d17-7272-47ea-8036-afcd542a4ece",
-        "Flags": 0,
-        "Name": "World",
-        "Position": "0,0,90",
-        "Enabled": true,
-        "Components": [
-          {
-            "__type": "Sandbox.WorldPanel",
-            "__guid": "4e006e4f-bc0b-4a17-9e12-708b52d7bbb9",
-            "HorizontalAlign": "Center",
-            "InteractionRange": 1000,
-            "LookAtCamera": false,
-            "PanelSize": "1000,1000",
-            "RenderScale": 1,
-            "VerticalAlign": "Center"
           },
           {
-            "__type": "Pace.UI.InfoPlate",
-            "__guid": "7d6f4b53-8c15-4d47-ad20-c20de6baf907",
-            "Vitals": {
-              "_type": "component",
-              "component_id": "20931141-55ea-41c4-82a0-c2ebe885522b",
-              "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
-              "component_type": "Vitals"
-            }
+            "__guid": "3da18d17-7272-47ea-8036-afcd542a4ece",
+            "Flags": 0,
+            "Name": "Info Plate",
+            "Position": "0,0,90",
+            "Enabled": true,
+            "Components": [
+              {
+                "__type": "Sandbox.WorldPanel",
+                "__guid": "4e006e4f-bc0b-4a17-9e12-708b52d7bbb9",
+                "HorizontalAlign": "Center",
+                "InteractionRange": 1000,
+                "LookAtCamera": false,
+                "PanelSize": "1000,1000",
+                "RenderScale": 1,
+                "VerticalAlign": "Center"
+              },
+              {
+                "__type": "Pace.UI.InfoPlate",
+                "__guid": "ddae25c4-6a08-4e40-a400-f8d8cf474fd8",
+                "Vitals": {
+                  "_type": "component",
+                  "component_id": "20931141-55ea-41c4-82a0-c2ebe885522b",
+                  "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+                  "component_type": "Vitals"
+                }
+              }
+            ]
           }
         ]
       }

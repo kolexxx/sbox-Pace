@@ -24,6 +24,7 @@ public class Pawn : Component
 
 	[Property] public GameObject Head { get; private set; }
 	[Property] public GameObject Body { get; private set; }
+	[Property, Group( "Components" )] public CapsuleCollider Collider { get; private set; }
 	[Property, Group( "Components" )] public CharacterController CharacterController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
 	[Property, Group( "Components" )] public SkinnedModelRenderer BodyRenderer { get; private set; }
@@ -31,6 +32,11 @@ public class Pawn : Component
 	[Property, Group( "Components" )] public Vitals Vitals { get; private set; }
 	[Property] public float MoveSpeed { get; private set; } = 200f;
 	[Property] public float Friction { get; private set; } = 0.4f;
+
+	/// <summary>
+	/// How long has it been since we died?
+	/// </summary>
+	[HostSync] public TimeSince TimeSinceDeath { get; private set; }
 
 	/// <summary>
 	/// The mouse position inside the world.
@@ -45,7 +51,7 @@ public class Pawn : Component
 	/// <summary>
 	/// Whether or not this pawn is alive.
 	/// </summary>
-	public bool IsAlive => Vitals.Health >= 0;
+	public bool IsAlive => Vitals.Health > 0;
 
 	/// <summary>
 	/// If true, we're not allowed to move.
@@ -71,6 +77,9 @@ public class Pawn : Component
 	{
 		if ( IsProxy || IsFrozen )
 			return;
+
+		if ( Input.Pressed( "Crouch" ) )
+			Vitals.Health = 0f;
 
 		CalculateWishVelocity();
 
@@ -99,23 +108,34 @@ public class Pawn : Component
 		UpdateCamera();
 	}
 
+	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
-		Assert.True( Networking.IsHost );
+		if ( Networking.IsHost )
+		{
+			CharacterController.Velocity = Vector3.Zero;
+			Inventory.Clear();
+			Vitals.Health = 100f;
+			GameMode.Current?.OnRespawn( this );
+		}
 
 		Transform.ClearInterpolation();
-		CharacterController.Velocity = Vector3.Zero;
-		Inventory.Clear();
-		Vitals.Health = 100f;
-
-		GameMode.Current?.OnRespawn( GameObject );
+		Body.Enabled = true;
+		Collider.Enabled = true;
 	}
 
+	[Broadcast( NetPermission.HostOnly )]
 	public void OnKilled()
 	{
-		Inventory.Clear();
+		if ( Networking.IsHost )
+		{
+			TimeSinceDeath = 0f;
+			Inventory.Clear();
+			GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
+		}
 
-		GameMode.Current?.OnKill( GameObject, Vitals.LastDamage.Attacker );
+		Body.Enabled = false;
+		Collider.Enabled = false;
 	}
 
 	private void CalculateWishVelocity()

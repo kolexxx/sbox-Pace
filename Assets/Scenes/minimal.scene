@@ -212,6 +212,7 @@
       "Name": "GameMode",
       "Position": "-350.1393,-1.373613,-26.79759",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "Pace.Deathmatch",
@@ -258,14 +259,14 @@
       "__guid": "b6dc50a3-6e8f-40cd-9ec5-77bc170b53f7",
       "Flags": 0,
       "Name": "Spawnpoint",
-      "Position": "42.81622,-361.3162,0",
+      "Position": "0,-361.3162,0",
       "Enabled": true
     },
     {
       "__guid": "1d7824d2-11c9-443b-8ebc-f5abc294550f",
       "Flags": 0,
       "Name": "Spawnpoint",
-      "Position": "5.78355,607.066,0",
+      "Position": "0,607.066,0",
       "Enabled": true
     },
     {
@@ -316,6 +317,41 @@
             "prefab": "prefabs/pistol.prefab"
           },
           "RespawnTime": 10
+        }
+      ]
+    },
+    {
+      "__guid": "82c86a74-a34e-4733-af12-0f9f14fd0f3e",
+      "Flags": 0,
+      "Name": "Ragdoll",
+      "Position": "-58.89736,285.5498,163.2462",
+      "Rotation": "0,0.2923717,0,0.9563048",
+      "Tags": "player",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ModelPhysics",
+          "__guid": "17d6ce16-9a4b-4009-8394-a82a1ed0b053",
+          "Locking": {},
+          "Model": "models/citizen/citizen.vmdl",
+          "MotionEnabled": true,
+          "Renderer": {
+            "_type": "component",
+            "component_id": "0612105d-ede8-4b36-b118-64ec2cf91dc0",
+            "go": "82c86a74-a34e-4733-af12-0f9f14fd0f3e",
+            "component_type": "SkinnedModelRenderer"
+          },
+          "RigidbodyFlags": 0
+        },
+        {
+          "__type": "Sandbox.SkinnedModelRenderer",
+          "__guid": "0612105d-ede8-4b36-b118-64ec2cf91dc0",
+          "BodyGroups": 341,
+          "CreateBoneObjects": false,
+          "Model": "models/citizen/citizen.vmdl",
+          "RenderType": "On",
+          "Tint": "1,1,1,1",
+          "UseAnimGraph": false
         }
       ]
     }

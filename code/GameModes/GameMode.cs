@@ -46,7 +46,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// A list of all the players currently in-game.
 	/// </summary>
-	public List<GameObject> Players { get; private set; } = new();
+	public List<Pawn> Players { get; private set; } = new();
 
 	public virtual string GetTimeLeftLabel()
 	{
@@ -68,6 +68,21 @@ public abstract class GameMode : Component, Component.INetworkListener
 		Current = this;
 	}
 
+	protected override void OnFixedUpdate()
+	{
+		if ( !Networking.IsHost )
+			return;
+
+		foreach ( var player in Players )
+		{
+			if ( player.IsAlive )
+				continue;
+
+			if ( player.TimeSinceDeath >= 5f )
+				player.Respawn();
+		}
+	}
+
 	/// <summary>
 	/// Called on the host when someone successfully joins the server (including the local player)
 	/// </summary>
@@ -82,16 +97,16 @@ public abstract class GameMode : Component, Component.INetworkListener
 		var player = PlayerPrefab.Clone( global::Transform.Zero, name: $"Player - {connection.DisplayName}" );
 		player.NetworkSpawn( connection );
 
-		Players.Add( player );
-		MoveToSpawnpoint( player );
+		Players.Add( player.Components.Get<Pawn>() );
+		MoveToSpawnpoint( Players.Last() );
 	}
 
-	public virtual void OnRespawn(GameObject gameObject)
+	public virtual void OnRespawn( Pawn pawn )
 	{
-		MoveToSpawnpoint( gameObject );
+		MoveToSpawnpoint( pawn );
 	}
 
-	public virtual void OnKill( GameObject attacker, GameObject victim ) { }
+	public virtual void OnKill( Pawn attacker, Pawn victim ) { }
 
 	protected virtual void OnStateChanged( GameState before, GameState after ) { }
 
@@ -117,23 +132,23 @@ public abstract class GameMode : Component, Component.INetworkListener
 		}
 	}
 
-	protected void MoveToSpawnpoint(GameObject gameObject)
+	protected void MoveToSpawnpoint( Pawn pawn )
 	{
 		if ( SpawnPoints is null || SpawnPoints.Count <= 0 )
 			return;
 
 		var spawnpoint = SpawnPoints
-			.OrderByDescending( x => GetSpawnpointWeight( gameObject, x ) )
+			.OrderByDescending( x => GetSpawnpointWeight( pawn, x ) )
 			.FirstOrDefault();
 
 		if ( spawnpoint is null )
 			return;
 
 		var tx = spawnpoint.Transform.World;
-		gameObject.Transform.World = tx;
+		pawn.Transform.World = tx;
 	}
 
-	private float GetSpawnpointWeight( GameObject pawn, GameObject spawnpoint )
+	private float GetSpawnpointWeight( Pawn pawn, GameObject spawnpoint )
 	{
 		// We want to find the closest player (worst weight)
 		var distance = float.MaxValue;
@@ -141,9 +156,9 @@ public abstract class GameMode : Component, Component.INetworkListener
 		foreach ( var player in Players )
 		{
 			if ( player == pawn ) continue;
-			if ( player.Components.Get<Vitals>()?.Health <= 0 ) continue;
+			if ( !pawn.IsAlive ) continue;
 
-			var spawnDist = (spawnpoint.Transform.Position -pawn.Transform.Position).LengthSquared;
+			var spawnDist = (spawnpoint.Transform.Position - pawn.Transform.Position).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
 

@@ -20,7 +20,7 @@ public class Equipment : Component
     /// <summary>
     /// The holder of this equipment.
     /// </summary>
-    [Sync] public Pawn Owner { get; set; }
+    [HostSync] public Pawn Owner { get; set; }
 
     /// <summary>
     /// Is this equipment currently equiped by the player?
@@ -47,6 +47,7 @@ public class Equipment : Component
     {
         Owner = pawn;
         TimeSinceDeployed = 0f;
+        Owner.BodyRenderer.Set( "b_deploy", true );
     }
 
     public void OnHolster()

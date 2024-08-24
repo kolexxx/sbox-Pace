@@ -103,6 +103,7 @@ public class Inventory : Component, Component.ITriggerListener
 
 		eq.GameObject.SetParent( GameObject );
 		eq.Network.AssignOwnership( Network.OwnerConnection );
+		eq.Owner = Pawn;
 		Equipment[eq.Slot] = eq;
 
 		if ( makeActive )
@@ -113,6 +114,9 @@ public class Inventory : Component, Component.ITriggerListener
 
 	public bool CanAdd( Equipment eq )
 	{
+		if ( eq.Owner.IsValid() )
+			return false;
+
 		if ( Equipment[eq.Slot].IsValid() )
 			return false;
 
@@ -121,15 +125,14 @@ public class Inventory : Component, Component.ITriggerListener
 
 	public void Clear()
 	{
-		if ( !Networking.IsHost )
-			return;
+		Assert.True( Networking.IsHost );
 
 		foreach ( var eq in Equipment )
 		{
 			if ( !eq.IsValid() )
 				continue;
 
-			eq.GameObject.Destroy();
+			eq.GameObject.DestroyImmediate();
 			eq.Enabled = false;
 		}
 	}
@@ -153,7 +156,6 @@ public class Inventory : Component, Component.ITriggerListener
 			pickup.Delete();
 			Equipment[eq.Slot].Components.Get<Magazine>()?.RefillAmmo();
 		}
-
 	}
 
 	public static string GetInputString( int slot )
