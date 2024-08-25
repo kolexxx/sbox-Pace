@@ -17,7 +17,7 @@ public class Magazine : Component
     /// <summary>
     /// How much ammo is in reserve.
     /// </summary>
-    public int ReserveAmmo { get; set; }
+    [Sync] public int ReserveAmmo { get; set; }
 
     /// <summary>
     /// How long since we started reloading.
@@ -28,6 +28,11 @@ public class Magazine : Component
     /// Are we still reloading this weapon?
     /// </summary>
     public bool IsReloading { get; private set; }
+
+    /// <summary>
+    /// Can we pickup anymore ammo?
+    /// </summary>
+    public bool IsReserveFull => ReserveAmmo >= 2 * ClipSize;
 
     protected override void OnAwake()
     {
@@ -101,7 +106,7 @@ public class Magazine : Component
     }
 
     [Authority( NetPermission.HostOnly )]
-    public void RefillAmmo()
+    public void RefillReserve()
     {
         ReserveAmmo = 2 * ClipSize;
     }

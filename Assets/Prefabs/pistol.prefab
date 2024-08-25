@@ -28,12 +28,6 @@
           "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
           "component_type": "SkinnedModelRenderer"
         },
-        "PrimaryAction": {
-          "_type": "component",
-          "component_id": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
-          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
-          "component_type": "HitscanBullet"
-        },
         "Slot": 2
       },
       {

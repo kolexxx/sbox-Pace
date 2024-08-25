@@ -9,7 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
         "BodyGroups": 18446744073709551615,
-        "CreateBoneObjects": true,
+        "CreateBoneObjects": false,
         "Model": "weapons/rust_smg/rust_smg.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1",
@@ -27,12 +27,6 @@
           "component_id": "32bace39-b163-4008-94cf-991f7e322dbd",
           "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "SkinnedModelRenderer"
-        },
-        "PrimaryAction": {
-          "_type": "component",
-          "component_id": "19e7088d-7ffb-4326-926f-3edf59ab769e",
-          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
-          "component_type": "HitscanBullet"
         },
         "Slot": 1
       },
@@ -72,16 +66,7 @@
         "ReloadTime": 1.8
       }
     ],
-    "Children": [
-      {
-        "__guid": "d073f2f6-b4aa-4f1d-89cf-dbefb019fb53",
-        "Flags": 4,
-        "Name": "hold_R",
-        "Position": "1.4,5.500001,-1.2",
-        "Rotation": "0,0,-0.7071068,0.7071067",
-        "Enabled": true
-      }
-    ],
+    "Children": [],
     "__variables": []
   },
   "ShowInMenu": false,

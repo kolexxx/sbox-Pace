@@ -82,9 +82,9 @@ public class Inventory : Component, Component.ITriggerListener
 
 		if ( InputEquipment != ActiveEquipment )
 		{
-			ActiveEquipment?.OnHolster();
+			ActiveEquipment?.Holster();
 			ActiveEquipment = InputEquipment;
-			ActiveEquipment?.OnEquip( Pawn );
+			ActiveEquipment?.Deploy();
 		}
 	}
 
@@ -123,6 +123,9 @@ public class Inventory : Component, Component.ITriggerListener
 		return true;
 	}
 
+	/// <summary>
+	/// Destroys every equipment in our inventory.
+	/// </summary>
 	public void Clear()
 	{
 		Assert.True( Networking.IsHost );
@@ -132,7 +135,7 @@ public class Inventory : Component, Component.ITriggerListener
 			if ( !eq.IsValid() )
 				continue;
 
-			eq.GameObject.DestroyImmediate();
+			eq.GameObject.Destroy();
 			eq.Enabled = false;
 		}
 	}
@@ -151,11 +154,14 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( !pickup.SpawnedObject.Components.TryGet<Equipment>( out var eq ) )
 			return;
 
-		if ( !Add( eq ) )
-		{
-			pickup.Delete();
-			Equipment[eq.Slot].Components.Get<Magazine>()?.RefillAmmo();
-		}
+		if ( Add( eq ) )
+			return;
+
+		if ( !Equipment[eq.Slot].Components.TryGet<Magazine>( out var magazine ) || magazine.IsReserveFull )
+			return;
+
+		pickup.Delete();
+		magazine.RefillReserve();
 	}
 
 	public static string GetInputString( int slot )

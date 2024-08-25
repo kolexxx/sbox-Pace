@@ -3,18 +3,39 @@ using Sandbox.Citizen;
 
 namespace Pace;
 
-public class Equipment : Component
+/// <summary>
+/// A GameObject that can be put in a player's <see cref="Inventory"/>
+/// </summary>
+public sealed class Equipment : Component
 {
     /// <summary>
-    /// A reference to the equipment's model renderer.
+    /// An image that will be used in UI elements.
     /// </summary>
-    [Property] public EquipmentResource Resource { get; private set; }
     [Property, ImageAssetPath] public string Icon { get; private set; }
+
+    /// <summary>
+    /// A reference to our model renderer.
+    /// </summary>
     [Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; private set; }
-    [Property, Group( "Components" )] public HitscanBullet PrimaryAction { get; private set; }
+
+    /// <summary>
+    /// How are we holding this equipment?
+    /// </summary>
     [Property, Group( "Animation" )] public CitizenAnimationHelper.HoldTypes HoldType { get; private set; } = CitizenAnimationHelper.HoldTypes.Rifle;
+
+    /// <summary>
+    /// In which hand are we holding this equipment?
+    /// </summary>
     [Property, Group( "Animation" )] public CitizenAnimationHelper.Hand Handedness { get; private set; } = CitizenAnimationHelper.Hand.Right;
+
+    /// <summary>
+    /// What inventory slot does this equipment occupy?
+    /// </summary>
     [Property, Group( "Stats" )] public int Slot { get; private set; } = 0;
+
+    /// <summary>
+    /// How long does it take to deploy this equipment?
+    /// </summary>
     [Property, Group( "Stats" )] public float DeployTime { get; private set; } = 0.6f;
 
     /// <summary>
@@ -43,14 +64,13 @@ public class Equipment : Component
         ModelRenderer.BoneMergeTarget = Owner.IsValid() ? Owner.BodyRenderer : null;
     }
 
-    public void OnEquip( Pawn pawn )
+    public void Deploy()
     {
-        Owner = pawn;
         TimeSinceDeployed = 0f;
         Owner.BodyRenderer.Set( "b_deploy", true );
     }
 
-    public void OnHolster()
+    public void Holster()
     {
     }
 }
