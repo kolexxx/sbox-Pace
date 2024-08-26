@@ -1,0 +1,42 @@
+@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+    @foreach (var entry in Entries)
+    {
+        <div class="entry">
+            <div class="left">@entry.left</div>
+            <img class="method" src=@entry.weapon />
+            <div class="right">@entry.right</div>
+        </div>
+    }
+</root>
+
+@code
+{
+    public static KillFeed Instance { get; private set; }
+
+    public record Entry(string left, string weapon, string right, RealTimeSince timeSinceAdded);
+    List<Entry> Entries = new();
+
+    public KillFeed() => Instance = this;
+
+    public override void Tick()
+    {
+        if (Entries.RemoveAll(x => x.timeSinceAdded > 20f) > 0)
+        {
+            StateHasChanged();
+        }
+    }
+
+    public static void AddEntry(string left, string weapon, string right)
+    {
+        Instance.Entries.Add(new Entry(left, weapon, right, 0f));
+        Instance.StateHasChanged();
+    }
+}

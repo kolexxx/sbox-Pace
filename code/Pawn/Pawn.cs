@@ -136,6 +136,8 @@ public class Pawn : Component
 
 		Body.Enabled = false;
 		Collider.Enabled = false;
+
+		UI.KillFeed.AddEntry( "Don", "ui/equipment/m4_01.png", "Kolignjon" );
 	}
 
 	private void CalculateWishVelocity()

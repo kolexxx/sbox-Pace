@@ -64,6 +64,7 @@ public sealed class Equipment : Component
         ModelRenderer.BoneMergeTarget = Owner.IsValid() ? Owner.BodyRenderer : null;
     }
 
+    [Broadcast( NetPermission.OwnerOnly )]
     public void Deploy()
     {
         TimeSinceDeployed = 0f;

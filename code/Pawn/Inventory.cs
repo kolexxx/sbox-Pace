@@ -38,41 +38,7 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( IsProxy )
 			return;
 
-		var currentSlot = ActiveEquipment?.Slot ?? 1;
-
-		foreach ( var eq in Equipment )
-		{
-			if ( !eq.IsValid() )
-				continue;
-
-			var action = GetInputString( eq.Slot );
-
-			if ( Input.Pressed( action ) )
-			{
-				InputEquipment = eq;
-				currentSlot = eq.Slot;
-			}
-		}
-
-		if ( Input.MouseWheel == 0 )
-			return;
-
-		var incr = (int)Input.MouseWheel.y.Clamp( -1, 1 );
-
-		for ( var i = currentSlot + incr; i != currentSlot; i += incr )
-		{
-			if ( i < 0 )
-				i = Equipment.Count - 1;
-
-			if ( i >= Equipment.Count )
-				i = 0;
-
-			if ( !Equipment[i].IsValid() )
-				continue;
-
-			InputEquipment = Equipment[i];
-			break;
-		}
+		UpdateActive();
 	}
 
 	protected override void OnFixedUpdate()
@@ -137,6 +103,48 @@ public class Inventory : Component, Component.ITriggerListener
 
 			eq.GameObject.Destroy();
 			eq.Enabled = false;
+		}
+	}
+
+	/// <summary>
+	/// Update's the <see cref="ActiveEquipment"/> depending on input.
+	/// </summary>
+	private void UpdateActive()
+	{
+		var currentSlot = ActiveEquipment?.Slot ?? 1;
+
+		foreach ( var eq in Equipment )
+		{
+			if ( !eq.IsValid() )
+				continue;
+
+			var action = GetInputString( eq.Slot );
+
+			if ( Input.Pressed( action ) )
+			{
+				InputEquipment = eq;
+				currentSlot = eq.Slot;
+			}
+		}
+
+		if ( Input.MouseWheel == 0 )
+			return;
+
+		var incr = (int)Input.MouseWheel.y.Clamp( -1, 1 );
+
+		for ( var i = currentSlot + incr; i != currentSlot; i += incr )
+		{
+			if ( i < 0 )
+				i = Equipment.Count - 1;
+
+			if ( i >= Equipment.Count )
+				i = 0;
+
+			if ( !Equipment[i].IsValid() )
+				continue;
+
+			InputEquipment = Equipment[i];
+			break;
 		}
 	}
 
