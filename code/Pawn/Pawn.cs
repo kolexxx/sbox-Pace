@@ -79,7 +79,7 @@ public class Pawn : Component
 			return;
 
 		if ( Input.Pressed( "Crouch" ) )
-			Vitals.Health = 0f;
+			UI.KillFeed.AddEntry( "Don", "ui/equipment/m4_01.png", "Kolignjon" );
 
 		CalculateWishVelocity();
 

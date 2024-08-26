@@ -49,6 +49,9 @@ public sealed class HitscanBullet : Component
 
     private bool CanShoot()
     {
+        if ( Equipment.Owner.IsFrozen )
+            return false;
+
         if ( FireMode == FireMode.Semi && !Input.Pressed( "Attack1" ) )
             return false;
         else if ( FireMode != FireMode.Semi && !Input.Down( "Attack1" ) )

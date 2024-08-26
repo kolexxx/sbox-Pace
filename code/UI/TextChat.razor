@@ -1,6 +1,6 @@
-﻿@using Sandbox;
-﻿@using Sandbox.UI;
-@using System.Collections.Generic;
+﻿@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
 
 @namespace Pace.UI
 @attribute [StyleSheet]
@@ -11,6 +11,7 @@
 		@foreach (var entry in Entries)
 		{
 			<div class="entry">
+				<img class="circle" src="avatar:@entry.steamid">
 				<div class="author">@entry.author</div>
 				<div class="message">@entry.message</div>
 			</div>
@@ -26,7 +27,7 @@
 
 	TextEntry InputBox;
 
-	public record Entry(string author, string message, RealTimeSince timeSinceAdded);
+	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
 	List<Entry> Entries = new();
 
 	public TextChat()
@@ -62,11 +63,11 @@
 		if (string.IsNullOrWhiteSpace(text))
 			return;
 
-		AddText(Sandbox.Utility.Steam.PersonaName, text);
+		AddText(Sandbox.Utility.Steam.SteamId, Sandbox.Utility.Steam.PersonaName, text);
 	}
 
 	[Broadcast]
-	public static void AddText(string author, string message)
+	public static void AddText(ulong steamid, string author, string message)
 	{
 		message = message.Truncate(300);
 
@@ -75,7 +76,7 @@
 
 		Log.Info($"{author}: {message}");
 
-		Instance.Entries.Add(new Entry(author, message, 0.0f));
+		Instance.Entries.Add(new Entry(steamid, author, message, 0.0f));
 		Instance.StateHasChanged();
 	}
 }
