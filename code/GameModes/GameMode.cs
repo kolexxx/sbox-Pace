@@ -25,7 +25,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// Our current <see cref="GameState"> game state</see>.
 	/// </summary>
-	[Property, ReadOnly, HostSync] public GameState State { get; protected set; }
+	[Property, ReadOnly, HostSync, Change] public GameState State { get; protected set; }
 
 	/// <summary>
 	/// The time until we change our game state.
@@ -68,30 +68,12 @@ public abstract class GameMode : Component, Component.INetworkListener
 		Current = this;
 	}
 
-	protected override void OnFixedUpdate()
-	{
-		if ( !Networking.IsHost )
-			return;
-
-		foreach ( var player in Players )
-		{
-			if ( player.IsAlive )
-				continue;
-
-			if ( player.TimeSinceDeath >= 5f )
-				player.Respawn();
-		}
-	}
-
 	/// <summary>
 	/// Called on the host when someone successfully joins the server (including the local player)
 	/// </summary>
 	public void OnActive( Connection connection )
 	{
-		Log.Info( $"Player '{connection.DisplayName}' has joined the game" );
-
-		if ( PlayerPrefab is null )
-			return;
+		UI.TextChat.AddInfo( $"{connection.DisplayName} has joined" );
 
 		// Spawn this object and make the client the owner
 		var player = PlayerPrefab.Clone( global::Transform.Zero, name: $"Player - {connection.DisplayName}" );
@@ -99,6 +81,16 @@ public abstract class GameMode : Component, Component.INetworkListener
 
 		Players.Add( player.Components.Get<Pawn>() );
 		MoveToSpawnpoint( Players.Last() );
+		VerifyEnoughPlayers();
+	}
+
+
+	public void OnDisconnected( Connection connection )
+	{
+		Players.RemoveAll( x => x.Network.OwnerConnection == connection );
+		VerifyEnoughPlayers();
+
+		UI.TextChat.AddInfo( $"{connection.DisplayName} has left the game" );
 	}
 
 	public virtual void OnRespawn( Pawn pawn )
@@ -130,6 +122,12 @@ public abstract class GameMode : Component, Component.INetworkListener
 			if ( Players.Count < 2 )
 				SetState( GameState.WaitingForPlayers );
 		}
+	}
+
+	protected void RespawnAllPlayers()
+	{
+		foreach ( var pawn in Players )
+			pawn.Respawn();
 	}
 
 	protected void MoveToSpawnpoint( Pawn pawn )
