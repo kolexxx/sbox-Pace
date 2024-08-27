@@ -8,6 +8,7 @@ public sealed class Vitals : Component, Component.IDamageable
     [Property] public Pawn Player { get; private set; }
     [Property, ReadOnly, HostSync] public float Health { get; set; } = 100f;
     [Property, ReadOnly, HostSync] public float Armor { get; set; }
+    [Property] public SoundEvent DamageTakenSound { get; private set; }
     public DamageInfo LastDamage { get; private set; }
 
     public void OnDamage( in DamageInfo info )
@@ -56,5 +57,7 @@ public sealed class Vitals : Component, Component.IDamageable
             Damage = damage,
             Position = position
         };
+
+        Sound.Play( DamageTakenSound, position );
     }
 }
