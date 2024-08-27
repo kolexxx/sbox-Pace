@@ -11,6 +11,11 @@ public class Inventory : Component, Component.ITriggerListener
 	[Property] public Pawn Pawn { get; private set; }
 
 	/// <summary>
+	/// A sound that will be played when we pick up a weapon.
+	/// </summary>
+	[Property] public SoundEvent PickupSound { get; private set; }
+
+	/// <summary>
 	/// The equipment we have currently equiped.
 	/// </summary>
 	[Sync] public Equipment ActiveEquipment { get; private set; }
@@ -163,13 +168,25 @@ public class Inventory : Component, Component.ITriggerListener
 			return;
 
 		if ( Add( eq ) )
+		{
+			PickupEffects();
+			return;
+		}
+
+		if ( !Equipment[eq.Slot].Components.TryGet<Magazine>( out var ammo ) )
 			return;
 
-		if ( !Equipment[eq.Slot].Components.TryGet<Magazine>( out var magazine ) || magazine.IsReserveFull )
+		if ( ammo.IsReserveFull )
 			return;
 
 		pickup.Delete();
-		magazine.RefillReserve();
+		ammo.RefillReserve();
+	}
+
+	[Authority]
+	private void PickupEffects()
+	{
+		Sound.Play( PickupSound );
 	}
 
 	public static string GetInputString( int slot )

@@ -90,12 +90,14 @@
           "component_id": "6af42084-e4b4-4618-8f29-3274c45f8fbd",
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "Pawn"
-        }
+        },
+        "PickupSound": "sounds/pickup_weapon.sound"
       },
       {
         "__type": "Pace.Vitals",
         "__guid": "20931141-55ea-41c4-82a0-c2ebe885522b",
         "Armor": 0,
+        "DamageTakenSound": "sounds/damage_taken.sound",
         "Health": 100,
         "Player": {
           "_type": "component",

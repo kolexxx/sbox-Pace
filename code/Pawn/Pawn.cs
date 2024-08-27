@@ -131,13 +131,12 @@ public class Pawn : Component
 		{
 			TimeSinceDeath = 0f;
 			Inventory.Clear();
-			GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
 		}
 
 		Body.Enabled = false;
 		Collider.Enabled = false;
 
-		UI.KillFeed.AddEntry( "Don", "ui/equipment/m4_01.png", "Kolignjon" );
+		GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
 	}
 
 	private void CalculateWishVelocity()
@@ -236,7 +235,7 @@ public class Pawn : Component
 		var position = AimRay.Position;
 		var offset = (MousePosition - position) / 2f;
 
-		camera.FieldOfView = Screen.CreateVerticalFieldOfView( 60f );
+		camera.FieldOfView = Screen.CreateVerticalFieldOfView( 70f );
 		camera.Transform.Rotation = (-Settings.Plane.Normal).EulerAngles;
 		camera.Transform.Position = position + offset.ClampLength( 150f ) + Settings.Plane.Normal * 400f;
 	}
@@ -260,7 +259,7 @@ public class Pawn : Component
 		AnimationHelper.WithWishVelocity( _wishVelocity );
 		AnimationHelper.WithVelocity( CharacterController.Velocity );
 		AnimationHelper.AimAngle = Head.Transform.Rotation;
-		AnimationHelper.IsGrounded = CharacterController.IsOnGround;
+		AnimationHelper.IsGrounded = CharacterController.IsOnGround || IsFrozen;
 		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
 		AnimationHelper.DuckLevel = 0f;

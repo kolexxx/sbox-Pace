@@ -11,9 +11,17 @@
 		@foreach (var entry in Entries)
 		{
 			<div class="entry">
-				<img class="circle" src="avatar:@entry.steamid">
-				<div class="author">@entry.author</div>
-				<div class="message">@entry.message</div>
+				@if (entry.steamid != default)
+				{
+					<div style="flex-shrink: 0;">
+						<img class="circle" src="avatar:@entry.steamid" />
+						<label class="name" style="color: @Color.White.Hex;">@entry.author</label>
+					</div>
+				}
+				@if (!string.IsNullOrEmpty(@entry.message))
+				{
+					<label class="message">@entry.message</label>
+				}
 			</div>
 		}
 	</div>
@@ -77,6 +85,20 @@
 		Log.Info($"{author}: {message}");
 
 		Instance.Entries.Add(new Entry(steamid, author, message, 0.0f));
+		Instance.StateHasChanged();
+	}
+
+	[Broadcast]
+	public static void AddInfo(string message)
+	{
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info(message);
+
+		Instance.Entries.Add(new Entry(default, null, message, 0.0f));
 		Instance.StateHasChanged();
 	}
 }

@@ -31,18 +31,20 @@
                 margin-right: 3px;
             }
 
-            .author
+            .name
             {
                 font-weight: 700;
+            }
+
+            label
+            {
+                margin-right: 4px;
                 font-size: 16px;
                 margin-top: 3px;
-                margin-right: 4px;
             }
 
             .message
             {
-                font-size: 16px;
-                margin-top: 3px;
                 flex-shrink: 0;
             }
 
