@@ -80,7 +80,8 @@ public abstract class GameMode : Component, Component.INetworkListener
 		player.NetworkSpawn( connection );
 
 		Players.Add( player.Components.Get<Pawn>() );
-		MoveToSpawnpoint( Players.Last() );
+		Players.Last().Respawn();
+
 		VerifyEnoughPlayers();
 	}
 
@@ -142,8 +143,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		if ( spawnpoint is null )
 			return;
 
-		var tx = spawnpoint.Transform.World;
-		pawn.Transform.World = tx;
+		pawn.Teleport( spawnpoint.Transform.Position );
 	}
 
 	private float GetSpawnpointWeight( Pawn pawn, GameObject spawnpoint )

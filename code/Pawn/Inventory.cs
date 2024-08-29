@@ -65,29 +65,32 @@ public class Inventory : Component, Component.ITriggerListener
 	/// <param name="eq">Equipment we want to add.</param>
 	/// <param name="makeActive">If true, equip if added.</param>
 	/// <returns>True if we added equipment, false otherwise.</returns>
-	public bool Add( Equipment eq, bool makeActive = false )
+	public bool Add( EquipmentResource eq, bool makeActive = false )
 	{
 		Assert.True( Networking.IsHost );
 
 		if ( !CanAdd( eq ) )
 			return false;
 
-		eq.GameObject.SetParent( GameObject );
-		eq.Network.AssignOwnership( Network.OwnerConnection );
-		eq.Owner = Pawn;
-		Equipment[eq.Slot] = eq;
+		var go = eq.Prefab.Clone( new CloneConfig()
+		{
+			Parent = GameObject,
+			Transform = new Transform()
+		} );
+
+		go.NetworkSpawn( Network.OwnerConnection );
+
+		Equipment[eq.Slot] = go.Components.Get<Equipment>();
+		Equipment[eq.Slot].Owner = Pawn;
 
 		if ( makeActive )
-			InputEquipment = eq;
+			InputEquipment = Equipment[eq.Slot];
 
 		return true;
 	}
 
-	public bool CanAdd( Equipment eq )
+	public bool CanAdd( EquipmentResource eq )
 	{
-		if ( eq.Owner.IsValid() )
-			return false;
-
 		if ( Equipment[eq.Slot].IsValid() )
 			return false;
 
@@ -161,14 +164,11 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( !other.Components.TryGet<Pickup>( out var pickup ) )
 			return;
 
-		if ( !pickup.SpawnedObject.IsValid() )
-			return;
-
-		if ( !pickup.SpawnedObject.Components.TryGet<Equipment>( out var eq ) )
-			return;
+		var eq = pickup.EquipmentToSpawn;
 
 		if ( Add( eq ) )
 		{
+			pickup.OnPickedUp();
 			PickupEffects();
 			return;
 		}
@@ -179,7 +179,7 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( ammo.IsReserveFull )
 			return;
 
-		pickup.Delete();
+		pickup.OnPickedUp();
 		ammo.RefillReserve();
 	}
 

@@ -217,6 +217,7 @@
         {
           "__type": "Pace.Deathmatch",
           "__guid": "3edf8d22-abbc-4717-8d18-9a02d4a95287",
+          "DefaultWeapon": "prefabs/pistol.equip",
           "PlayerPrefab": {
             "_type": "gameobject",
             "prefab": "prefabs/player.prefab"
@@ -247,6 +248,7 @@
           "AutoScreenScale": true,
           "Opacity": 1,
           "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
           "ZIndex": 100
         },
         {
@@ -259,7 +261,7 @@
       "__guid": "b6dc50a3-6e8f-40cd-9ec5-77bc170b53f7",
       "Flags": 0,
       "Name": "Spawnpoint",
-      "Position": "0,-361.3162,0",
+      "Position": "0,-774.1182,0",
       "Enabled": true
     },
     {
@@ -274,6 +276,7 @@
       "Flags": 0,
       "Name": "Pickup",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "Sandbox.BoxCollider",
@@ -286,10 +289,7 @@
         {
           "__type": "Pace.Pickup",
           "__guid": "b55e2e8e-d93b-418d-b355-c9bb393de921",
-          "PrefabToSpawn": {
-            "_type": "gameobject",
-            "prefab": "prefabs/rifle.prefab"
-          },
+          "EquipmentToSpawn": "prefabs/rifle.equip",
           "RespawnTime": 10
         }
       ]
@@ -300,6 +300,7 @@
       "Name": "Pickup (1)",
       "Position": "0,160.1268,0",
       "Enabled": true,
+      "NetworkMode": 1,
       "Components": [
         {
           "__type": "Sandbox.BoxCollider",
@@ -312,10 +313,7 @@
         {
           "__type": "Pace.Pickup",
           "__guid": "408bdc7b-90fa-4144-aa73-cb23b9715249",
-          "PrefabToSpawn": {
-            "_type": "gameobject",
-            "prefab": "prefabs/pistol.prefab"
-          },
+          "EquipmentToSpawn": "prefabs/pistol.equip",
           "RespawnTime": 10
         }
       ]

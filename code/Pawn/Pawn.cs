@@ -113,13 +113,11 @@ public class Pawn : Component
 	{
 		if ( Networking.IsHost )
 		{
-			CharacterController.Velocity = Vector3.Zero;
 			Inventory.Clear();
 			Vitals.Health = 100f;
 			GameMode.Current?.OnRespawn( this );
 		}
 
-		Transform.ClearInterpolation();
 		Body.Enabled = true;
 		Collider.Enabled = true;
 	}
@@ -137,6 +135,19 @@ public class Pawn : Component
 		Collider.Enabled = false;
 
 		GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
+	}
+
+	[Authority( NetPermission.HostOnly )]
+	public void Teleport( Vector3 position )
+	{
+		Transform.World = new( position );
+		Transform.ClearInterpolation();
+
+		if ( CharacterController.IsValid() )
+		{
+			CharacterController.Velocity = Vector3.Zero;
+			CharacterController.IsOnGround = true;
+		}
 	}
 
 	private void CalculateWishVelocity()
@@ -165,7 +176,7 @@ public class Pawn : Component
 		var headPosition = Head.Transform.Position;
 
 		MousePosition = planeIntersection ?? headPosition;
-		AimRay = new( headPosition, (MousePosition - headPosition).Normal );
+		AimRay = new( headPosition, Vector3.Direction( headPosition, MousePosition ) );
 	}
 
 	private void Move()

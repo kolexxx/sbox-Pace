@@ -10,16 +10,16 @@
     @foreach (var entry in Entries)
     {
         <div class="entry">
-            <div class="left">@entry.left</div>
-            <img class="method" src=@entry.weapon />
-            <div class="right">@entry.right</div>
+            <div class=@IsMe(entry.left)>@entry.left</div>
+            <img src=@entry.weapon />
+            <div class=@IsMe(entry.right)>@entry.right</div>
         </div>
     }
 </root>
 
 @code
 {
-    public static KillFeed Instance { get; private set; }
+    private static KillFeed Instance { get; set; }
 
     public record Entry(string left, string weapon, string right, RealTimeSince timeSinceAdded);
     List<Entry> Entries = new();
@@ -38,5 +38,10 @@
     {
         Instance.Entries.Add(new Entry(left, weapon, right, 0f));
         Instance.StateHasChanged();
+    }
+
+    private string IsMe(string name)
+    {
+        return name == Connection.Local.DisplayName ? "me" : string.Empty;
     }
 }

@@ -9,7 +9,8 @@ namespace Pace;
 public class EquipmentResource : GameResource
 {
     public string Name { get; set; }
-    public string Icon { get; set; }
-    public GameObject Prefab { get; set; }
+    [ImageAssetPath] public string Icon { get; set; }
     public Model Model { get; set; }
+    public int Slot { get; set; }
+    public GameObject Prefab { get; set; }
 }

@@ -3,12 +3,14 @@ using System;
 
 namespace Pace;
 
-public sealed class Pickup : Component
+public class Pickup : Component
 {
     /// <summary>
     /// The prefab we want to spawn after some time.
     /// </summary>
-    [Property] public GameObject PrefabToSpawn { get; private set; }
+    [Property] public EquipmentResource EquipmentToSpawn { get; private set; }
+
+    [RequireComponent] public BoxCollider Collider { get; private set; }
 
     /// <summary>
     /// The time it takes for our item to respawn.
@@ -20,45 +22,36 @@ public sealed class Pickup : Component
 	/// </summary>
 	[HostSync] public TimeUntil TimeUntilRespawn { get; set; } = 0f;
 
-    /// <summary>
-    /// A reference to our item once spawned.
-    /// </summary>
-    [Property, ReadOnly, HostSync] public GameObject SpawnedObject { get; private set; }
+    protected SceneObject Preview { get; set; }
+
+    protected override void OnStart()
+    {
+        Preview = new
+        (
+            Game.ActiveScene.SceneWorld,
+            EquipmentToSpawn.Model,
+            new Transform( Transform.Position, Transform.Rotation, 1.2f )
+        );
+    }
 
     protected override void OnFixedUpdate()
     {
-        if ( !Networking.IsHost )
-            return;
-
-        if ( SpawnedObject.IsValid() && SpawnedObject.Parent != GameObject )
-        {
-            SpawnedObject = null;
-            TimeUntilRespawn = RespawnTime;
-        }
-
-        if ( SpawnedObject.IsValid() )
-        {
-            SpawnedObject.Transform.LocalPosition = (MathF.Sin( Time.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
-            SpawnedObject.Transform.LocalRotation = Rotation.FromAxis( Vector3.Up, Time.Now * 100f );
-            return;
-        }
-
-        if ( !TimeUntilRespawn )
-            return;
-
-        SpawnedObject = PrefabToSpawn.Clone( new CloneConfig
-        {
-            Parent = GameObject,
-            StartEnabled = true,
-            Transform = new Transform()
-        } );
-
-        SpawnedObject.NetworkSpawn();
+        Collider.Enabled = TimeUntilRespawn;
     }
 
-    public void Delete()
+    protected override void OnPreRender()
     {
-        SpawnedObject.Destroy();
+        Preview.RenderingEnabled = TimeUntilRespawn;
+
+        if ( !Preview.RenderingEnabled )
+            return;
+
+        Preview.Position = Transform.Position + (MathF.Sin( Time.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
+        Preview.Rotation = Rotation.FromAxis( Vector3.Up, Time.Now * 100f );
+    }
+
+    public void OnPickedUp()
+    {
         TimeUntilRespawn = RespawnTime;
     }
 }

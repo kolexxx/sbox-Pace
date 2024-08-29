@@ -28,7 +28,9 @@
           "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "SkinnedModelRenderer"
         },
-        "Slot": 1
+        "Name": "Rifle",
+        "Resource": "prefabs/rifle.equip",
+        "Slot": 0
       },
       {
         "__type": "Pace.HitscanBullet",

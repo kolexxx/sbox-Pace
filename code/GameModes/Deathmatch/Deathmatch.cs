@@ -4,6 +4,8 @@ namespace Pace;
 
 public sealed class Deathmatch : GameMode
 {
+    [Property] public EquipmentResource DefaultWeapon { get; private set; }
+
     protected override void OnFixedUpdate()
     {
         if ( !Networking.IsHost )
@@ -33,6 +35,13 @@ public sealed class Deathmatch : GameMode
         }
     }
 
+    public override void OnRespawn( Pawn pawn )
+    {
+        pawn.Inventory.Add( DefaultWeapon, true );
+
+        base.OnRespawn( pawn );
+    }
+
     public override void OnKill( Pawn attacker, Pawn victim )
     {
         if ( State == GameState.Playing )
@@ -58,6 +67,10 @@ public sealed class Deathmatch : GameMode
             case GameState.WaitingForPlayers:
             {
                 VerifyEnoughPlayers();
+
+                if ( State == after )
+                    RespawnAllPlayers();
+
                 break;
             }
             case GameState.Countdown:
@@ -69,7 +82,7 @@ public sealed class Deathmatch : GameMode
             }
             case GameState.Playing:
             {
-                TimeUntilNextState = 10f;
+                TimeUntilNextState = 180f;
                 break;
             }
             case GameState.GameOver:

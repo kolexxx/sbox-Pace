@@ -8,10 +8,17 @@ namespace Pace;
 /// </summary>
 public sealed class Equipment : Component
 {
+    [Property] public EquipmentResource Resource { get; private set; }
+
+    /// <summary>
+    /// A name that will be used in UI elements.
+    /// </summary>
+    [Property, ReadOnly] public string Name => Resource.Name;
+
     /// <summary>
     /// An image that will be used in UI elements.
     /// </summary>
-    [Property, ImageAssetPath] public string Icon { get; private set; }
+    [Property, ReadOnly, ImageAssetPath] public string Icon => Resource.Icon;
 
     /// <summary>
     /// A reference to our model renderer.
@@ -31,7 +38,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// What inventory slot does this equipment occupy?
     /// </summary>
-    [Property, Group( "Stats" )] public int Slot { get; private set; } = 0;
+    [Property, ReadOnly, Group( "Stats" )] public int Slot => Resource.Slot;
 
     /// <summary>
     /// How long does it take to deploy this equipment?
