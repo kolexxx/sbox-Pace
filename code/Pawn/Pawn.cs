@@ -1,6 +1,5 @@
 using Sandbox;
 using Sandbox.Citizen;
-using Sandbox.Diagnostics;
 using System.Linq;
 
 namespace Pace;
@@ -23,13 +22,11 @@ public class Pawn : Component
 	private static Pawn _local;
 
 	[Property] public GameObject Head { get; private set; }
-	[Property] public GameObject Body { get; private set; }
-	[Property, Group( "Components" )] public CapsuleCollider Collider { get; private set; }
 	[Property, Group( "Components" )] public CharacterController CharacterController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
-	[Property, Group( "Components" )] public SkinnedModelRenderer BodyRenderer { get; private set; }
 	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
 	[Property, Group( "Components" )] public Vitals Vitals { get; private set; }
+	[Property, Group( "Components" )] public PawnBody Body { get; private set; }
 	[Property] public float MoveSpeed { get; private set; } = 200f;
 	[Property] public float Friction { get; private set; } = 0.4f;
 
@@ -78,9 +75,6 @@ public class Pawn : Component
 		if ( IsProxy || IsFrozen )
 			return;
 
-		if ( Input.Pressed( "Crouch" ) )
-			UI.KillFeed.AddEntry( "Don", "ui/equipment/m4_01.png", "Kolignjon" );
-
 		CalculateWishVelocity();
 
 		if ( Input.Pressed( "Jump" ) )
@@ -118,8 +112,7 @@ public class Pawn : Component
 			GameMode.Current?.OnRespawn( this );
 		}
 
-		Body.Enabled = true;
-		Collider.Enabled = true;
+		Body.SetRagdoll( false );
 	}
 
 	[Broadcast( NetPermission.HostOnly )]
@@ -131,8 +124,7 @@ public class Pawn : Component
 			Inventory.Clear();
 		}
 
-		Body.Enabled = false;
-		Collider.Enabled = false;
+		Body.SetRagdoll( true );
 
 		GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
 	}

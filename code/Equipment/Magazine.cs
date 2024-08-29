@@ -75,7 +75,7 @@ public class Magazine : Component
             IsReloading = true;
         }
 
-        Equipment.Owner.BodyRenderer.Set( "b_reload", true );
+        Equipment.Owner.Body.Renderer.Set( "b_reload", true );
     }
 
     protected bool CanReload()
@@ -102,7 +102,7 @@ public class Magazine : Component
     protected void CancelReload()
     {
         IsReloading = false;
-        Equipment.Owner.BodyRenderer.Set( "b_reload", false );
+        Equipment.Owner.Body.Renderer.Set( "b_reload", false );
     }
 
     [Authority( NetPermission.HostOnly )]

@@ -16,8 +16,10 @@
           "component_type": "CitizenAnimationHelper"
         },
         "Body": {
-          "_type": "gameobject",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d"
+          "_type": "component",
+          "component_id": "3172caad-75b6-438a-b872-171e3ef09a54",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "PawnBody"
         },
         "BodyRenderer": {
           "_type": "component",
@@ -30,12 +32,6 @@
           "component_id": "75f5135c-07ed-4c76-8b73-0feec390a9e7",
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "CharacterController"
-        },
-        "Collider": {
-          "_type": "component",
-          "component_id": "f1b8efdc-676e-4dd2-b70b-d4f0447c895e",
-          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
-          "component_type": "CapsuleCollider"
         },
         "Friction": 4,
         "Head": {
@@ -164,6 +160,34 @@
               "component_type": "SkinnedModelRenderer"
             },
             "RigidbodyFlags": "DisableCollisionSounds"
+          },
+          {
+            "__type": "Pace.PawnBody",
+            "__guid": "3172caad-75b6-438a-b872-171e3ef09a54",
+            "Collider": {
+              "_type": "component",
+              "component_id": "f1b8efdc-676e-4dd2-b70b-d4f0447c895e",
+              "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+              "component_type": "CapsuleCollider"
+            },
+            "InfoPlate": {
+              "_type": "component",
+              "component_id": "ddae25c4-6a08-4e40-a400-f8d8cf474fd8",
+              "go": "3da18d17-7272-47ea-8036-afcd542a4ece",
+              "component_type": "InfoPlate"
+            },
+            "Physics": {
+              "_type": "component",
+              "component_id": "bf6e4f8b-e072-402f-9344-b76bc3962ad5",
+              "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+              "component_type": "ModelPhysics"
+            },
+            "Renderer": {
+              "_type": "component",
+              "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+              "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+              "component_type": "SkinnedModelRenderer"
+            }
           }
         ],
         "Children": [

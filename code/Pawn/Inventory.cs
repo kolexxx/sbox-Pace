@@ -30,6 +30,11 @@ public class Inventory : Component, Component.ITriggerListener
 	/// </summary>
 	[HostSync] public NetList<Equipment> Equipment { get; private set; } = new();
 
+	/// <summary>
+	/// A shorthand to our equipment list indexer.
+	/// </summary>
+	/// <param name="i">The slot number.</param>
+	/// <returns>The equipment at the specified slot.</returns>
 	public Equipment this[int i] => Equipment[i];
 
 	protected override void OnAwake()
@@ -74,8 +79,9 @@ public class Inventory : Component, Component.ITriggerListener
 
 		var go = eq.Prefab.Clone( new CloneConfig()
 		{
+			Name = eq.Name,
 			Parent = GameObject,
-			Transform = new Transform()
+			Transform = new Transform(),
 		} );
 
 		go.NetworkSpawn( Network.OwnerConnection );

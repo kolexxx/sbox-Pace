@@ -23,7 +23,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// A reference to our model renderer.
     /// </summary>
-    [Property, Group( "Components" )] public SkinnedModelRenderer ModelRenderer { get; private set; }
+    [Property, Group( "Components" )] public SkinnedModelRenderer Renderer { get; private set; }
 
     /// <summary>
     /// How are we holding this equipment?
@@ -67,15 +67,15 @@ public sealed class Equipment : Component
 
     protected override void OnUpdate()
     {
-        ModelRenderer.Enabled = !Owner.IsValid() || IsActive;
-        ModelRenderer.BoneMergeTarget = Owner.IsValid() ? Owner.BodyRenderer : null;
+        Renderer.Enabled = !Owner.IsValid() || IsActive;
+        Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.Body.Renderer : null;
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
     public void Deploy()
     {
         TimeSinceDeployed = 0f;
-        Owner.BodyRenderer.Set( "b_deploy", true );
+        Owner.Body.Renderer.Set( "b_deploy", true );
     }
 
     public void Holster()

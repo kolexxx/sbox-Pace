@@ -3,7 +3,6 @@
     "__guid": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
     "Flags": 0,
     "Name": "pistol",
-    "Position": "2.129251,-2.108654,-0.7225019",
     "Enabled": true,
     "Components": [
       {
@@ -23,15 +22,15 @@
         "Handedness": "Both",
         "HoldType": "Pistol",
         "Icon": "ui/equipment/usp_01.png",
-        "ModelRenderer": {
+        "Name": "Pistol",
+        "Renderer": {
           "_type": "component",
           "component_id": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
           "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
           "component_type": "SkinnedModelRenderer"
         },
-        "Name": "Pistol",
         "Resource": "prefabs/pistol.equip",
-        "Slot": 0
+        "Slot": 1
       },
       {
         "__type": "Pace.HitscanBullet",

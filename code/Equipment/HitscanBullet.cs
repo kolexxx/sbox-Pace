@@ -137,7 +137,7 @@ public sealed class HitscanBullet : Component
             } );
         }
 
-        Equipment.Owner.BodyRenderer.Set( "b_attack", true );
+        Equipment.Owner.Body.Renderer.Set( "b_attack", true );
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
