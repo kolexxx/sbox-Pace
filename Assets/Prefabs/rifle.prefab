@@ -52,7 +52,7 @@
         "FireMode": "Automatic",
         "FireRate": 10,
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
-        "Spread": 5,
+        "Spread": 10,
         "Tracer": "particles/tracer.vpcf"
       },
       {

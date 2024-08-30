@@ -1,0 +1,74 @@
+@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+    <label></label>
+    <label></label>
+    <label></label>
+    <label></label>
+</root>
+
+@code
+{
+    private RealTimeUntil _timeUntilUpdate = 0;
+
+    public override void Tick()
+    {
+        if (_timeUntilUpdate)
+            Update();
+    }
+
+    private void Update()
+    {
+        _timeUntilUpdate = 0.1f;
+        var players = new List<Pawn>(GameMode.Current.Players);
+
+        players.Sort(delegate (Pawn x, Pawn y)
+        {
+            return y.Stats.Kills.CompareTo(x.Stats.Kills);
+        });
+
+        var j = 0;
+        var place = 1;
+        var localInTop3 = false;
+        for (var i = 0; i < players.Count || j < 4; i++)
+        {
+            if (GetChild(j) is not Label label)
+                break;
+
+            if (j >= players.Count)
+            {
+                j++;
+                label.Text = string.Empty;
+                continue;
+            }
+
+            if (i > 0 && players[i - 1].Stats.Kills != players[i].Stats.Kills)
+                place++;
+
+            if (j == 3 && !localInTop3 && players[i] != Pawn.Local)
+                continue;
+
+            label.Text = GetFormatString(players[i], place);
+            label.SetClass("local", players[i] == Pawn.Local);
+            label.SetClass("first", place == 1);
+            label.SetClass("second", place == 2);
+            label.SetClass("third", place == 3);
+
+            if (players[i] == Pawn.Local)
+                localInTop3 = true;
+
+            j++;
+        }
+    }
+
+    private string GetFormatString(Pawn pawn, int place)
+    {
+        return $"{place}. {pawn.Network.OwnerConnection.DisplayName} - {pawn.Stats.Kills}";
+    }
+}

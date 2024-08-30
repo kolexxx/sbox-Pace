@@ -42,7 +42,7 @@
           "component_type": "Magazine"
         },
         "BulletsPerFire": 1,
-        "Damage": 20,
+        "Damage": 7.5,
         "Equipment": {
           "_type": "component",
           "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
@@ -52,7 +52,7 @@
         "FireMode": "Semi",
         "FireRate": 6,
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
-        "Spread": 10,
+        "Spread": 5,
         "Tracer": "particles/tracer.vpcf"
       },
       {

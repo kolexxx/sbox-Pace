@@ -12,3 +12,13 @@
 	<Crosshair />
 	<InventoryDisplay />
 </root>
+
+@code
+{
+	public static Panel RootPanel { get; private set; }
+
+	protected override void OnStart()
+	{
+		RootPanel = Panel;
+	}
+}

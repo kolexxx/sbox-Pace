@@ -207,36 +207,6 @@
       ]
     },
     {
-      "__guid": "24e198e1-e2fc-4da0-83dd-86920907acc3",
-      "Flags": 0,
-      "Name": "GameMode",
-      "Position": "-350.1393,-1.373613,-26.79759",
-      "Enabled": true,
-      "NetworkMode": 1,
-      "Components": [
-        {
-          "__type": "Pace.Deathmatch",
-          "__guid": "3edf8d22-abbc-4717-8d18-9a02d4a95287",
-          "DefaultWeapon": "prefabs/pistol.equip",
-          "PlayerPrefab": {
-            "_type": "gameobject",
-            "prefab": "prefabs/player.prefab"
-          },
-          "SpawnPoints": [
-            {
-              "_type": "gameobject",
-              "go": "1d7824d2-11c9-443b-8ebc-f5abc294550f"
-            },
-            {
-              "_type": "gameobject",
-              "go": "b6dc50a3-6e8f-40cd-9ec5-77bc170b53f7"
-            }
-          ],
-          "State": "WaitingForPlayers"
-        }
-      ]
-    },
-    {
       "__guid": "5d891dfe-442b-4adc-a1db-a40fa904e2dc",
       "Flags": 0,
       "Name": "HUD",
@@ -254,6 +224,36 @@
         {
           "__type": "Pace.UI.Hud",
           "__guid": "ce685430-b406-4dda-a046-247732667358"
+        }
+      ]
+    },
+    {
+      "__guid": "24e198e1-e2fc-4da0-83dd-86920907acc3",
+      "Flags": 0,
+      "Name": "GameMode",
+      "Position": "-350.1393,-1.373613,-26.79759",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.Deathmatch",
+          "__guid": "3cffc151-1a8c-4e52-8a77-3d24b7dec800",
+          "DefaultWeapon": "prefabs/pistol.equip",
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "SpawnPoints": [
+            {
+              "_type": "gameobject",
+              "go": "1d7824d2-11c9-443b-8ebc-f5abc294550f"
+            },
+            {
+              "_type": "gameobject",
+              "go": "b6dc50a3-6e8f-40cd-9ec5-77bc170b53f7"
+            }
+          ],
+          "State": "WaitingForPlayers"
         }
       ]
     },

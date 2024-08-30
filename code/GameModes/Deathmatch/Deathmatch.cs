@@ -6,6 +6,11 @@ public sealed class Deathmatch : GameMode
 {
     [Property] public EquipmentResource DefaultWeapon { get; private set; }
 
+    protected override void OnStart()
+    {
+        UI.Hud.RootPanel.AddChild<UI.Leaderboard>();
+    }
+
     protected override void OnFixedUpdate()
     {
         if ( !Networking.IsHost )
@@ -44,10 +49,10 @@ public sealed class Deathmatch : GameMode
 
     public override void OnKill( Pawn attacker, Pawn victim )
     {
-        if ( State == GameState.Playing )
-        {
-            UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
-        }
+        if ( State != GameState.Playing )
+            return;
+
+        UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
 
         if ( !Networking.IsHost )
             return;
