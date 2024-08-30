@@ -46,12 +46,16 @@ public sealed class Deathmatch : GameMode
     {
         if ( State == GameState.Playing )
         {
-            UI.KillFeed.AddEntry
-            (
-                attacker.Network.OwnerConnection.DisplayName,
-                attacker.Inventory.ActiveEquipment.Icon,
-                victim.Network.OwnerConnection.DisplayName );
+            UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
         }
+
+        if ( !Networking.IsHost )
+            return;
+
+        if ( attacker != victim )
+            attacker.Stats.Kills++;
+
+        victim.Stats.Deaths++;
     }
 
     protected override void OnStateChanged( GameState before, GameState after )

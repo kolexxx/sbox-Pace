@@ -15,7 +15,7 @@
 
 @code
 {
-	[Property] public Vitals Vitals { get; private set; }
+	[Property] public HealthComponent HealthComponent { get; private set; }
 	public Panel HealthBar { get; set; }
 
 	protected override void OnUpdate()
@@ -25,7 +25,7 @@
 		if (HealthBar is null)
 			return;
 
-		var health = Vitals.Health;
+		var health = HealthComponent.Health;
 
 		HealthBar.Style.Width = Length.Fraction(health / 100f);
 

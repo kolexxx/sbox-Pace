@@ -25,7 +25,8 @@ public class Pawn : Component
 	[Property, Group( "Components" )] public CharacterController CharacterController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
 	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
-	[Property, Group( "Components" )] public Vitals Vitals { get; private set; }
+	[Property, Group( "Components" )] public HealthComponent HealthComponent { get; private set; }
+	[Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
 	[Property, Group( "Components" )] public PawnBody Body { get; private set; }
 	[Property] public float MoveSpeed { get; private set; } = 200f;
 	[Property] public float Friction { get; private set; } = 0.4f;
@@ -48,7 +49,7 @@ public class Pawn : Component
 	/// <summary>
 	/// Whether or not this pawn is alive.
 	/// </summary>
-	public bool IsAlive => Vitals.Health > 0;
+	public bool IsAlive => HealthComponent.Health > 0;
 
 	/// <summary>
 	/// If true, we're not allowed to move.
@@ -108,7 +109,7 @@ public class Pawn : Component
 		if ( Networking.IsHost )
 		{
 			Inventory.Clear();
-			Vitals.Health = 100f;
+			HealthComponent.Health = 100f;
 			GameMode.Current?.OnRespawn( this );
 		}
 
@@ -125,8 +126,9 @@ public class Pawn : Component
 		}
 
 		Body.SetRagdoll( true );
+		Body.ApplyImpulses( HealthComponent.LastDamage.Position, HealthComponent.LastDamage.Force );
 
-		GameMode.Current?.OnKill( Vitals.LastDamage.Attacker.Components.Get<Pawn>(), this );
+		GameMode.Current?.OnKill( HealthComponent.LastDamage.Attacker, this );
 	}
 
 	[Authority( NetPermission.HostOnly )]

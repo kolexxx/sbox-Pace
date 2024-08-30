@@ -21,12 +21,6 @@
           "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
           "component_type": "PawnBody"
         },
-        "BodyRenderer": {
-          "_type": "component",
-          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
-          "component_type": "SkinnedModelRenderer"
-        },
         "CharacterController": {
           "_type": "component",
           "component_id": "75f5135c-07ed-4c76-8b73-0feec390a9e7",
@@ -38,6 +32,12 @@
           "_type": "gameobject",
           "go": "fdd9669b-882f-41f6-bca9-811d65b12664"
         },
+        "HealthComponent": {
+          "_type": "component",
+          "component_id": "a125e509-98f4-4899-92d5-1a8f44323967",
+          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_type": "HealthComponent"
+        },
         "Inventory": {
           "_type": "component",
           "component_id": "b4efc7f7-a477-423c-a682-b91bd02e4e0e",
@@ -45,11 +45,11 @@
           "component_type": "Inventory"
         },
         "MoveSpeed": 200,
-        "Vitals": {
+        "Stats": {
           "_type": "component",
-          "component_id": "20931141-55ea-41c4-82a0-c2ebe885522b",
+          "component_id": "fb24640f-4626-4ccf-a062-51c7ef2f1291",
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
-          "component_type": "Vitals"
+          "component_type": "StatsTracker"
         }
       },
       {
@@ -90,17 +90,24 @@
         "PickupSound": "sounds/pickup_weapon.sound"
       },
       {
-        "__type": "Pace.Vitals",
-        "__guid": "20931141-55ea-41c4-82a0-c2ebe885522b",
-        "Armor": 0,
+        "__type": "Pace.HealthComponent",
+        "__guid": "a125e509-98f4-4899-92d5-1a8f44323967",
         "DamageTakenSound": "sounds/damage_taken.sound",
         "Health": 100,
-        "Player": {
+        "Pawn": {
           "_type": "component",
           "component_id": "6af42084-e4b4-4618-8f29-3274c45f8fbd",
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "Pawn"
         }
+      },
+      {
+        "__type": "Pace.StatsTracker",
+        "__guid": "fb24640f-4626-4ccf-a062-51c7ef2f1291",
+        "Assists": 0,
+        "Captures": 0,
+        "Deaths": 0,
+        "Kills": 0
       },
       {
         "__type": "Sandbox.CapsuleCollider",
@@ -1042,11 +1049,11 @@
               {
                 "__type": "Pace.UI.InfoPlate",
                 "__guid": "ddae25c4-6a08-4e40-a400-f8d8cf474fd8",
-                "Vitals": {
+                "HealthComponent": {
                   "_type": "component",
-                  "component_id": "20931141-55ea-41c4-82a0-c2ebe885522b",
+                  "component_id": "a125e509-98f4-4899-92d5-1a8f44323967",
                   "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
-                  "component_type": "Vitals"
+                  "component_type": "HealthComponent"
                 }
               }
             ]

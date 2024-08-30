@@ -10,9 +10,9 @@
     @foreach (var entry in Entries)
     {
         <div class="entry">
-            <div class=@IsMe(entry.left)>@entry.left</div>
-            <img src=@entry.weapon />
-            <div class=@IsMe(entry.right)>@entry.right</div>
+            <div class=@IsMe(entry.Attacker)>@entry.Attacker.Network.OwnerConnection.DisplayName</div>
+            <img src=@entry.Weapon.Icon />
+            <div class=@IsMe(entry.Victim)>@entry.Victim.Network.OwnerConnection.DisplayName</div>
         </div>
     }
 </root>
@@ -21,27 +21,26 @@
 {
     private static KillFeed Instance { get; set; }
 
-    public record Entry(string left, string weapon, string right, RealTimeSince timeSinceAdded);
-    List<Entry> Entries = new();
+    List<Pace.DamageInfo> Entries = new();
 
     public KillFeed() => Instance = this;
 
     public override void Tick()
     {
-        if (Entries.RemoveAll(x => x.timeSinceAdded > 20f) > 0)
+        if (Entries.RemoveAll(x => x.TimeSince > 20f) > 0)
         {
             StateHasChanged();
         }
     }
 
-    public static void AddEntry(string left, string weapon, string right)
+    public static void AddEntry(Pace.DamageInfo info)
     {
-        Instance.Entries.Add(new Entry(left, weapon, right, 0f));
+        Instance.Entries.Add(info);
         Instance.StateHasChanged();
     }
 
-    private string IsMe(string name)
+    private string IsMe(Pawn pawn)
     {
-        return name == Connection.Local.DisplayName ? "me" : string.Empty;
+        return pawn == Pawn.Local ? "local" : string.Empty;
     }
 }

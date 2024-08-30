@@ -89,15 +89,19 @@ public sealed class HitscanBullet : Component
             if ( tr.GameObject is null )
                 continue;
 
-            var damage = new DamageInfo( Damage, GameObject.Parent, GameObject, tr.Hitbox )
+            var damage = new DamageInfo
             {
+                Attacker = Equipment.Owner,
+                Weapon = Equipment,
+                Damage = Damage,
+                Flags = DamageFlags.Bullet,
                 Position = tr.HitPosition,
-                Shape = tr.Shape,
+                Force = tr.Direction * Damage * 100
             };
 
-            foreach ( var damageable in tr.GameObject.Components.GetAll<IDamageable>() )
+            foreach ( var damageable in tr.GameObject.Components.GetAll<HealthComponent>() )
             {
-                damageable.OnDamage( damage );
+                damageable.TakeDamage( damage );
             }
         }
     }
