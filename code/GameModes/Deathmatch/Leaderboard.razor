@@ -19,6 +19,9 @@
 
     public override void Tick()
     {
+        if(!Pawn.Local.IsValid())
+            return;
+
         if (_timeUntilUpdate)
             Update();
     }

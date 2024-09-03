@@ -40,4 +40,9 @@
 		else
 			HealthBar.Style.BackgroundColor = Color.FromBytes(246, 6, 6);
 	}
+
+	protected override int BuildHash()
+	{
+		return Network.OwnerConnection.DisplayName.GetHashCode();
+	}
 }

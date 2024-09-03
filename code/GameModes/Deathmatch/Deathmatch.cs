@@ -6,11 +6,6 @@ public sealed class Deathmatch : GameMode
 {
     [Property] public EquipmentResource DefaultWeapon { get; private set; }
 
-    protected override void OnStart()
-    {
-        UI.Hud.RootPanel.AddChild<UI.Leaderboard>();
-    }
-
     protected override void OnFixedUpdate()
     {
         if ( !Networking.IsHost )

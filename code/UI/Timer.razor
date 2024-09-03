@@ -14,7 +14,7 @@
 }
 
 <root>
-	@gamemode.GetTimeLeftLabel()
+	@gamemode.TimerString
 </root>
 
 @code
@@ -23,6 +23,6 @@
 	{
 		var gamemode = GameMode.Current;
 
-		return HashCode.Combine(gamemode, gamemode.GetTimeLeftLabel());
+		return HashCode.Combine(gamemode, gamemode.TimerString);
 	}
 }

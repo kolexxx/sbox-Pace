@@ -115,7 +115,7 @@ public class Inventory : Component, Component.ITriggerListener
 			if ( !eq.IsValid() )
 				continue;
 
-			eq.GameObject.Destroy();
+			eq.GameObject.DestroyImmediate();
 			eq.Enabled = false;
 		}
 	}

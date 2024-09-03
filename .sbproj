@@ -6,7 +6,10 @@
   "Schema": 1,
   "IncludeSourceFiles": false,
   "Resources": "UI/*",
-  "PackageReferences": [],
+  "PackageReferences": [
+    "rust.rust_pistol",
+    "rust.rust_smg"
+  ],
   "EditorReferences": null,
   "IsWhitelistDisabled": false,
   "Metadata": {

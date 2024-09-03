@@ -46,11 +46,20 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// A list of all the players currently in-game.
 	/// </summary>
-	public List<Pawn> Players { get; private set; } = new();
+	[HostSync] public List<Pawn> Players { get; private set; } = new();
 
-	public virtual string GetTimeLeftLabel()
+	/// <summary>
+	/// Text that will be displayed in the HUD's timer.
+	/// </summary>
+	public string TimerString
 	{
-		return State == GameState.WaitingForPlayers ? "Waiting" : TimeSpan.FromSeconds( MathF.Max( 0, TimeUntilNextState.Relative.CeilToInt() ) ).ToString( @"mm\:ss" );
+		get
+		{
+			if(State is GameState.WaitingForPlayers)
+				return "Waiting";
+
+			return TimeSpan.FromSeconds( MathF.Max( 0, TimeUntilNextState.Relative.CeilToInt() ) ).ToString( @"mm\:ss" );
+		}
 	}
 
 	protected override async Task OnLoad()
