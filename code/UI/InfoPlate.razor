@@ -7,7 +7,7 @@
 @inherits PanelComponent
 
 <root>
-	@Network.OwnerConnection.DisplayName
+	<label>@Network.OwnerConnection.DisplayName</label>
 	<div class="health">
 		<div @ref=HealthBar class="health-inner"></div>
 	</div>
@@ -39,10 +39,5 @@
 			HealthBar.Style.BackgroundColor = Color.FromBytes(234, 129, 4);
 		else
 			HealthBar.Style.BackgroundColor = Color.FromBytes(246, 6, 6);
-	}
-
-	protected override int BuildHash()
-	{
-		return Network.OwnerConnection.DisplayName.GetHashCode();
 	}
 }
