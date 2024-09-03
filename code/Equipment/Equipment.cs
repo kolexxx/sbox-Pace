@@ -53,7 +53,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// Is this equipment currently equiped by the player?
     /// </summary>
-    public bool IsActive => Owner?.Inventory.ActiveEquipment == this;
+    public bool IsActive {get; private set;}
 
     /// <summary>
     /// How long since we equiped this weapon.
@@ -65,7 +65,7 @@ public sealed class Equipment : Component
     /// </summary>
     public bool IsDeployed => IsActive && TimeSinceDeployed > DeployTime;
 
-    protected override void OnUpdate()
+    protected override void OnFixedUpdate()
     {
         Renderer.Enabled = !Owner.IsValid() || IsActive;
         Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.Body.Renderer : null;
@@ -74,11 +74,22 @@ public sealed class Equipment : Component
     [Broadcast( NetPermission.OwnerOnly )]
     public void Deploy()
     {
+        IsActive = true;
         TimeSinceDeployed = 0f;
-        Owner.Body.Renderer.Set( "b_deploy", true );
+        Owner?.Body.Renderer.Set( "b_deploy", true );
     }
 
     public void Holster()
     {
+        IsActive = false;
+    }
+
+    /// <summary>
+    /// Called when added to a player's inventory.
+    /// </summary>
+    [Broadcast( NetPermission.HostOnly )]
+    public void CarryStart(Pawn owner)
+    {
+        Owner = owner;
     }
 }

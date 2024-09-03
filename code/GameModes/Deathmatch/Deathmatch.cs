@@ -73,7 +73,7 @@ public sealed class Deathmatch : GameMode
                 VerifyEnoughPlayers();
 
                 if ( State == after )
-                    RespawnAllPlayers();
+                    RoundReset();
 
                 break;
             }
@@ -81,7 +81,7 @@ public sealed class Deathmatch : GameMode
             {
                 TimeUntilNextState = 5f;
 
-                RespawnAllPlayers();
+                RoundReset();
                 break;
             }
             case GameState.Playing:

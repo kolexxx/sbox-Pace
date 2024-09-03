@@ -87,7 +87,7 @@ public class Inventory : Component, Component.ITriggerListener
 		go.NetworkSpawn( Network.OwnerConnection );
 
 		Equipment[eq.Slot] = go.Components.Get<Equipment>();
-		Equipment[eq.Slot].Owner = Pawn;
+		Equipment[eq.Slot].CarryStart(Pawn);
 
 		if ( makeActive )
 			InputEquipment = Equipment[eq.Slot];

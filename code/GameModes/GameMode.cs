@@ -134,10 +134,16 @@ public abstract class GameMode : Component, Component.INetworkListener
 		}
 	}
 
-	protected void RespawnAllPlayers()
+	/// <summary>
+	/// Called when we switch to countdown or waiting for players.
+	/// </summary>
+	protected void RoundReset()
 	{
 		foreach ( var pawn in Players )
+		{
 			pawn.Respawn();
+			pawn.Stats.Clear();
+		}
 	}
 
 	protected void MoveToSpawnpoint( Pawn pawn )
