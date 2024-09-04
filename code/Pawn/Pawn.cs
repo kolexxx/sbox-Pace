@@ -41,12 +41,12 @@ public sealed class Pawn : Component, IRespawnable
 
 	[Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
 	[Property, Group( "Game Objects" )] public GameObject Body {get; private set;}
-    [Property, Group( "Components" )] public PawnController PawnController { get; private set; }
+	[Property, Group( "Components" )] public PawnController PawnController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
-    [Property, Group( "Components" )] public Inventory Inventory { get; private set; }
+	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
 	[Property, Group( "Components" )] public HealthComponent HealthComponent { get; private set; }
-    [Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
-    [Property, Group( "Components" )] public PawnBody PawnBody { get; private set; }
+	[Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
+	[Property, Group( "Components" )] public PawnBody PawnBody { get; private set; }
 
 	/// <summary>
 	/// The LifeState of this pawn.
@@ -117,7 +117,7 @@ public sealed class Pawn : Component, IRespawnable
 			Inventory.Clear();	
 		}
 
-		GameMode.Current?.OnKill( damage );
+		GameMode.Current?.OnKill( damage.Attacker as Pawn, this );
 	}
 
 	protected override void OnUpdate()

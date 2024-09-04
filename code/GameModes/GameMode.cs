@@ -112,7 +112,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		MoveToSpawnpoint( pawn );
 	}
 
-	public virtual void OnKill( DamageInfo damage ) { }
+	public virtual void OnKill( Pawn attacker, Pawn victim ) { }
 
 	protected virtual void OnStateChanged( GameState before, GameState after ) { }
 
@@ -155,14 +155,29 @@ public abstract class GameMode : Component, Component.INetworkListener
 		if ( SpawnPoints is null || SpawnPoints.Count <= 0 )
 			return;
 
-		var spawnpoint = SpawnPoints
-			.OrderByDescending( x => GetSpawnpointWeight( pawn, x ) )
-			.FirstOrDefault();
+		var spawnpoint = GetBestSpawnpoint(pawn);
 
 		if ( spawnpoint is null )
 			return;
 
 		pawn.PawnController.Teleport( spawnpoint.Transform.Position );
+	}
+
+	private GameObject GetBestSpawnpoint( Pawn pawn )
+	{
+		// We want to find the closest player (worst weight)
+		var minDistance = 0f;
+		var best = default(GameObject);
+
+		foreach(var spawnpoint in SpawnPoints)
+		{
+			var distance = GetSpawnpointWeight(pawn, spawnpoint);
+			Log.Info(distance);
+			if(distance > minDistance)
+				best = spawnpoint;
+		}
+
+		return best;
 	}
 
 	private float GetSpawnpointWeight( Pawn pawn, GameObject spawnpoint )
@@ -174,7 +189,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		{
 			if ( player == pawn ) continue;
 			if ( !pawn.IsAlive ) continue;
-
+			
 			var spawnDist = (spawnpoint.Transform.Position - pawn.Transform.Position).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
