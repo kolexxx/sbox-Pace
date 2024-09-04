@@ -11,23 +11,14 @@
         "__guid": "6af42084-e4b4-4618-8f29-3274c45f8fbd",
         "AnimationHelper": {
           "_type": "component",
-          "component_id": "7fcff312-f91e-4b41-a2b3-6ec71b867846",
-          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_id": "b54981d4-9597-45c5-b0fd-6fe275ce0f65",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
           "component_type": "CitizenAnimationHelper"
         },
         "Body": {
-          "_type": "component",
-          "component_id": "3172caad-75b6-438a-b872-171e3ef09a54",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
-          "component_type": "PawnBody"
+          "_type": "gameobject",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d"
         },
-        "CharacterController": {
-          "_type": "component",
-          "component_id": "75f5135c-07ed-4c76-8b73-0feec390a9e7",
-          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
-          "component_type": "CharacterController"
-        },
-        "Friction": 4,
         "Head": {
           "_type": "gameobject",
           "go": "fdd9669b-882f-41f6-bca9-811d65b12664"
@@ -44,7 +35,18 @@
           "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
           "component_type": "Inventory"
         },
-        "MoveSpeed": 200,
+        "PawnBody": {
+          "_type": "component",
+          "component_id": "3172caad-75b6-438a-b872-171e3ef09a54",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "PawnBody"
+        },
+        "PawnController": {
+          "_type": "component",
+          "component_id": "402b7c9c-35bc-4f6e-a5a4-54a409a5271e",
+          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_type": "PawnController"
+        },
         "Stats": {
           "_type": "component",
           "component_id": "fb24640f-4626-4ccf-a062-51c7ef2f1291",
@@ -63,20 +65,6 @@
         "Radius": 7.5,
         "StepHeight": 18,
         "UseCollisionRules": false
-      },
-      {
-        "__type": "Sandbox.Citizen.CitizenAnimationHelper",
-        "__guid": "7fcff312-f91e-4b41-a2b3-6ec71b867846",
-        "BodyWeight": 1,
-        "EyesWeight": 1,
-        "HeadWeight": 1,
-        "LookAtEnabled": false,
-        "Target": {
-          "_type": "component",
-          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
-          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
-          "component_type": "SkinnedModelRenderer"
-        }
       },
       {
         "__type": "Pace.Inventory",
@@ -117,6 +105,24 @@
         "Radius": 7,
         "Start": "1.5,0,8",
         "Static": false
+      },
+      {
+        "__type": "Pace.PawnController",
+        "__guid": "402b7c9c-35bc-4f6e-a5a4-54a409a5271e",
+        "AnimationHelper": {
+          "_type": "component",
+          "component_id": "b54981d4-9597-45c5-b0fd-6fe275ce0f65",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "CitizenAnimationHelper"
+        },
+        "CharacterController": {
+          "_type": "component",
+          "component_id": "75f5135c-07ed-4c76-8b73-0feec390a9e7",
+          "go": "be34b6e2-6142-4d15-9ee6-daaa30621570",
+          "component_type": "CharacterController"
+        },
+        "Friction": 4,
+        "MoveSpeed": 200
       }
     ],
     "Children": [
@@ -190,6 +196,20 @@
               "component_type": "ModelPhysics"
             },
             "Renderer": {
+              "_type": "component",
+              "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+              "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+              "component_type": "SkinnedModelRenderer"
+            }
+          },
+          {
+            "__type": "Sandbox.Citizen.CitizenAnimationHelper",
+            "__guid": "b54981d4-9597-45c5-b0fd-6fe275ce0f65",
+            "BodyWeight": 1,
+            "EyesWeight": 1,
+            "HeadWeight": 1,
+            "LookAtEnabled": false,
+            "Target": {
               "_type": "component",
               "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
               "go": "200b90ba-0937-463b-8e93-62d7bc33571d",

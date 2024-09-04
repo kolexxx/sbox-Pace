@@ -42,20 +42,12 @@ public sealed class Deathmatch : GameMode
         base.OnRespawn( pawn );
     }
 
-    public override void OnKill( Pawn attacker, Pawn victim )
+    public override void OnKill( DamageInfo damage )
     {
         if ( State != GameState.Playing )
             return;
 
-        UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
-
-        if ( !Networking.IsHost )
-            return;
-
-        if ( attacker != victim )
-            attacker.Stats.Kills++;
-
-        victim.Stats.Deaths++;
+        UI.KillFeed.AddEntry( damage );
     }
 
     protected override void OnStateChanged( GameState before, GameState after )

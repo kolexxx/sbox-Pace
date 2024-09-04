@@ -4,9 +4,27 @@ using System.Linq;
 
 namespace Pace;
 
-public class Pawn : Component
+public enum LifeState
 {
-	/// <summary>
+	Alive,
+	Dead,
+	Respawning
+}
+
+/// <summary>
+/// A GameObject that can respawn and be killed.
+/// </summary>
+public interface IRespawnable 
+{
+	public LifeState LifeState {get;}
+
+    public void Respawn() {}
+    public void OnKilled() {}
+}
+
+public sealed class Pawn : Component, IRespawnable
+{
+    /// <summary>
 	/// A reference to the local pawn. Returns null if one does not exist (headless server or something).
 	/// </summary>
 	public static Pawn Local
@@ -21,67 +39,85 @@ public class Pawn : Component
 	}
 	private static Pawn _local;
 
-	[Property] public GameObject Head { get; private set; }
-	[Property, Group( "Components" )] public CharacterController CharacterController { get; private set; }
+	[Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
+	[Property, Group( "Game Objects" )] public GameObject Body {get; private set;}
+    [Property, Group( "Components" )] public PawnController PawnController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
-	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
+    [Property, Group( "Components" )] public Inventory Inventory { get; private set; }
 	[Property, Group( "Components" )] public HealthComponent HealthComponent { get; private set; }
-	[Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
-	[Property, Group( "Components" )] public PawnBody Body { get; private set; }
-	[Property] public float MoveSpeed { get; private set; } = 200f;
-	[Property] public float Friction { get; private set; } = 0.4f;
+    [Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
+    [Property, Group( "Components" )] public PawnBody PawnBody { get; private set; }
 
 	/// <summary>
+	/// The LifeState of this pawn.
+	/// </summary>
+	public LifeState LifeState { get; set; }
+
+    /// <summary>
 	/// How long has it been since we died?
 	/// </summary>
-	[HostSync] public TimeSince TimeSinceDeath { get; private set; }
+	public TimeSince TimeSinceDeath { get; private set; }
 
-	/// <summary>
-	/// The mouse position inside the world.
-	/// </summary>
-	[Sync] public Vector3 MousePosition { get; private set; }
+    /// <summary>
+    /// The position we last spawned at.
+    /// </summary>
+    public Vector3? SpawnPosition {get; set;}
 
-	/// <summary>
-	/// The direction and position from where we are aiming.
-	/// </summary>
-	public Ray AimRay { get; private set; }
-
-	/// <summary>
+    /// <summary>
 	/// Whether or not this pawn is alive.
 	/// </summary>
-	public bool IsAlive => HealthComponent.Health > 0;
+	public bool IsAlive => LifeState is LifeState.Alive;
 
 	/// <summary>
 	/// If true, we're not allowed to move.
 	/// </summary>
 	public bool IsFrozen => !IsAlive || GameMode.Current.State == GameState.Countdown;
 
-	private Vector3 _wishVelocity;
-	private bool _hasDoubleJumped;
+	/// <summary>
+	/// The mouse position inside the world.
+	/// </summary>
+	[Sync] private Vector3 MousePosition { get; set; }
 
-	protected override void OnStart()
+	/// <summary>
+	/// The direction and position from where we are aiming.
+	/// </summary>
+	public Ray AimRay {get; private set;}
+	
+    [Broadcast( NetPermission.HostOnly )]
+	public void Respawn()
 	{
-		if ( !IsProxy )
+		LifeState = LifeState.Alive;
+		PawnBody.SetRagdoll( false );
+
+		if ( Networking.IsHost )
 		{
-			GameObject.Clone( "templates/gameobject/camera.prefab", new CloneConfig
-			{
-				Parent = GameObject,
-				StartEnabled = true
-			} );
+			Inventory.Clear();
+			HealthComponent.Health = 100f;
+			GameMode.Current?.OnRespawn( this );
 		}
 	}
 
-	protected override void OnFixedUpdate()
+	[Broadcast( NetPermission.HostOnly )]
+	public void OnKilled()
 	{
-		if ( IsProxy || IsFrozen )
-			return;
+		var damage = HealthComponent.LastDamage;
 
-		CalculateWishVelocity();
+		LifeState = LifeState.Dead;
+		TimeSinceDeath = 0f;
 
-		if ( Input.Pressed( "Jump" ) )
-			Jump();
+		PawnBody.SetRagdoll( true );
+		PawnBody.ApplyImpulses( damage );
 
-		Move();
+		if ( Networking.IsHost )
+		{	
+			if(damage.Attacker is Pawn pawn && pawn != this)
+				pawn.Stats.Kills++;
+
+			Stats.Deaths++;
+			Inventory.Clear();	
+		}
+
+		GameMode.Current?.OnKill( damage );
 	}
 
 	protected override void OnUpdate()
@@ -95,67 +131,18 @@ public class Pawn : Component
 		Animate();
 	}
 
-	protected override void OnPreRender()
+	protected override void OnFixedUpdate()
 	{
-		if ( IsProxy )
+		if(IsProxy || IsFrozen)
 			return;
 
-		UpdateCamera();
+		PawnController.Move();
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
-	public void Respawn()
+	protected override void OnPreRender()
 	{
-		if ( Networking.IsHost )
-		{
-			Inventory.Clear();
-			HealthComponent.Health = 100f;
-			GameMode.Current?.OnRespawn( this );
-		}
-
-		Body.SetRagdoll( false );
-	}
-
-	[Broadcast( NetPermission.HostOnly )]
-	public void OnKilled()
-	{
-		if ( Networking.IsHost )
-		{
-			TimeSinceDeath = 0f;
-			Inventory.Clear();
-		}
-
-		Body.SetRagdoll( true );
-		Body.ApplyImpulses( HealthComponent.LastDamage.Position, HealthComponent.LastDamage.Force );
-
-		GameMode.Current?.OnKill( HealthComponent.LastDamage.Attacker, this );
-	}
-
-	[Authority( NetPermission.HostOnly )]
-	public void Teleport( Vector3 position )
-	{
-		Transform.World = new( position );
-		Transform.ClearInterpolation();
-
-		if ( CharacterController.IsValid() )
-		{
-			CharacterController.Velocity = Vector3.Zero;
-			CharacterController.IsOnGround = true;
-		}
-	}
-
-	private void CalculateWishVelocity()
-	{
-		_wishVelocity = Vector3.Zero;
-		var right = Vector3.Up.Cross( Settings.Plane.Normal );
-
-		if ( Input.Down( "Right" ) ) _wishVelocity += right;
-		if ( Input.Down( "Left" ) ) _wishVelocity -= right;
-
-		_wishVelocity = _wishVelocity.WithZ( 0 );
-
-		if ( !_wishVelocity.IsNearlyZero() )
-			_wishVelocity = _wishVelocity.Normal * MoveSpeed;
+		if(!IsProxy)
+			UpdateCamera();
 	}
 
 	private void MouseInput()
@@ -171,63 +158,6 @@ public class Pawn : Component
 
 		MousePosition = planeIntersection ?? headPosition;
 		AimRay = new( headPosition, Vector3.Direction( headPosition, MousePosition ) );
-	}
-
-	private void Move()
-	{
-		var halfGravity = Scene.PhysicsWorld.Gravity * Time.Delta * 0.5f;
-
-		if ( CharacterController.IsOnGround )
-		{
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
-			CharacterController.Accelerate( _wishVelocity );
-			CharacterController.ApplyFriction( Friction );
-		}
-		else
-		{
-			CharacterController.Velocity += halfGravity;
-			CharacterController.Accelerate( _wishVelocity.ClampLength( 200f ) );
-			CharacterController.ApplyFriction( Friction * 0.3f, 0 );
-		}
-
-		CharacterController.Move();
-
-		if ( CharacterController.IsOnGround )
-		{
-			_hasDoubleJumped = false;
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
-		}
-		else
-			CharacterController.Velocity += halfGravity;
-
-		Transform.Position = Settings.Plane.SnapToPlane( Transform.Position );
-	}
-
-	private void Jump()
-	{
-		if ( CharacterController.IsOnGround )
-		{
-			CharacterController.Punch( Vector3.Up * 500f );
-			AnimationHelper.TriggerJump();
-			return;
-		}
-
-		if ( _hasDoubleJumped )
-			return;
-
-		var dir = Vector3.Up;
-
-		if ( _wishVelocity.IsNearlyZero() )
-			CharacterController.Velocity = CharacterController.Velocity.WithZ( 0 );
-		else
-		{
-			CharacterController.Velocity = Vector3.Zero;
-			dir = (Vector3.Up + _wishVelocity.Normal).Normal;
-		}
-
-		CharacterController.Punch( dir * 600f );
-		AnimationHelper.TriggerJump();
-		_hasDoubleJumped = true;
 	}
 
 	private void UpdateCamera()
@@ -250,21 +180,19 @@ public class Pawn : Component
 		var targetAngles = Head.Transform.Rotation.Angles().WithPitch( 0 ).ToRotation();
 		var currAngles = Body.Transform.Rotation;
 
+		Transform.Rotation = targetAngles;
 		Head.Transform.Rotation = Rotation.LookAt( MousePosition - Head.Transform.Position );
 		Body.Transform.Rotation = Rotation.Lerp( currAngles, targetAngles, Time.Delta * 20f );
 	}
 
 	private void Animate()
 	{
-		if ( AnimationHelper is null )
-			return;
-
 		var equipment = Inventory.ActiveEquipment;
 
-		AnimationHelper.WithWishVelocity( _wishVelocity );
-		AnimationHelper.WithVelocity( CharacterController.Velocity );
+		AnimationHelper.WithWishVelocity( PawnController.WishVelocity );
+		AnimationHelper.WithVelocity( PawnController.Velocity );
 		AnimationHelper.AimAngle = Head.Transform.Rotation;
-		AnimationHelper.IsGrounded = CharacterController.IsOnGround || IsFrozen;
+		AnimationHelper.IsGrounded = PawnController.IsGrounded || IsFrozen;
 		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
 		AnimationHelper.DuckLevel = 0f;

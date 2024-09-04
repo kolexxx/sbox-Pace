@@ -3,7 +3,7 @@ using System;
 
 namespace Pace;
 
-public class Magazine : Component
+public class AmmoComponent : Component
 {
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
     [Property, Group( "Stats" )] public float ReloadTime { get; private set; } = 0.6f;
@@ -75,7 +75,7 @@ public class Magazine : Component
             IsReloading = true;
         }
 
-        Equipment.Owner.Body.Renderer.Set( "b_reload", true );
+        Equipment.Owner.PawnBody.Renderer.Set( "b_reload", true );
     }
 
     protected bool CanReload()
@@ -102,7 +102,7 @@ public class Magazine : Component
     protected void CancelReload()
     {
         IsReloading = false;
-        Equipment.Owner.Body.Renderer.Set( "b_reload", false );
+        Equipment.Owner.PawnBody.Renderer.Set( "b_reload", false );
     }
 
     [Authority( NetPermission.HostOnly )]

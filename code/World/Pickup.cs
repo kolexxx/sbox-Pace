@@ -3,7 +3,7 @@ using System;
 
 namespace Pace;
 
-public class Pickup : Component
+public class Pickup : Component, ICleanup
 {
     /// <summary>
     /// The prefab we want to spawn after some time.
@@ -32,6 +32,11 @@ public class Pickup : Component
             EquipmentToSpawn.Model,
             new Transform( Transform.Position, Transform.Rotation, 1.2f )
         );
+    }
+
+    public void OnCleanup ()
+    {
+        TimeUntilRespawn = 0f;
     }
 
     protected override void OnFixedUpdate()

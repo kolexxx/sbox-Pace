@@ -68,7 +68,7 @@ public sealed class Equipment : Component
     protected override void OnFixedUpdate()
     {
         Renderer.Enabled = !Owner.IsValid() || IsActive;
-        Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.Body.Renderer : null;
+        Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.PawnBody.Renderer : null;
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
@@ -76,7 +76,7 @@ public sealed class Equipment : Component
     {
         IsActive = true;
         TimeSinceDeployed = 0f;
-        Owner?.Body.Renderer.Set( "b_deploy", true );
+        Owner?.PawnBody.Renderer.Set( "b_deploy", true );
     }
 
     public void Holster()

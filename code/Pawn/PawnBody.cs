@@ -26,14 +26,14 @@ public class PawnBody : Component
         Transform.ClearInterpolation();
     }
 
-    public void ApplyImpulses( Vector3 position, Vector3 force )
+    public void ApplyImpulses( DamageInfo damageInfo )
     {
         if ( !Physics.IsValid() || !Physics.PhysicsGroup.IsValid() )
             return;
 
         foreach ( var body in Physics.PhysicsGroup.Bodies )
         {
-            body.ApplyImpulseAt( position, force );
+            body.ApplyImpulseAt( damageInfo.Position, damageInfo.Force );
         }
     }
 }

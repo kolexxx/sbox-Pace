@@ -35,10 +35,10 @@
 			return;
 		}
 
-		var magazine = inventory.ActiveEquipment.Components.Get<Magazine>();
+		var ammoComponent = inventory.ActiveEquipment.Components.Get<AmmoComponent>();
 
-		var ammo = magazine.AmmoInClip;
-		var reserve = magazine.ReserveAmmo;
+		var ammo = ammoComponent.AmmoInClip;
+		var reserve = ammoComponent.ReserveAmmo;
 
 		Label.Text = $"{ammo}/{reserve}";
 	}

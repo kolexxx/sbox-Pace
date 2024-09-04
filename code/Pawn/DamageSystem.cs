@@ -28,17 +28,17 @@ public record class DamageInfo
     /// <summary>
     /// Who dunnit?
     /// </summary>
-    public Pawn Attacker { get; set; }
+    public Component Attacker { get; set; }
 
     /// <summary>
     /// What caused the damage? Weapon?
     /// </summary>
-    public Equipment Weapon { get; set; }
+    public Component Weapon { get; set; }
 
     /// <summary>
     /// Who's the victim?
     /// </summary>
-    public Pawn Victim { get; set; }
+    public Component Victim { get; set; }
 
     /// <summary>
     /// How much damage?

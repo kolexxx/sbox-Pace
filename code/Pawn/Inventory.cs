@@ -179,7 +179,7 @@ public class Inventory : Component, Component.ITriggerListener
 			return;
 		}
 
-		if ( !Equipment[eq.Slot].Components.TryGet<Magazine>( out var ammo ) )
+		if ( !Equipment[eq.Slot].Components.TryGet<AmmoComponent>( out var ammo ) )
 			return;
 
 		if ( ammo.IsReserveFull )

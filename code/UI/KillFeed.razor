@@ -11,7 +11,10 @@
     {
         <div class="entry">
             <div class=@IsMe(entry.Attacker)>@entry.Attacker.Network.OwnerConnection.DisplayName</div>
-            <img src=@entry.Weapon.Icon />
+            @if(entry.Weapon is Equipment eq)
+            {
+                <img src=@eq.Icon />
+            }   
             <div class=@IsMe(entry.Victim)>@entry.Victim.Network.OwnerConnection.DisplayName</div>
         </div>
     }
@@ -19,7 +22,7 @@
 
 @code
 {
-    private static KillFeed Instance { get; set; }
+    public static KillFeed Instance { get; set; }
 
     List<Pace.DamageInfo> Entries = new();
 
@@ -39,8 +42,8 @@
         Instance.StateHasChanged();
     }
 
-    private string IsMe(Pawn pawn)
+    private string IsMe(Component component)
     {
-        return pawn == Pawn.Local ? "local" : string.Empty;
+        return component == Pawn.Local ? "local" : string.Empty;
     }
 }

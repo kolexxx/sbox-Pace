@@ -33,7 +33,7 @@ public sealed class HealthComponent : Component
     }
 
     [Broadcast]
-    private void RequestDamage( Pawn attacker, Equipment weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
+    private void RequestDamage( Component attacker, Component weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
     {
         var damageInfo = new DamageInfo
         {
@@ -49,7 +49,7 @@ public sealed class HealthComponent : Component
     }
 
     [Broadcast( NetPermission.HostOnly )]
-    private void BroadcastDamage( Pawn attacker, Equipment weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
+    private void BroadcastDamage( Component attacker, Component weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
     {
         LastDamage = new DamageInfo
         {

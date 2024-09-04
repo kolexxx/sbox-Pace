@@ -15,6 +15,11 @@ public enum GameState
 	GameOver
 }
 
+public interface ICleanup
+{
+	public void OnCleanup();
+}
+
 public abstract class GameMode : Component, Component.INetworkListener
 {
 	/// <summary>
@@ -94,7 +99,6 @@ public abstract class GameMode : Component, Component.INetworkListener
 		VerifyEnoughPlayers();
 	}
 
-
 	public void OnDisconnected( Connection connection )
 	{
 		Players.RemoveAll( x => x.Network.OwnerConnection == connection );
@@ -108,7 +112,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		MoveToSpawnpoint( pawn );
 	}
 
-	public virtual void OnKill( Pawn attacker, Pawn victim ) { }
+	public virtual void OnKill( DamageInfo damage ) { }
 
 	protected virtual void OnStateChanged( GameState before, GameState after ) { }
 
@@ -139,7 +143,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// </summary>
 	protected void RoundReset()
 	{
-		foreach ( var pawn in Players )
+		foreach(var pawn in Players)
 		{
 			pawn.Respawn();
 			pawn.Stats.Clear();
@@ -158,7 +162,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		if ( spawnpoint is null )
 			return;
 
-		pawn.Teleport( spawnpoint.Transform.Position );
+		pawn.PawnController.Teleport( spawnpoint.Transform.Position );
 	}
 
 	private float GetSpawnpointWeight( Pawn pawn, GameObject spawnpoint )

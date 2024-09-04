@@ -10,10 +10,10 @@ public enum FireMode
     Burst = 2
 }
 
-public sealed class HitscanBullet : Component
+public sealed class FireComponent : Component
 {
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
-    [Property, Group( "Components" )] public Magazine Ammo { get; private set; }
+    [Property, Group( "Components" )] public AmmoComponent Ammo { get; private set; }
     [Property, Group( "Stats" )] public FireMode FireMode { get; set; } = FireMode.Semi;
     [Property, Group( "Stats" )] public float FireRate { get; set; } = 0f;
     [Property, Group( "Stats" )] public float Damage { get; set; } = 20;
@@ -70,7 +70,7 @@ public sealed class HitscanBullet : Component
     {
         TimeSinceFire = 0f;
         Ammo.AmmoInClip--;
-
+        
         var ray = Equipment.Owner.AimRay;
         ray.Forward *= Rotation.FromAxis( Settings.Plane.Normal, Game.Random.Float( -0.5f, 0.5f ) * Spread );
 
@@ -141,7 +141,7 @@ public sealed class HitscanBullet : Component
             } );
         }
 
-        Equipment.Owner.Body.Renderer.Set( "b_attack", true );
+        Equipment.Owner.PawnBody.Renderer.Set( "b_attack", true );
     }
 
     [Broadcast( NetPermission.OwnerOnly )]

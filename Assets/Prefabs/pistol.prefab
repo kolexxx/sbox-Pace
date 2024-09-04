@@ -33,13 +33,13 @@
         "Slot": 1
       },
       {
-        "__type": "Pace.HitscanBullet",
+        "__type": "Pace.FireComponent",
         "__guid": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
         "Ammo": {
           "_type": "component",
           "component_id": "184eaf10-1e52-45da-8095-e3532a3b33ac",
           "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
-          "component_type": "Magazine"
+          "component_type": "AmmoComponent"
         },
         "BulletsPerFire": 1,
         "Damage": 7.5,
@@ -56,7 +56,7 @@
         "Tracer": "particles/tracer.vpcf"
       },
       {
-        "__type": "Pace.Magazine",
+        "__type": "Pace.AmmoComponent",
         "__guid": "184eaf10-1e52-45da-8095-e3532a3b33ac",
         "ClipSize": 10,
         "Equipment": {
