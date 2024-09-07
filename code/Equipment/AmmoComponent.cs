@@ -3,21 +3,30 @@ using System;
 
 namespace Pace;
 
+public enum ReloadType
+{
+    Magazine,
+    Sequential,
+    NoReload
+}
+
 public class AmmoComponent : Component
 {
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
+    [Property, Group( "Components" )] public FireComponent FireComponent { get; private set; }
+    [Property] public ReloadType ReloadType { get; private set; }
     [Property, Group( "Stats" )] public float ReloadTime { get; private set; } = 0.6f;
-    [Property, Group( "Stats" )] public int ClipSize { get; private set; } = 30;
+    [Property, Group( "Stats" )] public int MaxLoadedAmmo { get; private set; } = 30;
 
     /// <summary>
     /// How much ammo is currently in the clip.
     /// </summary>
-    public int AmmoInClip { get; set; }
+    public int LoadedAmmo { get; set; }
 
     /// <summary>
     /// How much ammo is in reserve.
     /// </summary>
-    [Sync] public int ReserveAmmo { get; set; }
+    [Sync] public int ReserveAmmo { get; private set; }
 
     /// <summary>
     /// How long since we started reloading.
@@ -32,17 +41,25 @@ public class AmmoComponent : Component
     /// <summary>
     /// Can we pickup anymore ammo?
     /// </summary>
-    public bool IsReserveFull => ReserveAmmo >= 2 * ClipSize;
+    public bool IsReserveFull => ReserveAmmo >= 2 * MaxLoadedAmmo;
+
+    /// <summary>
+    /// Used for sequential reloads. Do we want to stop reloading after a reload?
+    /// </summary>
+    private bool _requestCancel;
 
     protected override void OnAwake()
     {
-        AmmoInClip = ClipSize;
-        ReserveAmmo = 2 * ClipSize;
+        LoadedAmmo = MaxLoadedAmmo;
+        ReserveAmmo = 2 * MaxLoadedAmmo;
     }
 
     protected override void OnFixedUpdate()
     {
         if ( IsProxy )
+            return;
+
+        if ( ReloadType == ReloadType.NoReload )
             return;
 
         if ( !Equipment.IsDeployed )
@@ -59,8 +76,14 @@ public class AmmoComponent : Component
             return;
         }
 
-        if ( IsReloading && TimeSinceReload >= ReloadTime )
-            FinishReload();
+        if ( IsReloading )
+        {
+            if ( Input.Pressed( "attack1" ) )
+                _requestCancel = true;
+
+            if ( TimeSinceReload >= ReloadTime )
+                FinishReload();
+        }
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
@@ -80,13 +103,19 @@ public class AmmoComponent : Component
 
     protected bool CanReload()
     {
+        if ( ReloadType == ReloadType.NoReload )
+            return false;
+
         if ( IsReloading )
             return false;
 
-        if ( AmmoInClip >= ClipSize || ReserveAmmo <= 0 )
+        if ( LoadedAmmo >= MaxLoadedAmmo || ReserveAmmo <= 0 )
             return false;
 
-        if ( AmmoInClip == 0 )
+        if ( FireComponent.IsOnCooldown )
+            return false;
+
+        if ( LoadedAmmo == 0 )
             return true;
 
         return Input.Pressed( "reload" );
@@ -95,12 +124,25 @@ public class AmmoComponent : Component
     protected void FinishReload()
     {
         IsReloading = false;
-        TakeAmmo( ClipSize - AmmoInClip );
+
+        if ( ReloadType == ReloadType.Magazine )
+        {
+            TakeAmmo( MaxLoadedAmmo - LoadedAmmo );
+            return;
+        }
+
+        TakeAmmo( 1 );
+
+        if ( !_requestCancel && LoadedAmmo < MaxLoadedAmmo && ReserveAmmo > 0 )
+            Reload();
+
+        _requestCancel = false;
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
     protected void CancelReload()
     {
+        _requestCancel = false;
         IsReloading = false;
         Equipment.Owner.PawnBody.Renderer.Set( "b_reload", false );
     }
@@ -108,7 +150,10 @@ public class AmmoComponent : Component
     [Authority( NetPermission.HostOnly )]
     public void RefillReserve()
     {
-        ReserveAmmo = 2 * ClipSize;
+        if ( ReloadType != ReloadType.NoReload )
+            ReserveAmmo = 2 * MaxLoadedAmmo;
+        else
+            LoadedAmmo = MaxLoadedAmmo;
     }
 
     /// <summary>
@@ -119,7 +164,7 @@ public class AmmoComponent : Component
     {
         var ammo = Math.Min( ReserveAmmo, amount );
 
-        AmmoInClip += ammo;
+        LoadedAmmo += ammo;
         ReserveAmmo -= ammo;
     }
 }

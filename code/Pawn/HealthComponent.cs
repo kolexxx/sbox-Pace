@@ -3,7 +3,7 @@ using System;
 
 namespace Pace;
 
-public sealed class HealthComponent : Component
+public sealed class HealthComponent : Component, Component.ITriggerListener
 {
     [Property] public Pawn Pawn { get; private set; }
     [Property, ReadOnly, HostSync] public float Health { get; set; } = 100f;
@@ -64,5 +64,22 @@ public sealed class HealthComponent : Component
         };
 
         Sound.Play( DamageTakenSound, position );
+    }
+
+    void ITriggerListener.OnTriggerEnter( Collider other )
+    {
+        if ( !Networking.IsHost )
+            return;
+
+        if ( !other.Components.TryGet<HealthPickup>( out var pickup ) )
+            return;
+
+        if ( Health >= 100f )
+            return;
+
+        Health += pickup.HealAmount;
+        Health = MathF.Min( Health, 100f );
+
+        pickup.OnPickedUp();
     }
 }

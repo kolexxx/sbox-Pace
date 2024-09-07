@@ -14,17 +14,17 @@ public enum LifeState
 /// <summary>
 /// A GameObject that can respawn and be killed.
 /// </summary>
-public interface IRespawnable 
+public interface IRespawnable
 {
-	public LifeState LifeState {get;}
+	public LifeState LifeState { get; }
 
-    public void Respawn() {}
-    public void OnKilled() {}
+	public void Respawn() { }
+	public void OnKilled() { }
 }
 
 public sealed class Pawn : Component, IRespawnable
 {
-    /// <summary>
+	/// <summary>
 	/// A reference to the local pawn. Returns null if one does not exist (headless server or something).
 	/// </summary>
 	public static Pawn Local
@@ -40,7 +40,7 @@ public sealed class Pawn : Component, IRespawnable
 	private static Pawn _local;
 
 	[Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
-	[Property, Group( "Game Objects" )] public GameObject Body {get; private set;}
+	[Property, Group( "Game Objects" )] public GameObject Body { get; private set; }
 	[Property, Group( "Components" )] public PawnController PawnController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
 	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
@@ -53,17 +53,17 @@ public sealed class Pawn : Component, IRespawnable
 	/// </summary>
 	public LifeState LifeState { get; set; }
 
-    /// <summary>
+	/// <summary>
 	/// How long has it been since we died?
 	/// </summary>
 	public TimeSince TimeSinceDeath { get; private set; }
 
-    /// <summary>
-    /// The position we last spawned at.
-    /// </summary>
-    public Vector3? SpawnPosition {get; set;}
+	/// <summary>
+	/// The position we last spawned at.
+	/// </summary>
+	public Vector3? SpawnPosition { get; set; }
 
-    /// <summary>
+	/// <summary>
 	/// Whether or not this pawn is alive.
 	/// </summary>
 	public bool IsAlive => LifeState is LifeState.Alive;
@@ -81,9 +81,9 @@ public sealed class Pawn : Component, IRespawnable
 	/// <summary>
 	/// The direction and position from where we are aiming.
 	/// </summary>
-	public Ray AimRay {get; private set;}
-	
-    [Broadcast( NetPermission.HostOnly )]
+	public Ray AimRay { get; private set; }
+
+	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()
 	{
 		LifeState = LifeState.Alive;
@@ -109,12 +109,12 @@ public sealed class Pawn : Component, IRespawnable
 		PawnBody.ApplyImpulses( damage );
 
 		if ( Networking.IsHost )
-		{	
-			if(damage.Attacker is Pawn pawn && pawn != this)
+		{
+			if ( damage.Attacker is Pawn pawn && pawn != this )
 				pawn.Stats.Kills++;
 
 			Stats.Deaths++;
-			Inventory.Clear();	
+			Inventory.Clear();
 		}
 
 		GameMode.Current?.OnKill( damage.Attacker as Pawn, this );
@@ -133,7 +133,7 @@ public sealed class Pawn : Component, IRespawnable
 
 	protected override void OnFixedUpdate()
 	{
-		if(IsProxy || IsFrozen)
+		if ( IsProxy || IsFrozen )
 			return;
 
 		PawnController.Move();
@@ -141,7 +141,7 @@ public sealed class Pawn : Component, IRespawnable
 
 	protected override void OnPreRender()
 	{
-		if(!IsProxy)
+		if ( !IsProxy )
 			UpdateCamera();
 	}
 
@@ -194,7 +194,7 @@ public sealed class Pawn : Component, IRespawnable
 		AnimationHelper.AimAngle = Head.Transform.Rotation;
 		AnimationHelper.IsGrounded = PawnController.IsGrounded || IsFrozen;
 		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );
-		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Auto;
+		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 		AnimationHelper.DuckLevel = 0f;
 		AnimationHelper.HoldType = equipment.IsValid() ? equipment.HoldType : CitizenAnimationHelper.HoldTypes.None;
 		AnimationHelper.Handedness = equipment.IsValid() ? equipment.Handedness : CitizenAnimationHelper.Hand.Both;

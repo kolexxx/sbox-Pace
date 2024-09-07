@@ -8,7 +8,8 @@
   "Resources": "UI/*",
   "PackageReferences": [
     "rust.rust_pistol",
-    "rust.rust_smg"
+    "rust.rust_smg",
+    "rust.rust_pumpshotgun"
   ],
   "EditorReferences": null,
   "IsWhitelistDisabled": false,
@@ -243,7 +244,7 @@
       ],
       "__guid": "2e44e035-7c67-4b2f-9c8e-98a24465b0c5"
     },
-    "StartupScene": "scenes/minimal.scene",
-    "LaunchMode": "Normal"
+    "StartupScene": "scenes/arena.scene",
+    "LaunchMode": "QuickPlay"
   }
 }

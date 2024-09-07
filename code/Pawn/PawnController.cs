@@ -1,3 +1,4 @@
+using System.Numerics;
 using Sandbox;
 using Sandbox.Citizen;
 
@@ -7,13 +8,14 @@ public class PawnController : Component
 {
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
 	[Property, Group( "Components" )] public CharacterController CharacterController { get; private set; }
-	[Property] public float MoveSpeed { get; private set; } = 200f;
+	[Property] public float MoveSpeed { get; private set; } = 320f;
+	[Property] public float Gravity { get; private set; } = 500f;
 	[Property] public float Friction { get; private set; } = 4f;
 
 	/// <summary>
 	/// Our current wish velocity.
 	/// </summary>
-	public Vector3 WishVelocity {get; private set;}
+	public Vector3 WishVelocity { get; private set; }
 
 	public Vector3 Velocity => CharacterController.Velocity;
 	public bool IsGrounded => CharacterController.IsOnGround;
@@ -66,7 +68,7 @@ public class PawnController : Component
 			Jump();
 
 
-		var halfGravity = Scene.PhysicsWorld.Gravity * Time.Delta * 0.5f;
+		var halfGravity = Vector3.Down * Time.Delta * Gravity;
 
 		if ( CharacterController.IsOnGround )
 		{
@@ -77,7 +79,7 @@ public class PawnController : Component
 		else
 		{
 			CharacterController.Velocity += halfGravity;
-			CharacterController.Accelerate( WishVelocity.ClampLength( 200f ) );
+			CharacterController.Accelerate( WishVelocity );
 			CharacterController.ApplyFriction( Friction * 0.3f, 0 );
 		}
 

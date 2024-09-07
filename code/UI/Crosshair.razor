@@ -37,7 +37,7 @@
 
 		var ammoComponent = inventory.ActiveEquipment.Components.Get<AmmoComponent>();
 
-		var ammo = ammoComponent.AmmoInClip;
+		var ammo = ammoComponent.LoadedAmmo;
 		var reserve = ammoComponent.ReserveAmmo;
 
 		Label.Text = $"{ammo}/{reserve}";

@@ -33,6 +33,25 @@
         "Slot": 1
       },
       {
+        "__type": "Pace.AmmoComponent",
+        "__guid": "184eaf10-1e52-45da-8095-e3532a3b33ac",
+        "Equipment": {
+          "_type": "component",
+          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Equipment"
+        },
+        "FireComponent": {
+          "_type": "component",
+          "component_id": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "FireComponent"
+        },
+        "MaxLoadedAmmo": 10,
+        "ReloadTime": 1.6,
+        "ReloadType": "Magazine"
+      },
+      {
         "__type": "Pace.FireComponent",
         "__guid": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
         "Ammo": {
@@ -54,18 +73,6 @@
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
         "Spread": 5,
         "Tracer": "particles/tracer.vpcf"
-      },
-      {
-        "__type": "Pace.AmmoComponent",
-        "__guid": "184eaf10-1e52-45da-8095-e3532a3b33ac",
-        "ClipSize": 10,
-        "Equipment": {
-          "_type": "component",
-          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
-          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
-          "component_type": "Equipment"
-        },
-        "ReloadTime": 1.6
       }
     ],
     "Children": [],

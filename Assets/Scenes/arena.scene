@@ -1,0 +1,236 @@
+{
+  "__guid": "c45fabbc-8559-4988-b661-96642f040d56",
+  "GameObjects": [
+    {
+      "__guid": "5d891dfe-442b-4adc-a1db-a40fa904e2dc",
+      "Flags": 0,
+      "Name": "HUD",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.ScreenPanel",
+          "__guid": "7e3fa7cd-55ad-46a6-b0cc-463b7870bd41",
+          "AutoScreenScale": true,
+          "Opacity": 1,
+          "Scale": 1,
+          "ScaleStrategy": "ConsistentHeight",
+          "ZIndex": 100
+        },
+        {
+          "__type": "Pace.UI.Hud",
+          "__guid": "ce685430-b406-4dda-a046-247732667358"
+        }
+      ]
+    },
+    {
+      "__guid": "24e198e1-e2fc-4da0-83dd-86920907acc3",
+      "Flags": 0,
+      "Name": "GameMode",
+      "Position": "-350.1393,-1.373613,-26.79759",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.Deathmatch",
+          "__guid": "3cffc151-1a8c-4e52-8a77-3d24b7dec800",
+          "DefaultWeapon": "prefabs/pistol.equip",
+          "PlayerPrefab": {
+            "_type": "gameobject",
+            "prefab": "prefabs/player.prefab"
+          },
+          "State": "WaitingForPlayers"
+        }
+      ]
+    },
+    {
+      "__guid": "d6f23da2-c776-4726-a6f5-22bed2999e1c",
+      "Flags": 0,
+      "Name": "Map Instance",
+      "Enabled": true,
+      "Components": [
+        {
+          "__type": "Sandbox.MapInstance",
+          "__guid": "1ebc45a6-9df4-4de2-aa6d-9dc64fb7982c",
+          "__version": 1,
+          "EnableCollision": true,
+          "MapName": "maps/untitled_1.vmap",
+          "NoOrigin": false,
+          "OnMapLoaded": null,
+          "OnMapUnloaded": null,
+          "UseMapFromLaunch": true
+        }
+      ],
+      "Children": []
+    },
+    {
+      "__guid": "8ee37e82-964f-4a36-a02f-aebe905ef952",
+      "Flags": 0,
+      "Name": "SMG Pickup",
+      "Position": "0,199.7361,351.933",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.WeaponPickup",
+          "__guid": "9d24a7fb-2356-4f9d-91e9-4265b70a409e",
+          "EquipmentToSpawn": "prefabs/rifle.equip",
+          "RespawnTime": 10
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "8d7ceacc-cc9d-433b-ac5c-e45170661d3b",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "510b2841-1c3c-41fc-9348-bf2072e53215",
+      "Flags": 0,
+      "Name": "SMG Pickup (1)",
+      "Position": "0,1185.792,367.8752",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.WeaponPickup",
+          "__guid": "7aa683e2-a5ce-405e-92eb-08aab75f2b34",
+          "EquipmentToSpawn": "prefabs/rifle.equip",
+          "RespawnTime": 10
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "940b7d96-6998-4cd4-b44f-4d957610d153",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "02fba9d5-59c4-4aa4-b008-9ec5512b8306",
+      "Flags": 0,
+      "Name": "Pistol Pickup",
+      "Position": "0,-897.2128,543.217",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.WeaponPickup",
+          "__guid": "a59dad57-1e6e-4857-87ff-e8b52e281a02",
+          "EquipmentToSpawn": "prefabs/pistol.equip",
+          "RespawnTime": 5
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "fdd4fba0-34e1-4ac2-8955-42e736d886f0",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "afed1e56-5b97-4eaa-9c01-0ea7a2d97605",
+      "Flags": 0,
+      "Name": "Health Pickup (1)",
+      "Position": "0,1266.108,32.51849",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.HealthPickup",
+          "__guid": "59973ec4-9a76-4237-a401-9ae04271d8e0",
+          "HealAmount": 50,
+          "RespawnTime": 10
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "368386f4-4b36-45d2-8477-40fdca39f229",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "5a76999e-79b4-4bb5-ada5-92014c0d3b31",
+      "Flags": 0,
+      "Name": "Health Pickup",
+      "Position": "0,-768.8281,321.4302",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.HealthPickup",
+          "__guid": "42dd6b80-9045-468e-bdaf-d9c7269be884",
+          "HealAmount": 50,
+          "RespawnTime": 10
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "0020b6d6-6ea4-49e4-93a5-f2288354bd67",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    },
+    {
+      "__guid": "e43847e5-fc90-4bc9-bc3c-7ae89de581a7",
+      "Flags": 0,
+      "Name": "Shotgun Pickup",
+      "Position": "0,382.2731,592.7449",
+      "Enabled": true,
+      "NetworkMode": 1,
+      "Components": [
+        {
+          "__type": "Pace.WeaponPickup",
+          "__guid": "0f564b86-6a88-4aa4-ba99-471e3cc02533",
+          "EquipmentToSpawn": "prefabs/shotgun.equip",
+          "RespawnTime": 10
+        },
+        {
+          "__type": "Sandbox.BoxCollider",
+          "__guid": "ec59fecb-bb40-46f8-8588-e91f48e37386",
+          "Center": "0,0,40",
+          "IsTrigger": true,
+          "Scale": "1,80,80",
+          "Static": true
+        }
+      ]
+    }
+  ],
+  "SceneProperties": {
+    "FixedUpdateFrequency": 50,
+    "MaxFixedUpdates": 5,
+    "NetworkFrequency": 60,
+    "NetworkInterpolation": true,
+    "ThreadedAnimation": true,
+    "TimeScale": 1,
+    "UseFixedUpdate": true,
+    "NavMesh": {
+      "Enabled": false,
+      "IncludeStaticBodies": true,
+      "IncludeKeyframedBodies": true,
+      "EditorAutoUpdate": true,
+      "AgentHeight": 64,
+      "AgentRadius": 16,
+      "AgentStepSize": 18,
+      "AgentMaxSlope": 40,
+      "ExcludedBodies": "",
+      "IncludedBodies": ""
+    }
+  },
+  "Title": "minimal",
+  "Description": "",
+  "ResourceVersion": 1,
+  "__references": [],
+  "__version": 1
+}

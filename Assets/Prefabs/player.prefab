@@ -122,7 +122,8 @@
           "component_type": "CharacterController"
         },
         "Friction": 4,
-        "MoveSpeed": 200
+        "Gravity": 320,
+        "MoveSpeed": 220
       }
     ],
     "Children": [

@@ -87,7 +87,7 @@ public class Inventory : Component, Component.ITriggerListener
 		go.NetworkSpawn( Network.OwnerConnection );
 
 		Equipment[eq.Slot] = go.Components.Get<Equipment>();
-		Equipment[eq.Slot].CarryStart(Pawn);
+		Equipment[eq.Slot].CarryStart( Pawn );
 
 		if ( makeActive )
 			InputEquipment = Equipment[eq.Slot];
@@ -167,7 +167,7 @@ public class Inventory : Component, Component.ITriggerListener
 		if ( !Networking.IsHost )
 			return;
 
-		if ( !other.Components.TryGet<Pickup>( out var pickup ) )
+		if ( !other.Components.TryGet<WeaponPickup>( out var pickup ) )
 			return;
 
 		var eq = pickup.EquipmentToSpawn;

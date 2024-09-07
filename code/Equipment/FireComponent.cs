@@ -15,7 +15,7 @@ public sealed class FireComponent : Component
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
     [Property, Group( "Components" )] public AmmoComponent Ammo { get; private set; }
     [Property, Group( "Stats" )] public FireMode FireMode { get; set; } = FireMode.Semi;
-    [Property, Group( "Stats" )] public float FireRate { get; set; } = 0f;
+    [Property, Group( "Stats" )] public float FireRate { get; set; } = 10f;
     [Property, Group( "Stats" )] public float Damage { get; set; } = 20;
     [Property, Group( "Stats" )] public float Spread { get; set; } = 0f;
     [Property, Group( "Stats" )] public int BulletsPerFire { get; set; } = 1;
@@ -30,6 +30,8 @@ public sealed class FireComponent : Component
     /// </summary>
     public TimeSince TimeSinceFire { get; private set; }
 
+    public bool IsOnCooldown => TimeSinceFire < 1f / FireRate;
+
     protected override void OnFixedUpdate()
     {
         if ( IsProxy )
@@ -41,6 +43,8 @@ public sealed class FireComponent : Component
         if ( !CanShoot() )
             return;
 
+        TimeSinceFire = 0f;
+        Ammo.LoadedAmmo--;
         ShootEffects();
 
         for ( var i = 0; i < BulletsPerFire; i++ )
@@ -57,10 +61,10 @@ public sealed class FireComponent : Component
         else if ( FireMode != FireMode.Semi && !Input.Down( "Attack1" ) )
             return false;
 
-        if ( FireRate != 0f && TimeSinceFire < 1f / FireRate )
+        if ( IsOnCooldown )
             return false;
 
-        if ( Ammo.IsValid() && (Ammo.IsReloading || Ammo.AmmoInClip <= 0) )
+        if ( Ammo.IsValid() && (Ammo.IsReloading || Ammo.LoadedAmmo <= 0) )
             return false;
 
         return true;
@@ -68,9 +72,6 @@ public sealed class FireComponent : Component
 
     private void ShootBullet()
     {
-        TimeSinceFire = 0f;
-        Ammo.AmmoInClip--;
-        
         var ray = Equipment.Owner.AimRay;
         ray.Forward *= Rotation.FromAxis( Settings.Plane.Normal, Game.Random.Float( -0.5f, 0.5f ) * Spread );
 

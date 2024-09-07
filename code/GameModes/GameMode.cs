@@ -46,7 +46,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// A list of points to choose from randomly to spawn the player in. If not set, we'll spawn at the
 	/// location of the NetworkHelper object.
 	/// </summary>
-	[Property] public List<GameObject> SpawnPoints { get; set; }
+	public IEnumerable<SpawnPoint> SpawnPoints => Scene.GetAllComponents<SpawnPoint>();
 
 	/// <summary>
 	/// A list of all the players currently in-game.
@@ -60,7 +60,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	{
 		get
 		{
-			if(State is GameState.WaitingForPlayers)
+			if ( State is GameState.WaitingForPlayers )
 				return "Waiting";
 
 			return TimeSpan.FromSeconds( MathF.Max( 0, TimeUntilNextState.Relative.CeilToInt() ) ).ToString( @"mm\:ss" );
@@ -143,7 +143,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// </summary>
 	protected void RoundReset()
 	{
-		foreach(var pawn in Players)
+		foreach ( var pawn in Players )
 		{
 			pawn.Respawn();
 			pawn.Stats.Clear();
@@ -152,10 +152,12 @@ public abstract class GameMode : Component, Component.INetworkListener
 
 	protected void MoveToSpawnpoint( Pawn pawn )
 	{
-		if ( SpawnPoints is null || SpawnPoints.Count <= 0 )
+		if ( SpawnPoints is null )
 			return;
 
-		var spawnpoint = GetBestSpawnpoint(pawn);
+		var spawnpoint = SpawnPoints
+						.OrderByDescending( x => GetSpawnpointWeight( pawn, x ) )
+						.FirstOrDefault();
 
 		if ( spawnpoint is null )
 			return;
@@ -163,24 +165,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		pawn.PawnController.Teleport( spawnpoint.Transform.Position );
 	}
 
-	private GameObject GetBestSpawnpoint( Pawn pawn )
-	{
-		// We want to find the closest player (worst weight)
-		var minDistance = 0f;
-		var best = default(GameObject);
-
-		foreach(var spawnpoint in SpawnPoints)
-		{
-			var distance = GetSpawnpointWeight(pawn, spawnpoint);
-			Log.Info(distance);
-			if(distance > minDistance)
-				best = spawnpoint;
-		}
-
-		return best;
-	}
-
-	private float GetSpawnpointWeight( Pawn pawn, GameObject spawnpoint )
+	private float GetSpawnpointWeight( Pawn pawn, SpawnPoint spawnpoint )
 	{
 		// We want to find the closest player (worst weight)
 		var distance = float.MaxValue;
@@ -189,8 +174,8 @@ public abstract class GameMode : Component, Component.INetworkListener
 		{
 			if ( player == pawn ) continue;
 			if ( !pawn.IsAlive ) continue;
-			
-			var spawnDist = (spawnpoint.Transform.Position - pawn.Transform.Position).LengthSquared;
+
+			var spawnDist = (spawnpoint.Transform.Position - player.Transform.Position).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
 
