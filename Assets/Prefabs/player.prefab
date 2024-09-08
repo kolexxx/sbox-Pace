@@ -124,6 +124,23 @@
         "Friction": 4,
         "Gravity": 320,
         "MoveSpeed": 220
+      },
+      {
+        "__type": "Sandbox.Voice",
+        "__guid": "1a86107c-78d3-41f6-ae9d-e90add90c16f",
+        "Loopback": false,
+        "Mode": "PushToTalk",
+        "MorphScale": 3,
+        "MorphSmoothTime": 0.1,
+        "PushToTalkInput": "voice",
+        "Renderer": {
+          "_type": "component",
+          "component_id": "f08bcd6e-0c34-41c4-acad-24c48bfa6f42",
+          "go": "200b90ba-0937-463b-8e93-62d7bc33571d",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Volume": 1,
+        "WorldspacePlayback": false
       }
     ],
     "Children": [

@@ -15,8 +15,14 @@ public sealed class FireComponent : Component
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
     [Property, Group( "Components" )] public AmmoComponent Ammo { get; private set; }
     [Property, Group( "Stats" )] public FireMode FireMode { get; set; } = FireMode.Semi;
+    /// <summary>
+    /// How many shots are fired per second?
+    /// </summary>
     [Property, Group( "Stats" )] public float FireRate { get; set; } = 10f;
     [Property, Group( "Stats" )] public float Damage { get; set; } = 20;
+    /// <summary>
+    /// The angle of the cone in which shots can be fired.
+    /// </summary>
     [Property, Group( "Stats" )] public float Spread { get; set; } = 0f;
     [Property, Group( "Stats" )] public int BulletsPerFire { get; set; } = 1;
     [Property, Group( "Effects" )] public SoundEvent ShootSound { get; set; }
@@ -30,6 +36,9 @@ public sealed class FireComponent : Component
     /// </summary>
     public TimeSince TimeSinceFire { get; private set; }
 
+    /// <summary>
+    /// Has enough time passed between shots?
+    /// </summary>
     public bool IsOnCooldown => TimeSinceFire < 1f / FireRate;
 
     protected override void OnFixedUpdate()

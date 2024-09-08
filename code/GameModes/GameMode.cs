@@ -30,7 +30,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// Our current <see cref="GameState"> game state</see>.
 	/// </summary>
-	[Property, ReadOnly, HostSync, Change] public GameState State { get; protected set; }
+	[Property, ReadOnly, HostSync] public GameState State { get; protected set; }
 
 	/// <summary>
 	/// The time until we change our game state.

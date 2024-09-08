@@ -66,7 +66,7 @@ public sealed class Pawn : Component, IRespawnable
 	/// <summary>
 	/// Whether or not this pawn is alive.
 	/// </summary>
-	public bool IsAlive => LifeState is LifeState.Alive;
+	public bool IsAlive => LifeState == LifeState.Alive;
 
 	/// <summary>
 	/// If true, we're not allowed to move.
@@ -109,13 +109,7 @@ public sealed class Pawn : Component, IRespawnable
 		PawnBody.ApplyImpulses( damage );
 
 		if ( Networking.IsHost )
-		{
-			if ( damage.Attacker is Pawn pawn && pawn != this )
-				pawn.Stats.Kills++;
-
-			Stats.Deaths++;
 			Inventory.Clear();
-		}
 
 		GameMode.Current?.OnKill( damage.Attacker as Pawn, this );
 	}
@@ -189,8 +183,8 @@ public sealed class Pawn : Component, IRespawnable
 	{
 		var equipment = Inventory.ActiveEquipment;
 
-		AnimationHelper.WithWishVelocity( PawnController.WishVelocity );
-		AnimationHelper.WithVelocity( PawnController.Velocity );
+		AnimationHelper.WithWishVelocity( IsFrozen ? Vector3.Zero : PawnController.WishVelocity );
+		AnimationHelper.WithVelocity( IsFrozen ? Vector3.Zero : PawnController.Velocity );
 		AnimationHelper.AimAngle = Head.Transform.Rotation;
 		AnimationHelper.IsGrounded = PawnController.IsGrounded || IsFrozen;
 		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );

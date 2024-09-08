@@ -1,4 +1,5 @@
 using Sandbox;
+using System.Collections.Generic;
 
 namespace Pace;
 
@@ -48,18 +49,19 @@ public sealed class Deathmatch : GameMode
             return;
 
         victim.LifeState = LifeState.Respawning;
-
         UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
-    }
-
-    protected override void OnStateChanged( GameState before, GameState after )
-    {
-        //if ( after == GameState.GameOver )
-        //ShowBestPlayer();
 
         if ( !Networking.IsHost )
             return;
 
+        if ( attacker.IsValid() && attacker != victim )
+            attacker.Stats.Kills++;
+
+        victim.Stats.Deaths++;
+    }
+
+    protected override void OnStateChanged( GameState before, GameState after )
+    {
         switch ( after )
         {
             case GameState.WaitingForPlayers:
@@ -85,9 +87,24 @@ public sealed class Deathmatch : GameMode
             }
             case GameState.GameOver:
             {
+                ShowBestPlayer();
                 TimeUntilNextState = 10f;
                 break;
             }
         }
+    }
+
+    [Broadcast( NetPermission.HostOnly )]
+    private void ShowBestPlayer()
+    {
+        var players = new List<Pawn>( Players );
+
+        players.Sort( delegate ( Pawn x, Pawn y )
+        {
+            return y.Stats.Kills.CompareTo( x.Stats.Kills );
+        } );
+
+        var winner = players[0].Stats.Kills != players[1].Stats.Kills ? players[0] : null;
+        UI.Hud.RootPanel.AddChild( new UI.GameOverPopup( winner ) );
     }
 }

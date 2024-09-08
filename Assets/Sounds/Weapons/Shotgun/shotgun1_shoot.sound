@@ -1,12 +1,12 @@
 {
   "UI": false,
-  "Volume": "1.00,1.00,0",
-  "Pitch": "1.00,1.00,0",
+  "Volume": "1",
+  "Pitch": "1",
   "Decibels": 10000,
   "SelectionMode": "Random",
   "Sounds": [
-    "sounds/guns/r870/shotgun1_shoot1.vsnd",
-    "sounds/guns/r870/shotgun1_shoot2.vsnd"
+    "sounds/weapons/shotgun/shotgun1_shoot1.vsnd",
+    "sounds/weapons/shotgun/shotgun1_shoot2.vsnd"
   ],
   "Occlusion": true,
   "AirAbsorption": true,
