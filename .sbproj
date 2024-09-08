@@ -3,16 +3,16 @@
   "Type": "game",
   "Org": "kole",
   "Ident": "pace",
-  "Tags": "shooter action platformer arena",
   "Schema": 1,
-  "HasAssets": true,
-  "AssetsPath": "",
-  "Resources": "ui/*",
-  "MenuResources": "/UI/Menu/*",
-  "HasCode": true,
-  "CodePath": "/code/",
-  "PackageReferences": [],
+  "IncludeSourceFiles": false,
+  "Resources": "UI/*",
+  "PackageReferences": [
+    "rust.rust_pistol",
+    "rust.rust_smg",
+    "rust.rust_pumpshotgun"
+  ],
   "EditorReferences": null,
+  "IsWhitelistDisabled": false,
   "Metadata": {
     "MaxPlayers": 16,
     "MinPlayers": 1,
@@ -52,57 +52,31 @@
       "References": [],
       "DistinctReferences": []
     },
-    "Collision": {
-      "Defaults": {
-        "solid": "Collide",
-        "trigger": "Trigger",
-        "ladder": "Ignore",
-        "water": "Trigger"
-      },
-      "Pairs": [
-        {
-          "a": "solid",
-          "b": "solid",
-          "r": "Collide"
-        },
-        {
-          "a": "trigger",
-          "b": "playerclip",
-          "r": "Ignore"
-        },
-        {
-          "a": "solid",
-          "b": "trigger",
-          "r": "Trigger"
-        },
-        {
-          "a": "playerclip",
-          "b": "solid",
-          "r": "Collide"
-        }
-      ]
-    },
     "ControlModes": {},
     "InputSettings": {
       "Actions": [
         {
           "Name": "Forward",
           "KeyboardCode": "W",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
           "Name": "Backward",
           "KeyboardCode": "S",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
           "Name": "Left",
           "KeyboardCode": "A",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
           "Name": "Right",
           "KeyboardCode": "D",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
@@ -120,10 +94,11 @@
         {
           "Name": "Walk",
           "KeyboardCode": "alt",
+          "GamepadCode": "None",
           "GroupName": "Movement"
         },
         {
-          "Name": "Duck",
+          "Name": "Crouch",
           "KeyboardCode": "ctrl",
           "GamepadCode": "B",
           "GroupName": "Movement"
@@ -173,36 +148,43 @@
         {
           "Name": "Slot4",
           "KeyboardCode": "4",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot5",
           "KeyboardCode": "5",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot6",
           "KeyboardCode": "6",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot7",
           "KeyboardCode": "7",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot8",
           "KeyboardCode": "8",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot9",
           "KeyboardCode": "9",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
           "Name": "Slot0",
           "KeyboardCode": "0",
+          "GamepadCode": "None",
           "GroupName": "Inventory"
         },
         {
@@ -226,11 +208,13 @@
         {
           "Name": "Voice",
           "KeyboardCode": "v",
+          "GamepadCode": "None",
           "GroupName": "Other"
         },
         {
           "Name": "Drop",
           "KeyboardCode": "g",
+          "GamepadCode": "None",
           "GroupName": "Other"
         },
         {
@@ -254,9 +238,13 @@
         {
           "Name": "Chat",
           "KeyboardCode": "enter",
+          "GamepadCode": "None",
           "GroupName": "Other"
         }
-      ]
-    }
+      ],
+      "__guid": "2e44e035-7c67-4b2f-9c8e-98a24465b0c5"
+    },
+    "StartupScene": "scenes/arena.scene",
+    "LaunchMode": "QuickPlay"
   }
 }

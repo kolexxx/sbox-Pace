@@ -1,0 +1,110 @@
+﻿@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="text-shadow">
+	<div class="output">
+		@foreach (var entry in Entries)
+		{
+			<div class="entry">
+				@if (entry.steamid != default)
+				{
+					<div style="flex-shrink: 0;">
+						<img class="circle" src="avatar:@entry.steamid" />
+						<label class="name" style="color: @Color.White.Hex;">@entry.author</label>
+					</div>
+				}
+				@if (!string.IsNullOrEmpty(@entry.message))
+				{
+					<label class="message">@entry.message</label>
+				}
+			</div>
+		}
+	</div>
+
+	<TextEntry class="background-color-primary" @ref="InputBox" onsubmit="@OnSubmit" />
+</root>
+
+@code
+{
+	private static TextChat Instance { get; set; }
+
+	TextEntry InputBox;
+
+	public record Entry(ulong steamid, string author, string message, RealTimeSince timeSinceAdded);
+	List<Entry> Entries = new();
+
+	public TextChat()
+	{
+		Instance = this;
+	}
+
+	public override void Tick()
+	{
+		if (InputBox is null)
+			return;
+
+		AcceptsFocus = false;
+
+		if (Input.Down("chat"))
+		{
+			InputBox.Focus();
+		}
+
+		if (Entries.RemoveAll(x => x.timeSinceAdded > 30.0f) > 0)
+		{
+			StateHasChanged();
+		}
+
+		SetClass("open", InputBox.HasFocus);
+	}
+
+	void OnSubmit()
+	{
+		var text = InputBox.Text;
+		InputBox.Text = "";
+
+		if (string.IsNullOrWhiteSpace(text))
+			return;
+
+		AddText(Sandbox.Utility.Steam.SteamId, Sandbox.Utility.Steam.PersonaName, text);
+	}
+
+	[Broadcast]
+	public static void AddText(ulong steamid, string author, string message)
+	{
+		if (!Instance.IsValid())
+			return;
+
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info($"{author}: {message}");
+
+		Instance.Entries.Add(new Entry(steamid, author, message, 0.0f));
+		Instance.StateHasChanged();
+	}
+
+	[Broadcast]
+	public static void AddInfo(string message)
+	{
+		if (!Instance.IsValid())
+			return;
+
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info(message);
+
+		Instance.Entries.Add(new Entry(default, null, message, 0.0f));
+		Instance.StateHasChanged();
+	}
+}

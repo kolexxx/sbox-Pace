@@ -1,0 +1,89 @@
+{
+  "RootObject": {
+    "__guid": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+    "Flags": 0,
+    "Name": "pistol",
+    "Enabled": true,
+    "Components": [
+      {
+        "__type": "Sandbox.SkinnedModelRenderer",
+        "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
+        "BodyGroups": 18446744073709551615,
+        "CreateBoneObjects": false,
+        "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+        "RenderType": "On",
+        "Tint": "1,1,1,1",
+        "UseAnimGraph": true
+      },
+      {
+        "__type": "Pace.Equipment",
+        "__guid": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+        "DeployTime": 0.6,
+        "Handedness": "Both",
+        "HoldType": "Pistol",
+        "Icon": "ui/equipment/usp_01.png",
+        "Name": "Pistol",
+        "Renderer": {
+          "_type": "component",
+          "component_id": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "SkinnedModelRenderer"
+        },
+        "Resource": "prefabs/pistol.equip",
+        "Slot": 1
+      },
+      {
+        "__type": "Pace.AmmoComponent",
+        "__guid": "184eaf10-1e52-45da-8095-e3532a3b33ac",
+        "Equipment": {
+          "_type": "component",
+          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Equipment"
+        },
+        "FireComponent": {
+          "_type": "component",
+          "component_id": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "FireComponent"
+        },
+        "MaxLoadedAmmo": 10,
+        "ReloadTime": 1.6,
+        "ReloadType": "Magazine"
+      },
+      {
+        "__type": "Pace.FireComponent",
+        "__guid": "dc518d3a-87d4-4ded-8c77-d0ae5f516fde",
+        "Ammo": {
+          "_type": "component",
+          "component_id": "184eaf10-1e52-45da-8095-e3532a3b33ac",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "AmmoComponent"
+        },
+        "BulletsPerFire": 1,
+        "Damage": 7.5,
+        "Equipment": {
+          "_type": "component",
+          "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
+          "component_type": "Equipment"
+        },
+        "FireMode": "Semi",
+        "FireRate": 6,
+        "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
+        "Spread": 5,
+        "Tracer": "particles/tracer.vpcf"
+      }
+    ],
+    "Children": [],
+    "__variables": []
+  },
+  "ShowInMenu": false,
+  "MenuPath": null,
+  "MenuIcon": null,
+  "ResourceVersion": 1,
+  "__references": [
+    "rust.rust_pistol"
+  ],
+  "__version": 1
+}

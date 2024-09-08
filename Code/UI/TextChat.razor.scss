@@ -1,0 +1,92 @@
+﻿TextChat
+{
+    position: absolute;
+    bottom: 140px;
+    left: 25px;
+    z-index: 100;
+    flex-direction: column;
+    width: 505px;
+    max-height: 350px;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all 0.1s ease, border 0s ease;
+
+    .output
+    {
+        flex-direction: column;
+        align-items: flex-start;
+        overflow: scroll;
+
+        .entry
+        {
+            max-width: 100%;
+            transition: opacity 0.15s ease;
+            margin-bottom: 6px;
+            flex-shrink: 0;
+
+            img
+            {
+                height: 30px;
+                width: 30px;
+                margin-right: 3px;
+            }
+
+            .name
+            {
+                font-weight: 700;
+            }
+
+            label
+            {
+                margin-right: 4px;
+                font-size: 16px;
+                margin-top: 3px;
+            }
+
+            .message
+            {
+                flex-shrink: 0;
+            }
+
+            &:outro
+            {
+                transition: opacity 1s ease;
+                opacity: 0;
+            }
+        }
+    }
+
+
+    TextEntry
+    {
+        transition: opacity 0.1s ease;
+        flex-shrink: 0;
+        opacity: 0;
+        border-radius: 4px;
+        padding: 0 10px 10px 0;
+    }
+
+
+    &.open
+    {
+        pointer-events: all;
+        bottom: 130px;
+        border-radius: 4px 4px 0px 0px;
+
+        TextEntry
+        {
+            opacity: 0.9;
+            width: 100%;
+            cursor: text;
+        }
+
+        .output
+        {
+            .entry
+            {
+                transition: opacity 0.1s ease;
+                opacity: 0.9;
+            }
+        }
+    }
+}

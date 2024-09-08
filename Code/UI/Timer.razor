@@ -1,0 +1,28 @@
+﻿﻿@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+@{
+	var gamemode = GameMode.Current;
+
+	if (gamemode is null)
+		return;
+}
+
+<root>
+	@gamemode.TimerString
+</root>
+
+@code
+{
+	protected override int BuildHash()
+	{
+		var gamemode = GameMode.Current;
+
+		return HashCode.Combine(gamemode, gamemode.TimerString);
+	}
+}

@@ -1,0 +1,40 @@
+@using Sandbox
+@using Sandbox.UI
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	@(Winner.IsValid() ? $"{Winner.Network.OwnerConnection.DisplayName} is the ultimate Pace player" : "The ultimate Pace player is yet to be decided...")
+</root>
+
+@code
+{
+	public Pawn Winner { get; set; }
+	private RealTimeSince _sinceCreated;
+
+	public GameOverPopup(Pawn winner)
+	{
+		Winner = winner;
+		_sinceCreated = 0f;
+	}
+
+	public override void Tick()
+	{
+		
+		if (IsDeleting)
+			return;
+
+		var gamemode = GameMode.Current;
+
+		if (gamemode.State == GameState.Countdown || gamemode.State == GameState.WaitingForPlayers)
+		{
+			Delete(true);
+			return;
+		}
+
+		if (_sinceCreated > 8f)
+			Delete();
+	}
+}

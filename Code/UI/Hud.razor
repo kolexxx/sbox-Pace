@@ -1,0 +1,25 @@
+﻿@using Sandbox
+@using Sandbox.UI
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits PanelComponent
+
+<root>
+	<Timer />
+	<TextChat />
+	<KillFeed />
+	<Crosshair />
+	<InventoryDisplay />
+	<Leaderboard />
+</root>
+
+@code
+{
+	public static Panel RootPanel { get; private set; }
+
+	protected override void OnStart()
+	{
+		RootPanel = Panel;
+	}
+}

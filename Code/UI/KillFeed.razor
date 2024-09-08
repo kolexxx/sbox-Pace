@@ -1,0 +1,49 @@
+@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+    @foreach (var entry in Entries)
+    {
+        <div class="entry">
+            <div class=@IsMe(entry.Attacker)>@entry.Attacker.Network.OwnerConnection.DisplayName</div>
+            @if(entry.Weapon is Equipment eq)
+            {
+                <img src=@eq.Icon />
+            }   
+            <div class=@IsMe(entry.Victim)>@entry.Victim.Network.OwnerConnection.DisplayName</div>
+        </div>
+    }
+</root>
+
+@code
+{
+    public static KillFeed Instance { get; set; }
+
+    List<Pace.DamageInfo> Entries = new();
+
+    public KillFeed() => Instance = this;
+
+    public override void Tick()
+    {
+        if (Entries.RemoveAll(x => x.TimeSince > 20f) > 0)
+        {
+            StateHasChanged();
+        }
+    }
+
+    public static void AddEntry(Pace.DamageInfo info)
+    {
+        Instance.Entries.Add(info);
+        Instance.StateHasChanged();
+    }
+
+    private string IsMe(Component component)
+    {
+        return component == Pawn.Local ? "local" : string.Empty;
+    }
+}

@@ -1,0 +1,43 @@
+﻿@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits PanelComponent
+
+<root>
+	<label>@Network.OwnerConnection.DisplayName</label>
+	<div class="health">
+		<div @ref=HealthBar class="health-inner"></div>
+	</div>
+</root>
+
+@code
+{
+	[Property] public HealthComponent HealthComponent { get; private set; }
+	public Panel HealthBar { get; set; }
+
+	protected override void OnUpdate()
+	{
+		Transform.Rotation = Rotation.LookAt(Settings.Plane.Normal);
+
+		if (HealthBar is null)
+			return;
+
+		var health = HealthComponent.Health;
+
+		HealthBar.Style.Width = Length.Fraction(health / 100f);
+
+		if (health > 90)
+			HealthBar.Style.BackgroundColor = Color.FromBytes(44, 233, 44);
+		else if (health > 70)
+			HealthBar.Style.BackgroundColor = Color.FromBytes(171, 231, 3);
+		else if (health > 45)
+			HealthBar.Style.BackgroundColor = Color.FromBytes(213, 202, 4);
+		else if (health > 20)
+			HealthBar.Style.BackgroundColor = Color.FromBytes(234, 129, 4);
+		else
+			HealthBar.Style.BackgroundColor = Color.FromBytes(246, 6, 6);
+	}
+}

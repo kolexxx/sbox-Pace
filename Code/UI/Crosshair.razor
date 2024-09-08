@@ -1,0 +1,45 @@
+﻿﻿@using Sandbox
+@using Sandbox.UI
+@using System.Linq
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+	<label @ref=Label></label>
+</root>
+
+@code
+{
+	public Label Label { get; set; }
+
+	public override void Tick()
+	{
+		if (!Pawn.Local.IsValid())
+			return;
+
+		var mousePosition = Mouse.Position / Screen.Size;
+
+		Style.Left = Length.Fraction(mousePosition.x);
+		Style.Top = Length.Fraction(mousePosition.y);
+
+		if (Label is null)
+			return;
+
+		var inventory = Pawn.Local.Inventory;
+
+		if (!inventory.ActiveEquipment.IsValid())
+		{
+			Label.Text = string.Empty;
+			return;
+		}
+
+		var ammoComponent = inventory.ActiveEquipment.Components.Get<AmmoComponent>();
+
+		var ammo = ammoComponent.LoadedAmmo;
+		var reserve = ammoComponent.ReserveAmmo;
+
+		Label.Text = $"{ammo}/{reserve}";
+	}
+}

@@ -1,0 +1,56 @@
+﻿@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+@{
+	var player = Pawn.Local;
+
+	if (!player.IsValid())
+		return;
+
+	if (!player.IsAlive)
+		return;
+
+	var inventory = player.Inventory;
+}
+
+<root>
+	@for (var i = 1; i < inventory.Equipment.Count; i++)
+	{
+		<div class="slot rounded @(HasActiveClass(inventory[i]) ? "active" : "")" )">
+			@if (inventory[i].IsValid())
+			{
+				<img src=@inventory[i].Icon />
+			}
+			<InputGlyph action=@Inventory.GetInputString(i) />
+		</div>
+	}
+</root>
+
+@code
+{
+	private bool HasActiveClass(Equipment eq)
+	{
+		if (!eq.IsValid())
+			return false;
+
+		return eq.IsActive;
+	}
+
+	protected override int BuildHash()
+	{
+		if (!Pawn.Local.IsValid())
+			return 0;
+
+		var result = 0;
+
+		foreach (var eq in Pawn.Local.Inventory.Equipment)
+			result = HashCode.Combine(result, eq.IsValid(), eq?.IsActive);
+
+		return HashCode.Combine(Pawn.Local.IsAlive, result);
+	}
+}

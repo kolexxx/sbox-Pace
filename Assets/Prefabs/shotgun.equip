@@ -1,0 +1,14 @@
+{
+  "Name": "Shotgun",
+  "Icon": "ui/equipment/spaghellim4_01.png",
+  "Model": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",
+  "Slot": 3,
+  "Prefab": {
+    "_type": "gameobject",
+    "prefab": "prefabs/shotgun.prefab"
+  },
+  "__references": [
+    "rust.rust_pumpshotgun"
+  ],
+  "__version": 0
+}

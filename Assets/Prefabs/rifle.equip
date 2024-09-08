@@ -1,0 +1,14 @@
+{
+  "Name": "Rifle",
+  "Icon": "ui/equipment/m4_01.png",
+  "Model": "weapons/rust_smg/rust_smg.vmdl",
+  "Slot": 2,
+  "Prefab": {
+    "_type": "gameobject",
+    "prefab": "prefabs/rifle.prefab"
+  },
+  "__references": [
+    "roomfield.rust_smg"
+  ],
+  "__version": 0
+}
