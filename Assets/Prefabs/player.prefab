@@ -19,6 +19,10 @@
           "_type": "gameobject",
           "go": "200b90ba-0937-463b-8e93-62d7bc33571d"
         },
+        "CameraPrefab": {
+          "_type": "gameobject",
+          "prefab": "prefabs/camera.prefab"
+        },
         "Head": {
           "_type": "gameobject",
           "go": "fdd9669b-882f-41f6-bca9-811d65b12664"
@@ -61,7 +65,7 @@
         "Bounciness": 0.3,
         "GroundAngle": 45,
         "Height": 64,
-        "IgnoreLayers": "",
+        "IgnoreLayers": "player",
         "Radius": 7.5,
         "StepHeight": 18,
         "UseCollisionRules": false

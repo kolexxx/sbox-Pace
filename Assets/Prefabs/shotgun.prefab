@@ -60,8 +60,8 @@
           "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
           "component_type": "AmmoComponent"
         },
-        "BulletsPerFire": 4,
-        "Damage": 15,
+        "BulletsPerFire": 8,
+        "Damage": 7.5,
         "Equipment": {
           "_type": "component",
           "component_id": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",

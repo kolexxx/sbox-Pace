@@ -42,6 +42,7 @@ public sealed class Pawn : Component, IRespawnable
 
 	[Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
 	[Property, Group( "Game Objects" )] public GameObject Body { get; private set; }
+	[Property, Group( "Game Objects" )] public GameObject CameraPrefab { get; private set; }
 	[Property, Group( "Components" )] public PawnController PawnController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
 	[Property, Group( "Components" )] public Inventory Inventory { get; private set; }
@@ -83,6 +84,19 @@ public sealed class Pawn : Component, IRespawnable
 	/// The direction and position from where we are aiming.
 	/// </summary>
 	public Ray AimRay { get; private set; }
+
+	protected override void OnStart()
+	{
+		if ( IsProxy )
+			return;
+
+		CameraPrefab.Clone( new CloneConfig
+		{
+			Parent = GameObject,
+			StartEnabled = true,
+			Transform = new()
+		} );
+	}
 
 	[Broadcast( NetPermission.HostOnly )]
 	public void Respawn()

@@ -9,7 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
         "BodyGroups": 18446744073709551615,
-        "CreateBoneObjects": false,
+        "CreateBoneObjects": true,
         "Model": "weapons/rust_smg/rust_smg.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1",
@@ -70,12 +70,33 @@
         },
         "FireMode": "Automatic",
         "FireRate": 10,
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "07f2f0d7-79b4-426f-8c0b-4abf27925d5d"
+        },
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
         "Spread": 12,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "07f2f0d7-79b4-426f-8c0b-4abf27925d5d",
+        "Flags": 0,
+        "Name": "Muzzle",
+        "Position": "1.645365,-17.35181,3.685437",
+        "Rotation": "0,0,0.7071068,-0.7071068",
+        "Enabled": true
+      },
+      {
+        "__guid": "e38455d7-1cbb-4c49-9884-0030b04d5dcc",
+        "Flags": 4,
+        "Name": "hold_R",
+        "Position": "1.4,5.500001,-1.2",
+        "Rotation": "0,0,-0.7071068,0.7071067",
+        "Enabled": true
+      }
+    ],
     "__variables": []
   },
   "ShowInMenu": false,

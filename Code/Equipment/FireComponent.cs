@@ -1,5 +1,6 @@
 using Sandbox;
 using System.Collections.Generic;
+using System.Numerics;
 
 namespace Pace;
 
@@ -86,13 +87,8 @@ public sealed class FireComponent : Component
 
         foreach ( var tr in TraceBullet( ray, 5000f, 1f ) )
         {
-            GameObject.Clone( "/effects/impact_default.prefab", new Transform( tr.HitPosition + tr.Normal * 2.0f, Rotation.LookAt( tr.Normal ) ) );
-
-            {
-                var go = GameObject.Clone( "/effects/decal_bullet_default.prefab" );
-                go.Transform.World = new Transform( tr.HitPosition + tr.Normal * 2.0f, Rotation.LookAt( -tr.Normal, Vector3.Random ), System.Random.Shared.Float( 0.8f, 1.2f ) );
-                go.SetParent( tr.GameObject );
-            }
+            HitEffects( tr.EndPosition, tr.Normal );
+            TracerEffects( tr.EndPosition );
 
             tr.Body?.ApplyImpulseAt( tr.HitPosition, tr.Direction * 200.0f * tr.Body.Mass.Clamp( 0, 200 ) );
 
@@ -155,9 +151,36 @@ public sealed class FireComponent : Component
     }
 
     [Broadcast( NetPermission.OwnerOnly )]
-    private void TracerEffects( Vector3 hitPosition )
+    private void HitEffects( Vector3 hitPosition, Vector3 normal )
     {
-        // get the muzzle position on our effect entity - either viewmodel or world model
-        var pos = Components.Get<SkinnedModelRenderer>().GetAttachment( "muzzle" ) ?? Transform.World;
+        GameObject.Clone( "/effects/impact_default.prefab", new Transform( hitPosition + normal * 2.0f, Rotation.LookAt( normal ) ) );
+    }
+
+    [Broadcast( NetPermission.OwnerOnly )]
+    private async void TracerEffects( Vector3 endPos, float width = 0.5f )
+    {
+        var startPos = Equipment.Renderer.GetAttachment( "muzzle" )?.Position ?? Vector3.Zero;
+        var line = new GameObject( false, "TraceLine" );
+        line.Transform.Position = Vector3.Zero;
+        line.Transform.Rotation = Rotation.Identity;
+
+        var renderer = line.Components.Create<LineRenderer>();
+        renderer.UseVectorPoints = true;
+        renderer.VectorPoints = new List<Vector3>() { startPos, endPos };
+        renderer.Color = Color.White.WithAlpha( 0.3f );
+        renderer.Width = width;
+        renderer.CastShadows = false;
+        renderer.Opaque = false;
+        line.Enabled = true;
+
+        TimeUntil lineDeath = 0.2f;
+
+        while ( !lineDeath )
+        {
+            renderer.Color = Color.White.WithAlpha( MathX.Lerp( 0.3f, 0f, lineDeath.Fraction ) );
+            await Task.Delay( (int)(Time.Delta * 1000) );
+        }
+
+        line.Destroy();
     }
 }

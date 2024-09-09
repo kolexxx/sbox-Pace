@@ -21,18 +21,6 @@ public class PawnController : Component
 	public bool IsGrounded => CharacterController.IsOnGround;
 	private bool _hasDoubleJumped;
 
-	protected override void OnStart()
-	{
-		if ( !IsProxy )
-		{
-			GameObject.Clone( "templates/gameobject/camera.prefab", new CloneConfig
-			{
-				Parent = GameObject,
-				StartEnabled = true
-			} );
-		}
-	}
-
 	[Authority( NetPermission.HostOnly )]
 	public void Teleport( Vector3 position )
 	{

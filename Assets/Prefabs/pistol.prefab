@@ -9,7 +9,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
         "BodyGroups": 18446744073709551615,
-        "CreateBoneObjects": false,
+        "CreateBoneObjects": true,
         "Model": "weapons/rust_pistol/rust_pistol.vmdl",
         "RenderType": "On",
         "Tint": "1,1,1,1",
@@ -75,7 +75,52 @@
         "Tracer": "particles/tracer.vpcf"
       }
     ],
-    "Children": [],
+    "Children": [
+      {
+        "__guid": "c078bf20-b8ed-46b1-b4e4-892787e29fe4",
+        "Flags": 4,
+        "Name": "ROOT_pistol",
+        "Position": "2.752901,-0.0000005930261,-3.479736",
+        "Rotation": "0.1620653,0.6882837,0.6882841,-0.1620654",
+        "Enabled": true,
+        "Children": [
+          {
+            "__guid": "d58295eb-2cc4-41b4-972b-950318a2b1c3",
+            "Flags": 4,
+            "Name": "joint2",
+            "Position": "6.821134,-0.00000333786,0.000001554037",
+            "Rotation": "-0.1620654,-0.6882836,-0.1620655,0.6882843",
+            "Enabled": true,
+            "Children": [
+              {
+                "__guid": "a656f7ba-718e-4a79-8065-5374220f3a91",
+                "Flags": 4,
+                "Name": "slide",
+                "Position": "0.00001195189,5.020038,1.959041",
+                "Rotation": "-0.0000004078367,-0.7071063,-0.000000565918,0.7071071",
+                "Enabled": true,
+                "Children": [
+                  {
+                    "__guid": "7db7c1a8-d0cb-42fb-a3cb-ee8eb49645c0",
+                    "Flags": 4,
+                    "Name": "joint4",
+                    "Position": "8.605772,0.000007629395,-0.000006145619",
+                    "Rotation": "-0.0000004296818,0.7071064,0.0000003664614,0.7071072",
+                    "Enabled": true
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "__guid": "8e644af4-d882-49da-934c-d6906e6b5430",
+        "Flags": 4,
+        "Name": "hold_R",
+        "Enabled": true
+      }
+    ],
     "__variables": []
   },
   "ShowInMenu": false,
