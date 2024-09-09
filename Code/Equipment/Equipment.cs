@@ -53,7 +53,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// Is this equipment currently equiped by the player?
     /// </summary>
-    public bool IsActive {get; private set;}
+    public bool IsActive => Owner?.Inventory.ActiveEquipment == this;
 
     /// <summary>
     /// How long since we equiped this weapon.
@@ -74,21 +74,17 @@ public sealed class Equipment : Component
     [Broadcast( NetPermission.OwnerOnly )]
     public void Deploy()
     {
-        IsActive = true;
         TimeSinceDeployed = 0f;
         Owner?.PawnBody.Renderer.Set( "b_deploy", true );
     }
 
-    public void Holster()
-    {
-        IsActive = false;
-    }
+    public void Holster() { }
 
     /// <summary>
     /// Called when added to a player's inventory.
     /// </summary>
     [Broadcast( NetPermission.HostOnly )]
-    public void CarryStart(Pawn owner)
+    public void CarryStart( Pawn owner )
     {
         Owner = owner;
     }

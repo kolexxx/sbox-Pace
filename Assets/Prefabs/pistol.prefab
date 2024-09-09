@@ -61,7 +61,7 @@
           "component_type": "AmmoComponent"
         },
         "BulletsPerFire": 1,
-        "Damage": 7.5,
+        "Damage": 10,
         "Equipment": {
           "_type": "component",
           "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
