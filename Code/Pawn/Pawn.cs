@@ -1,5 +1,6 @@
 using Sandbox;
 using Sandbox.Citizen;
+using System;
 using System.Linq;
 
 namespace Pace;
@@ -161,12 +162,13 @@ public sealed class Pawn : Component, IRespawnable
 		if ( camera is null )
 			return;
 
-		var position = AimRay.Position;
+		var position = Head.Transform.Position;
 		var offset = (MousePosition - position) / 2f;
+		var targetPosition = position + offset.ClampLength( 150f ) + Settings.Plane.Normal * 1000f;
 
-		camera.FieldOfView = Screen.CreateVerticalFieldOfView( 70f );
+		camera.FieldOfView = Screen.CreateVerticalFieldOfView( 30f );
 		camera.Transform.Rotation = (-Settings.Plane.Normal).EulerAngles;
-		camera.Transform.Position = position + offset.ClampLength( 150f ) + Settings.Plane.Normal * 400f;
+		camera.Transform.Position = Vector3.Lerp( camera.Transform.Position, targetPosition, 1 - MathF.Exp( -25f * Time.Delta ) );
 	}
 
 	private void UpdateRotation()
@@ -174,7 +176,6 @@ public sealed class Pawn : Component, IRespawnable
 		var targetAngles = Head.Transform.Rotation.Angles().WithPitch( 0 ).ToRotation();
 		var currAngles = Body.Transform.Rotation;
 
-		Transform.Rotation = targetAngles;
 		Head.Transform.Rotation = Rotation.LookAt( MousePosition - Head.Transform.Position );
 		Body.Transform.Rotation = Rotation.Lerp( currAngles, targetAngles, Time.Delta * 20f );
 	}
