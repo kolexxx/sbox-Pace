@@ -62,6 +62,12 @@ public sealed class Deathmatch : GameMode
 
     protected override void OnStateChanged( GameState before, GameState after )
     {
+        if ( after == GameState.GameOver )
+            ShowBestPlayer();
+
+        if ( !Networking.IsHost )
+            return;
+
         switch ( after )
         {
             case GameState.WaitingForPlayers:
@@ -87,14 +93,12 @@ public sealed class Deathmatch : GameMode
             }
             case GameState.GameOver:
             {
-                ShowBestPlayer();
                 TimeUntilNextState = 10f;
                 break;
             }
         }
     }
 
-    [Broadcast( NetPermission.HostOnly )]
     private void ShowBestPlayer()
     {
         var players = new List<Pawn>( Players );

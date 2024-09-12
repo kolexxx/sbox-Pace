@@ -11,30 +11,27 @@
 
 @code
 {
-	public Pawn Winner { get; set; }
-	private RealTimeSince _sinceCreated;
+	public Pawn Winner { get; private set; }
 
 	public GameOverPopup(Pawn winner)
 	{
 		Winner = winner;
-		_sinceCreated = 0f;
 	}
 
 	public override void Tick()
-	{
-		
+	{	
 		if (IsDeleting)
 			return;
 
 		var gamemode = GameMode.Current;
 
-		if (gamemode.State == GameState.Countdown || gamemode.State == GameState.WaitingForPlayers)
+		if (gamemode.State != GameState.GameOver)
 		{
 			Delete(true);
 			return;
 		}
 
-		if (_sinceCreated > 8f)
+		if ( gamemode.TimeUntilNextState <= 1f )
 			Delete();
 	}
 }

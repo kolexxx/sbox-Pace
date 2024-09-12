@@ -11,6 +11,13 @@
         "BodyGroups": 18446744073709551615,
         "CreateBoneObjects": true,
         "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+        "Morphs": {},
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -71,7 +78,7 @@
         "FireMode": "Semi",
         "FireRate": 6,
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
-        "Spread": 5,
+        "Spread": 3,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
