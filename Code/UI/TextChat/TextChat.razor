@@ -1,0 +1,116 @@
+﻿@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="text-shadow">
+	<div class="output" @ref="Output"></div>
+	<TextEntry class="background-color-primary" @ref="InputBox" onsubmit=@OnSubmit onblur=@Close />
+</root>
+
+@code
+{
+	public static TextChat Instance { get; private set; }
+
+	TextEntry InputBox;
+	Panel Output;
+
+	private const int MaxItems = 100;
+	private const float MessageLifetime = 10f;
+
+	private readonly Queue<TextChatEntry> _entries = new();
+
+	public TextChat()
+	{
+		Instance = this;
+	}
+
+	public override void Tick()
+	{
+		if (Input.Pressed("chat"))
+			Open();
+	}
+
+	protected override void OnAfterTreeRender(bool firstTime)
+	{
+		base.OnAfterTreeRender(firstTime);
+
+		Output.PreferScrollToBottom = true;
+		InputBox.AcceptsFocus = true;
+		InputBox.AllowEmojiReplace = true;
+	}
+
+	void OnSubmit()
+	{
+		var text = InputBox.Text.Trim();
+		InputBox.Text = "";
+
+		if (string.IsNullOrWhiteSpace(text))
+			return;
+
+		AddText(Sandbox.Utility.Steam.SteamId, Sandbox.Utility.Steam.PersonaName, text);
+	}
+
+	void Open()
+	{
+		AddClass("open");
+		InputBox.Focus();
+		Output.TryScrollToBottom();
+	}
+
+	void Close()
+	{
+		RemoveClass("open");
+		InputBox.Blur();
+		InputBox.Text = string.Empty;
+		InputBox.Label.SetCaretPosition(0);
+	}
+
+	void AddEntry(TextChatEntry entry)
+	{
+		Output.AddChild(entry);
+		Output.TryScrollToBottom();
+
+		entry.BindClass("stale", () => entry.Lifetime > MessageLifetime);
+
+		_entries.Enqueue(entry);
+
+		if (_entries.Count > MaxItems)
+			_entries.Dequeue().Delete();
+	}
+
+	[Broadcast]
+	public static void AddText(ulong steamid, string author, string message)
+	{
+		if (!Instance.IsValid())
+			return;
+
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info($"{author}: {message}");
+
+		Instance.AddEntry(new TextChatEntry(steamid, author, message));
+	}
+
+	[Broadcast]
+	public static void AddInfo(string message)
+	{
+		if (!Instance.IsValid())
+			return;
+
+		message = message.Truncate(300);
+
+		if (string.IsNullOrWhiteSpace(message))
+			return;
+
+		Log.Info(message);
+
+		Instance?.AddEntry(new TextChatEntry(message));
+	}
+}

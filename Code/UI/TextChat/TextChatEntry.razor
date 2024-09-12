@@ -1,0 +1,43 @@
+@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+    @if (SteamId != default)
+    {
+        <div style="flex-shrink: 0;">
+            <img class="circle" src="avatar:@SteamId" />
+            <label class="name" style="color: @Color.White.Hex;">@Name</label>
+        </div>
+    }
+
+    @if (!string.IsNullOrEmpty(Message))
+    {
+        <label class="message">@Message</label>
+    }
+</root>
+
+@code
+{
+    private ulong SteamId { get; set; }
+    private string Name { get; set; }
+    private string Message { get; set; }
+
+    public RealTimeSince Lifetime { get; init; } = 0;
+
+    public TextChatEntry(ulong steamId, string name, string message)
+    {
+        SteamId = steamId;
+        Name = name;
+        Message = message;
+    }
+
+    public TextChatEntry(string message)
+    {
+        Message = message; // Use Name field since it is bold & colored.
+    }
+}
