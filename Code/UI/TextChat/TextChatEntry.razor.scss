@@ -3,6 +3,7 @@ TextChatEntry
     width: 100%;
     transition: opacity 0.15s ease;
     margin-bottom: 6px;
+    flex-shrink: 0;
 
     img
     {
