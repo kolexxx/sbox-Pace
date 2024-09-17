@@ -50,6 +50,8 @@ public sealed class Pawn : Component, IRespawnable
 	[Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
 	[Property, Group( "Components" )] public PawnBody PawnBody { get; private set; }
 
+	public string SteamName => Network.OwnerConnection.DisplayName;
+
 	/// <summary>
 	/// The LifeState of this pawn.
 	/// </summary>

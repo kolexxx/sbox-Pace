@@ -49,7 +49,9 @@ public sealed class Deathmatch : GameMode
             return;
 
         victim.LifeState = LifeState.Respawning;
-        UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
+
+        if ( victim.HealthComponent.LastDamage.Weapon is Equipment eq )
+            UI.KillFeed.AddEntry( attacker.SteamName, eq.Icon, victim.SteamName );
 
         if ( !Networking.IsHost )
             return;

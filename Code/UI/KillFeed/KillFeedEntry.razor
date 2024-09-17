@@ -1,0 +1,38 @@
+@using Sandbox
+@using Sandbox.UI
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root>
+    <label class=@IsMe(Left)>@Left</label>
+    <img src=@Weapon />
+    <label class=@IsMe(Right)>@Right</label>
+</root>
+
+@code
+{
+    public string Left { get; set; }
+    public string Weapon { get; set; }
+    public string Right { get; set; }
+    private RealTimeSince _timeSinceCreated = 0;
+
+    public KillFeedEntry(string left, string weapon, string right)
+    {
+        Left = left;
+        Weapon = weapon;
+        Right = right;
+    }
+
+    public override void Tick()
+    {
+        if (_timeSinceCreated > 6f)
+            Delete();
+    }
+
+    private string IsMe(string name)
+    {
+        return name == Pawn.Local.SteamName ? "local" : string.Empty;
+    }
+}

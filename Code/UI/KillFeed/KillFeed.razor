@@ -1,0 +1,20 @@
+@using Sandbox
+@using Sandbox.UI
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root />
+
+@code
+{
+    public static KillFeed Instance { get; private set; }
+    public KillFeed() => Instance = this;
+
+    public static void AddEntry(string left, string weapon, string right)
+    {
+        Instance.AddChild(new KillFeedEntry(left, weapon, right));
+    }
+}
