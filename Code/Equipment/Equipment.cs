@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Sandbox;
 using Sandbox.Citizen;
 
@@ -48,7 +49,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// The holder of this equipment.
     /// </summary>
-    [HostSync] public Pawn Owner { get; set; }
+    [Sync( SyncFlags.FromHost )] public Pawn Owner { get; set; }
 
     /// <summary>
     /// Is this equipment currently equiped by the player?
@@ -65,13 +66,22 @@ public sealed class Equipment : Component
     /// </summary>
     public bool IsDeployed => IsActive && TimeSinceDeployed > DeployTime;
 
+    protected override void OnUpdate()
+    {
+        if ( !Owner.IsValid() )
+            return;
+
+        WorldPosition = Owner.PawnBody.Hand.WorldPosition;
+        WorldRotation = Owner.PawnBody.Hand.WorldRotation;
+    }
+
     protected override void OnFixedUpdate()
     {
         Renderer.Enabled = !Owner.IsValid() || IsActive;
         Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.PawnBody.Renderer : null;
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
+    [Rpc.Broadcast]
     public void Deploy()
     {
         TimeSinceDeployed = 0f;
@@ -83,9 +93,12 @@ public sealed class Equipment : Component
     /// <summary>
     /// Called when added to a player's inventory.
     /// </summary>
-    [Broadcast( NetPermission.HostOnly )]
-    public void CarryStart( Pawn owner )
+    [Rpc.Broadcast]
+    public void CarryStart( Pawn owner, bool makeActive = false )
     {
+        if ( !IsProxy && makeActive )
+            owner.Inventory.InputEquipment = this;
+
         Owner = owner;
     }
 }

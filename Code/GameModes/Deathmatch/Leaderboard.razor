@@ -1,6 +1,7 @@
 @using Sandbox
 @using Sandbox.UI
 @using System.Collections.Generic
+@using System.Linq
 
 @namespace Pace.UI
 @attribute [StyleSheet]
@@ -19,7 +20,7 @@
 
     public override void Tick()
     {
-        if(!Pawn.Local.IsValid())
+        if (!Pawn.Local.IsValid())
             return;
 
         if (_timeUntilUpdate)
@@ -29,7 +30,7 @@
     private void Update()
     {
         _timeUntilUpdate = 0.1f;
-        var players = new List<Pawn>(GameMode.Current.Players);
+        var players = new List<Pawn>(GameMode.Current.Players.Where(x => x.IsValid()));
 
         players.Sort(delegate (Pawn x, Pawn y)
         {
@@ -72,6 +73,6 @@
 
     private string GetFormatString(Pawn pawn, int place)
     {
-        return $"{place}. {pawn.Network.OwnerConnection.DisplayName} - {pawn.Stats.Kills}";
+        return $"{place}. {pawn.Network.Owner.DisplayName} - {pawn.Stats.Kills}";
     }
 }

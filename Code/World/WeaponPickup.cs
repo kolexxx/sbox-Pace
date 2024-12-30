@@ -15,7 +15,7 @@ public sealed class WeaponPickup : Pickup
         (
             Game.ActiveScene.SceneWorld,
             EquipmentToSpawn.Model,
-            new Transform( Transform.Position, Transform.Rotation, 1.2f )
+            new Transform( WorldPosition, WorldRotation, 1.2f )
         );
     }
 }

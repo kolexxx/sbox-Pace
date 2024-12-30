@@ -21,7 +21,7 @@ public class PawnController : Component
 	public bool IsGrounded => CharacterController.IsOnGround;
 	private bool _hasDoubleJumped;
 
-	[Authority( NetPermission.HostOnly )]
+	[Rpc.Owner( NetFlags.HostOnly )]
 	public void Teleport( Vector3 position )
 	{
 		Transform.World = new( position );
@@ -81,7 +81,7 @@ public class PawnController : Component
 		else
 			CharacterController.Velocity += halfGravity;
 
-		Transform.Position = Settings.Plane.SnapToPlane( Transform.Position );
+		WorldPosition = Settings.Plane.SnapToPlane( WorldPosition );
 	}
 
 	private void Jump()

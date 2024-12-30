@@ -9,9 +9,27 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "36758130-c8f2-4363-8a84-8c801c103b0b",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": true,
         "CreateBoneObjects": true,
         "Model": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
@@ -70,8 +88,17 @@
         },
         "FireMode": "Semi",
         "FireRate": 1,
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "05dcdbbd-e5bb-42c9-9601-b7481cbdf495"
+        },
+        "MuzzleFlash": {
+          "_type": "gameobject",
+          "prefab": "effects/muzzle.prefab"
+        },
         "ShootSound": "sounds/weapons/shotgun/shotgun1_shoot.sound",
-        "Spread": 16
+        "Spread": 16,
+        "Tracer": "particles/tracer.vpcf"
       }
     ],
     "Children": [
@@ -139,16 +166,47 @@
             ]
           }
         ]
+      },
+      {
+        "__guid": "05dcdbbd-e5bb-42c9-9601-b7481cbdf495",
+        "Flags": 8,
+        "Name": "muzzle",
+        "Position": "33.85,0.000004576148,4.100001",
+        "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "rust.rust_pumpshotgun"
+    "rust.rust_pumpshotgun#43965"
   ],
   "__version": 1
 }

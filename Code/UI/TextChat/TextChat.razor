@@ -82,7 +82,7 @@
 			_entries.Dequeue().Delete();
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public static void AddText(ulong steamid, string author, string message)
 	{
 		if (!Instance.IsValid())
@@ -98,7 +98,7 @@
 		Instance.AddEntry(new TextChatEntry(steamid, author, message));
 	}
 
-	[Broadcast]
+	[Rpc.Broadcast]
 	public static void AddInfo(string message)
 	{
 		if (!Instance.IsValid())

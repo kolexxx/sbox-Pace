@@ -23,12 +23,12 @@ public class Inventory : Component, Component.ITriggerListener
 	/// <summary>
 	/// The equipment we want to equip next. If null, we will holster.
 	/// </summary>
-	[Sync, HostSync] public Equipment InputEquipment { get; private set; }
+	[Sync] public Equipment InputEquipment { get; set; }
 
 	/// <summary>
 	/// A list of all our inventory slots.
 	/// </summary>
-	[HostSync] public NetList<Equipment> Equipment { get; private set; } = new();
+	[Sync( SyncFlags.FromHost )] public NetList<Equipment> Equipment { get; private set; } = new();
 
 	/// <summary>
 	/// A shorthand to our equipment list indexer.
@@ -84,13 +84,10 @@ public class Inventory : Component, Component.ITriggerListener
 			Transform = new Transform(),
 		} );
 
-		go.NetworkSpawn( Network.OwnerConnection );
+		go.NetworkSpawn( Network.Owner );
 
 		Equipment[eq.Slot] = go.Components.Get<Equipment>();
-		Equipment[eq.Slot].CarryStart( Pawn );
-
-		if ( makeActive )
-			InputEquipment = Equipment[eq.Slot];
+		Equipment[eq.Slot].CarryStart( Pawn, makeActive );
 
 		return true;
 	}
@@ -189,7 +186,7 @@ public class Inventory : Component, Component.ITriggerListener
 		ammo.RefillReserve();
 	}
 
-	[Authority]
+	[Rpc.Owner( NetFlags.Unreliable )]
 	private void PickupEffects()
 	{
 		Sound.Play( PickupSound );

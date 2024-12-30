@@ -72,6 +72,7 @@ public class AmmoComponent : Component
 
         if ( CanReload() )
         {
+
             Reload();
             return;
         }
@@ -86,7 +87,7 @@ public class AmmoComponent : Component
         }
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
+    [Rpc.Broadcast]
     protected void Reload()
     {
         if ( IsReloading )
@@ -139,7 +140,7 @@ public class AmmoComponent : Component
         _requestCancel = false;
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
+    [Rpc.Broadcast]
     protected void CancelReload()
     {
         _requestCancel = false;
@@ -147,7 +148,7 @@ public class AmmoComponent : Component
         Equipment.Owner.PawnBody.Renderer.Set( "b_reload", false );
     }
 
-    [Authority( NetPermission.HostOnly )]
+    [Rpc.Owner]
     public void RefillReserve()
     {
         if ( ReloadType != ReloadType.NoReload )

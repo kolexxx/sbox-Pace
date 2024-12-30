@@ -8,6 +8,7 @@ public class PawnBody : Component
     [Property, Group( "Components" )] public ModelPhysics Physics { get; private set; }
     [Property, Group( "Components" )] public SkinnedModelRenderer Renderer { get; private set; }
     [Property, Group( "Components" )] public UI.InfoPlate InfoPlate { get; private set; }
+    [Property] public GameObject Hand { get; private set; }
 
     public void SetRagdoll( bool ragdoll )
     {
@@ -19,8 +20,8 @@ public class PawnBody : Component
 
         if ( !ragdoll )
         {
-            GameObject.Transform.LocalPosition = Vector3.Zero;
-            GameObject.Transform.LocalRotation = Rotation.Identity;
+            GameObject.LocalPosition = Vector3.Zero;
+            GameObject.LocalRotation = Rotation.Identity;
         }
 
         Transform.ClearInterpolation();

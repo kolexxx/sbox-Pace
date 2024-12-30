@@ -42,6 +42,7 @@ public sealed class Pawn : Component, IRespawnable
 
 	[Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
 	[Property, Group( "Game Objects" )] public GameObject Body { get; private set; }
+	[Property, Group( "Game Objects" )] public GameObject CameraObject { get; private set; }
 	[Property, Group( "Game Objects" )] public GameObject CameraPrefab { get; private set; }
 	[Property, Group( "Components" )] public PawnController PawnController { get; private set; }
 	[Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
@@ -50,7 +51,7 @@ public sealed class Pawn : Component, IRespawnable
 	[Property, Group( "Components" )] public StatsTracker Stats { get; private set; }
 	[Property, Group( "Components" )] public PawnBody PawnBody { get; private set; }
 
-	public string SteamName => Network.OwnerConnection.DisplayName;
+	public string SteamName => Network.Owner.DisplayName;
 
 	/// <summary>
 	/// The LifeState of this pawn.
@@ -80,7 +81,7 @@ public sealed class Pawn : Component, IRespawnable
 	/// <summary>
 	/// The mouse position inside the world.
 	/// </summary>
-	[Sync] private Vector3 MousePosition { get; set; }
+	[Sync] public Vector3 MousePosition { get; private set; }
 
 	/// <summary>
 	/// The direction and position from where we are aiming.
@@ -92,15 +93,17 @@ public sealed class Pawn : Component, IRespawnable
 		if ( IsProxy )
 			return;
 
-		CameraPrefab.Clone( new CloneConfig
+		CameraObject = CameraPrefab.Clone( new CloneConfig
 		{
 			Parent = GameObject,
 			StartEnabled = true,
 			Transform = new()
 		} );
+
+		CameraObject.Components.Create<LookCamera>();
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast]
 	public void Respawn()
 	{
 		LifeState = LifeState.Alive;
@@ -112,9 +115,15 @@ public sealed class Pawn : Component, IRespawnable
 			HealthComponent.Health = 100f;
 			GameMode.Current?.OnRespawn( this );
 		}
+
+		if ( !IsProxy && CameraObject.IsValid() )
+		{
+			CameraObject.Components.Get<Deathcam>()?.Destroy();
+			CameraObject.Components.GetOrCreate<LookCamera>();
+		}
 	}
 
-	[Broadcast( NetPermission.HostOnly )]
+	[Rpc.Broadcast]
 	public void OnKilled()
 	{
 		var damage = HealthComponent.LastDamage;
@@ -127,6 +136,12 @@ public sealed class Pawn : Component, IRespawnable
 
 		if ( Networking.IsHost )
 			Inventory.Clear();
+
+		if ( !IsProxy )
+		{
+			CameraObject.Components.Get<LookCamera>().Destroy();
+			CameraObject.Components.Create<Deathcam>();
+		}
 
 		GameMode.Current?.OnKill( damage.Attacker as Pawn, this );
 	}
@@ -150,50 +165,34 @@ public sealed class Pawn : Component, IRespawnable
 		PawnController.Move();
 	}
 
-	protected override void OnPreRender()
-	{
-		if ( !IsProxy )
-			UpdateCamera();
-	}
-
 	private void MouseInput()
 	{
-		var camera = Components.Get<CameraComponent>( FindMode.InChildren );
+		if ( !IsAlive )
+		{
+			MousePosition = Head.WorldPosition;
+			return;
+		}
+
+		var camera = CameraObject.Components.Get<CameraComponent>();
 
 		if ( camera is null )
 			return;
 
 		var ray = camera.ScreenPixelToRay( Mouse.Position );
 		var planeIntersection = Settings.Plane.Trace( ray );
-		var headPosition = Head.Transform.Position;
+		var headPosition = Head.WorldPosition;
 
 		MousePosition = planeIntersection ?? headPosition;
 		AimRay = new( headPosition, Vector3.Direction( headPosition, MousePosition ) );
 	}
 
-	private void UpdateCamera()
-	{
-		var camera = Components.Get<CameraComponent>( FindMode.InChildren );
-
-		if ( camera is null )
-			return;
-
-		var position = Head.Transform.Position;
-		var offset = (MousePosition - position) / 2f;
-		var targetPosition = position + offset.ClampLength( 150f ) + Settings.Plane.Normal * 1000f;
-
-		camera.FieldOfView = Screen.CreateVerticalFieldOfView( 30f );
-		camera.Transform.Rotation = (-Settings.Plane.Normal).EulerAngles;
-		camera.Transform.Position = Vector3.Lerp( camera.Transform.Position, targetPosition, 1 - MathF.Exp( -25f * Time.Delta ) );
-	}
-
 	private void UpdateRotation()
 	{
-		var targetAngles = Head.Transform.Rotation.Angles().WithPitch( 0 ).ToRotation();
-		var currAngles = Body.Transform.Rotation;
+		var targetAngles = Head.WorldRotation.Angles().WithPitch( 0 ).ToRotation();
+		var currAngles = Body.WorldRotation;
 
-		Head.Transform.Rotation = Rotation.LookAt( MousePosition - Head.Transform.Position );
-		Body.Transform.Rotation = Rotation.Lerp( currAngles, targetAngles, Time.Delta * 20f );
+		Head.WorldRotation = Rotation.LookAt( MousePosition - Head.WorldPosition );
+		Body.WorldRotation = Rotation.Lerp( currAngles, targetAngles, Time.Delta * 20f );
 	}
 
 	private void Animate()
@@ -202,9 +201,9 @@ public sealed class Pawn : Component, IRespawnable
 
 		AnimationHelper.WithWishVelocity( IsFrozen ? Vector3.Zero : PawnController.WishVelocity );
 		AnimationHelper.WithVelocity( IsFrozen ? Vector3.Zero : PawnController.Velocity );
-		AnimationHelper.AimAngle = Head.Transform.Rotation;
+		AnimationHelper.AimAngle = Head.WorldRotation;
 		AnimationHelper.IsGrounded = PawnController.IsGrounded || IsFrozen;
-		AnimationHelper.WithLook( Head.Transform.Rotation.Forward, 1f, 0.5f, 0.5f );
+		AnimationHelper.WithLook( Head.WorldRotation.Forward, 1f, 0.5f, 0.5f );
 		AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
 		AnimationHelper.DuckLevel = 0f;
 		AnimationHelper.HoldType = equipment.IsValid() ? equipment.HoldType : CitizenAnimationHelper.HoldTypes.None;

@@ -6,7 +6,7 @@ namespace Pace;
 public sealed class HealthComponent : Component, Component.ITriggerListener
 {
     [Property] public Pawn Pawn { get; private set; }
-    [Property, ReadOnly, HostSync] public float Health { get; set; } = 100f;
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public float Health { get; set; } = 100f;
     [Property] public SoundEvent DamageTakenSound { get; private set; }
     public DamageInfo LastDamage { get; private set; }
 
@@ -17,10 +17,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
 
         if ( !Networking.IsHost )
         {
-            using ( Rpc.FilterInclude( Connection.Host ) )
-            {
-                RequestDamage( info.Attacker, info.Weapon, info.Damage, info.Flags, info.Position, info.Force );
-            }
+            RequestDamage( info.Attacker, info.Weapon, info.Damage, info.Flags, info.Position, info.Force );
 
             return;
         }
@@ -32,7 +29,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
             Pawn.OnKilled();
     }
 
-    [Broadcast]
+    [Rpc.Host]
     private void RequestDamage( Component attacker, Component weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
     {
         var damageInfo = new DamageInfo
@@ -48,7 +45,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
         TakeDamage( damageInfo );
     }
 
-    [Broadcast( NetPermission.HostOnly )]
+    [Rpc.Broadcast]
     private void BroadcastDamage( Component attacker, Component weapon, float damage, DamageFlags flags, Vector3 position, Vector3 force )
     {
         LastDamage = new DamageInfo

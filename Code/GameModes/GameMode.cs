@@ -30,12 +30,12 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// Our current <see cref="GameState"> game state</see>.
 	/// </summary>
-	[Property, ReadOnly, HostSync, Change] public GameState State { get; protected set; }
+	[Property, ReadOnly, Sync( SyncFlags.FromHost ), Change] public GameState State { get; protected set; }
 
 	/// <summary>
 	/// The time until we change our game state.
 	/// </summary>
-	[HostSync] public TimeUntil TimeUntilNextState { get; protected set; }
+	[Sync( SyncFlags.FromHost )] public TimeUntil TimeUntilNextState { get; protected set; }
 
 	/// <summary>
 	/// The prefab to spawn for the player to control.
@@ -51,7 +51,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// <summary>
 	/// A list of all the players currently in-game.
 	/// </summary>
-	[HostSync] public List<Pawn> Players { get; private set; } = new();
+	[Sync( SyncFlags.FromHost )] public List<Pawn> Players { get; private set; } = new();
 
 	/// <summary>
 	/// Text that will be displayed in the HUD's timer.
@@ -72,11 +72,11 @@ public abstract class GameMode : Component, Component.INetworkListener
 		if ( Scene.IsEditor )
 			return;
 
-		if ( !GameNetworkSystem.IsActive )
+		if ( !Networking.IsActive )
 		{
 			LoadingScreen.Title = "Creating Lobby";
 			await Task.DelayRealtimeSeconds( 0.1f );
-			GameNetworkSystem.CreateLobby();
+			Networking.CreateLobby( new() );
 		}
 
 		Current = this;
@@ -101,7 +101,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 
 	public void OnDisconnected( Connection connection )
 	{
-		Players.RemoveAll( x => x.Network.OwnerConnection == connection );
+		Players.RemoveAll( x => !x.IsValid() );
 		VerifyEnoughPlayers();
 
 		UI.TextChat.AddInfo( $"{connection.DisplayName} has left the game" );
@@ -162,7 +162,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 		if ( spawnpoint is null )
 			return;
 
-		pawn.PawnController.Teleport( spawnpoint.Transform.Position );
+		pawn.PawnController.Teleport( spawnpoint.WorldPosition );
 	}
 
 	private float GetSpawnpointWeight( Pawn pawn, SpawnPoint spawnpoint )
@@ -175,7 +175,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 			if ( player == pawn ) continue;
 			if ( !pawn.IsAlive ) continue;
 
-			var spawnDist = (spawnpoint.Transform.Position - player.Transform.Position).LengthSquared;
+			var spawnDist = (spawnpoint.WorldPosition - player.WorldPosition).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
 

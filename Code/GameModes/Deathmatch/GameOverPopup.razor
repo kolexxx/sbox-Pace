@@ -6,7 +6,7 @@
 @inherits Panel
 
 <root>
-	@(Winner.IsValid() ? $"{Winner.Network.OwnerConnection.DisplayName} is the ultimate Pace player" : "The ultimate Pace player is yet to be decided...")
+	@(Winner.IsValid() ? $"{Winner.Network.Owner.DisplayName} is the ultimate Pace player" : "The ultimate Pace player is yet to be decided...")
 </root>
 
 @code

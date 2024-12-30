@@ -9,9 +9,27 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": true,
         "CreateBoneObjects": true,
         "Model": "weapons/rust_smg/rust_smg.vmdl",
+        "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
+        "RenderOptions": {
+          "GameLayer": true,
+          "OverlayLayer": false,
+          "BloomLayer": false,
+          "AfterUILayer": false
+        },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
@@ -72,7 +90,11 @@
         "FireRate": 10,
         "Muzzle": {
           "_type": "gameobject",
-          "go": "07f2f0d7-79b4-426f-8c0b-4abf27925d5d"
+          "go": "3716b77b-6897-4b64-8c7f-e76c7034ac25"
+        },
+        "MuzzleFlash": {
+          "_type": "gameobject",
+          "prefab": "effects/muzzle.prefab"
         },
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
         "Spread": 12,
@@ -81,30 +103,69 @@
     ],
     "Children": [
       {
-        "__guid": "07f2f0d7-79b4-426f-8c0b-4abf27925d5d",
-        "Flags": 0,
-        "Name": "Muzzle",
-        "Position": "1.645365,-17.35181,3.685437",
-        "Rotation": "0,0,0.7071068,-0.7071068",
-        "Enabled": true
-      },
-      {
-        "__guid": "e38455d7-1cbb-4c49-9884-0030b04d5dcc",
+        "__guid": "0616afd3-3456-4222-bc69-32cd8b39dec5",
         "Flags": 4,
         "Name": "hold_R",
         "Position": "1.4,5.500001,-1.2",
         "Rotation": "0,0,-0.7071068,0.7071067",
         "Enabled": true
+      },
+      {
+        "__guid": "7b1d3e3b-7a00-4c07-bbe5-f43427f3c026",
+        "Flags": 8,
+        "Name": "ejection_point",
+        "Position": "3.294648,-0.03752756,3.672773",
+        "Rotation": "-0.642848,-0.2030699,-0.2815914,0.6827996",
+        "Enabled": true
+      },
+      {
+        "__guid": "3716b77b-6897-4b64-8c7f-e76c7034ac25",
+        "Flags": 0,
+        "Name": "wa",
+        "Position": "17.30755,1.787172,3.679705",
+        "Enabled": true
+      },
+      {
+        "__guid": "0747658f-7a45-47c7-93db-4da3a7fc1e87",
+        "Flags": 8,
+        "Name": "muzzle",
+        "Position": "1.656545,-17.42515,3.732917",
+        "Rotation": "0,0,-0.6962886,0.7177618",
+        "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "roomfield.rust_smg"
+    "rust.rust_smg#43967"
   ],
   "__version": 1
 }

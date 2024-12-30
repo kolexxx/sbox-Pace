@@ -7,7 +7,7 @@
 @inherits PanelComponent
 
 <root>
-	<label>@Network.OwnerConnection.DisplayName</label>
+	<label>@Network.Owner.DisplayName</label>
 	<div class="health">
 		<div @ref=HealthBar class="health-inner"></div>
 	</div>
@@ -20,7 +20,7 @@
 
 	protected override void OnUpdate()
 	{
-		Transform.Rotation = Rotation.LookAt(Settings.Plane.Normal);
+		WorldRotation = Rotation.LookAt(Settings.Plane.Normal);
 
 		if (HealthBar is null)
 			return;

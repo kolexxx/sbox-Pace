@@ -12,7 +12,7 @@ public sealed class HealthPickup : Pickup
         (
             Game.ActiveScene.SceneWorld,
             "models/citizen_props/balloonheart01.vmdl",
-            new Transform( Transform.Position, Transform.Rotation )
+            new Transform( WorldPosition, WorldRotation )
         );
 
         Preview.ColorTint = Color.Green;

@@ -129,20 +129,19 @@ public sealed class FireComponent : Component
             yield return tr;
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
+    [Rpc.Broadcast]
     private void ShootEffects()
     {
         if ( ShootSound is not null )
         {
-            Sound.Play( ShootSound, Transform.Position );
+            Sound.Play( ShootSound, WorldPosition );
         }
 
         if ( Muzzle.IsValid() && MuzzleFlash.IsValid() )
         {
             MuzzleFlash.Clone( new CloneConfig
             {
-                Parent = Muzzle,
-                Transform = new(),
+                Transform = Equipment.Renderer.GetAttachment( "muzzle" ) ?? global::Transform.Zero,
                 StartEnabled = true,
             } );
         }
@@ -150,37 +149,34 @@ public sealed class FireComponent : Component
         Equipment.Owner.PawnBody.Renderer.Set( "b_attack", true );
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
+    [Rpc.Broadcast]
     private void HitEffects( Vector3 hitPosition, Vector3 normal )
     {
         GameObject.Clone( "/effects/impact_default.prefab", new Transform( hitPosition + normal * 2.0f, Rotation.LookAt( normal ) ) );
     }
 
-    [Broadcast( NetPermission.OwnerOnly )]
-    private async void TracerEffects( Vector3 endPos, float width = 0.5f )
+    [Rpc.Broadcast]
+    private async void TracerEffects( Vector3 endPos )
     {
-        var startPos = Equipment.Renderer.GetAttachment( "muzzle" )?.Position ?? Vector3.Zero;
-        var line = new GameObject( false, "TraceLine" );
-        line.Transform.Position = Vector3.Zero;
-        line.Transform.Rotation = Rotation.Identity;
+        if ( !Tracer.IsValid() )
+            return;
 
-        var renderer = line.Components.Create<LineRenderer>();
-        renderer.UseVectorPoints = true;
-        renderer.VectorPoints = new List<Vector3>() { startPos, endPos };
-        renderer.Color = Color.White.WithAlpha( 0.3f );
-        renderer.Width = width;
-        renderer.CastShadows = false;
-        renderer.Opaque = false;
-        line.Enabled = true;
+        var startPos = Equipment.Renderer.GetAttachment( "muzzle" )?.Position ?? Muzzle.WorldPosition;
 
-        TimeUntil lineDeath = 0.2f;
+        var gameObject = Scene.CreateObject();
+        gameObject.Name = $"Particle: {Equipment.GameObject}";
+        gameObject.WorldPosition = startPos;
+        gameObject.WorldRotation = Rotation.Identity;
 
-        while ( !lineDeath )
-        {
-            renderer.Color = Color.White.WithAlpha( MathX.Lerp( 0.3f, 0f, lineDeath.Fraction ) );
-            await Task.Delay( (int)(Time.Delta * 1000) );
-        }
+        var p = gameObject.Components.Create<LegacyParticleSystem>();
+        p.Particles = Tracer;
+        gameObject.Transform.ClearInterpolation();
 
-        line.Destroy();
+        p.SceneObject.SetControlPoint( 0, startPos );
+        p.SceneObject.SetControlPoint( 1, endPos );
+
+        await GameTask.Delay( 100 );
+
+        p.DestroyGameObject();
     }
 }

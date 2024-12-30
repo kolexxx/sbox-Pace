@@ -15,7 +15,7 @@ public abstract class Pickup : Component, ICleanup
     /// <summary>
 	/// The time until the item respawns.
 	/// </summary>
-	[HostSync] public TimeUntil TimeUntilRespawn { get; private set; } = 0f;
+	[Sync( SyncFlags.FromHost )] public TimeUntil TimeUntilRespawn { get; private set; } = 0f;
 
     protected SceneObject Preview { get; set; }
 
@@ -36,7 +36,7 @@ public abstract class Pickup : Component, ICleanup
         if ( !Preview.RenderingEnabled )
             return;
 
-        Preview.Position = Transform.Position + (MathF.Sin( Time.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
+        Preview.Position = WorldPosition + (MathF.Sin( Time.Now * 2.5f ) * 10f + 45f) * Vector3.Up;
         Preview.Rotation = Rotation.FromAxis( Vector3.Up, Time.Now * 100f );
     }
 

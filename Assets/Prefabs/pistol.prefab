@@ -3,15 +3,24 @@
     "__guid": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
     "Flags": 0,
     "Name": "pistol",
+    "Tags": "particles",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
         "BodyGroups": 18446744073709551615,
+        "CreateAttachments": true,
         "CreateBoneObjects": true,
         "Model": "weapons/rust_pistol/rust_pistol.vmdl",
         "Morphs": {},
+        "Parameters": {
+          "bools": {},
+          "ints": {},
+          "floats": {},
+          "vectors": {},
+          "rotations": {}
+        },
         "RenderOptions": {
           "GameLayer": true,
           "OverlayLayer": false,
@@ -19,6 +28,9 @@
           "AfterUILayer": false
         },
         "RenderType": "On",
+        "Sequence": {
+          "Name": null
+        },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
       },
@@ -77,8 +89,16 @@
         },
         "FireMode": "Semi",
         "FireRate": 6,
+        "Muzzle": {
+          "_type": "gameobject",
+          "go": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b"
+        },
+        "MuzzleFlash": {
+          "_type": "gameobject",
+          "prefab": "effects/muzzle.prefab"
+        },
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
-        "Spread": 3,
+        "Spread": 5,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
@@ -126,16 +146,47 @@
         "Flags": 4,
         "Name": "hold_R",
         "Enabled": true
+      },
+      {
+        "__guid": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b",
+        "Flags": 8,
+        "Name": "muzzle",
+        "Position": "9.656152,0.272987,4.158353",
+        "Enabled": true
       }
     ],
-    "__variables": []
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "rust.rust_pistol"
+    "rust.rust_pistol#43964"
   ],
   "__version": 1
 }

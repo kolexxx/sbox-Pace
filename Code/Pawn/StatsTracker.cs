@@ -8,14 +8,14 @@ namespace Pace;
 /// </summary>
 public sealed class StatsTracker : Component
 {
-    [Property, ReadOnly, HostSync] public int Kills { get; set; }
-    [Property, ReadOnly, HostSync] public int Assists { get; set; }
-    [Property, ReadOnly, HostSync] public int Deaths { get; set; }
-    [Property, ReadOnly, HostSync] public int Captures { get; set; }
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public int Kills { get; set; }
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public int Assists { get; set; }
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public int Deaths { get; set; }
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public int Captures { get; set; }
 
     public void Clear()
     {
-        Assert.True(Networking.IsHost);
+        Assert.True( Networking.IsHost );
 
         Kills = 0;
         Assists = 0;
