@@ -8,11 +8,21 @@
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "36758130-c8f2-4363-8a84-8c801c103b0b",
+        "AnimationGraph": null,
         "BodyGroups": 18446744073709551615,
-        "CreateAttachments": true,
-        "CreateBoneObjects": true,
+        "BoneMergeTarget": null,
+        "CreateAttachments": false,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
         "Model": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",
         "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Parameters": {
           "bools": {},
           "ints": {},
@@ -38,9 +48,19 @@
         "__guid": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
         "DeployTime": 0.6,
         "Handedness": "Right",
+        "Handle": {
+          "_type": "gameobject",
+          "go": "d863c019-a4ea-4ec9-9a40-38c3114b19e5"
+        },
         "HoldType": "Shotgun",
         "Icon": "ui/equipment/spaghellim4_01.png",
         "Name": "Shotgun",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Renderer": {
           "_type": "component",
           "component_id": "36758130-c8f2-4363-8a84-8c801c103b0b",
@@ -66,6 +86,12 @@
           "component_type": "FireComponent"
         },
         "MaxLoadedAmmo": 5,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ReloadTime": 0.5,
         "ReloadType": "Sequential"
       },
@@ -80,6 +106,7 @@
         },
         "BulletsPerFire": 8,
         "Damage": 7.5,
+        "EjectionPort": null,
         "Equipment": {
           "_type": "component",
           "component_id": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
@@ -90,12 +117,18 @@
         "FireRate": 1,
         "Muzzle": {
           "_type": "gameobject",
-          "go": "05dcdbbd-e5bb-42c9-9601-b7481cbdf495"
+          "go": "3ddf0602-e896-4d82-84dd-9ad61dfa6ee4"
         },
         "MuzzleFlash": {
           "_type": "gameobject",
           "prefab": "effects/muzzle.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ShootSound": "sounds/weapons/shotgun/shotgun1_shoot.sound",
         "Spread": 16,
         "Tracer": "particles/tracer.vpcf"
@@ -103,75 +136,17 @@
     ],
     "Children": [
       {
-        "__guid": "e21f801d-daf1-4c3e-b610-2abefdb7692f",
-        "Flags": 4,
-        "Name": "hold_R",
-        "Position": "4.5,0.0000002026579,3",
-        "Enabled": true,
-        "Children": [
-          {
-            "__guid": "7c144906-f0e8-412f-b177-1f295a3c4d27",
-            "Flags": 4,
-            "Name": "ROOT_pump_shotgun",
-            "Position": "-4.944472,-0.0000002270164,-8.632417",
-            "Rotation": "0.3595898,0.6088473,0.6088475,-0.3595898",
-            "Enabled": true,
-            "Children": [
-              {
-                "__guid": "78584a51-a001-49fc-af42-b6bd8fe19aa7",
-                "Flags": 4,
-                "Name": "joint2",
-                "Position": "10.30874,0.000006437302,0.000002846087",
-                "Rotation": "-0.3595897,-0.6088471,-0.35959,0.6088479",
-                "Enabled": true,
-                "Children": [
-                  {
-                    "__guid": "e28a5b77-c333-48fc-9d7e-e9cabbcedd02",
-                    "Flags": 4,
-                    "Name": "bolt_cover",
-                    "Position": "0.000008790824,0.882478,13.47147",
-                    "Rotation": "-0.0000003456019,-0.7071064,-0.0000003670876,0.7071071",
-                    "Enabled": true,
-                    "Children": [
-                      {
-                        "__guid": "f5fc926e-7a27-4890-88d5-07987376ab9d",
-                        "Flags": 4,
-                        "Name": "joint6",
-                        "Position": "5.578327,0.000007152557,-0.000005164237",
-                        "Rotation": "-0.0000002840869,0.707106,0.0000001997939,0.7071074",
-                        "Enabled": true
-                      }
-                    ]
-                  },
-                  {
-                    "__guid": "40ac9e26-b1fc-4c31-9ec7-589bd0ce6b2d",
-                    "Flags": 4,
-                    "Name": "foregrip",
-                    "Position": "0.000008098261,-1.260718,23.62931",
-                    "Rotation": "-0.0000003456019,-0.7071064,-0.0000003670876,0.7071071",
-                    "Enabled": true,
-                    "Children": [
-                      {
-                        "__guid": "3443d3c9-e194-4ec6-a43c-e0c4db379d74",
-                        "Flags": 4,
-                        "Name": "joint4",
-                        "Position": "10.67096,0.000007390976,-0.00000358621",
-                        "Rotation": "-0.0000002840869,0.707106,0.0000001997939,0.7071074",
-                        "Enabled": true
-                      }
-                    ]
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+        "__guid": "3ddf0602-e896-4d82-84dd-9ad61dfa6ee4",
+        "Flags": 0,
+        "Name": "muzzle",
+        "Position": "33.85,0,4.1",
+        "Enabled": true
       },
       {
-        "__guid": "05dcdbbd-e5bb-42c9-9601-b7481cbdf495",
-        "Flags": 8,
-        "Name": "muzzle",
-        "Position": "33.85,0.000004576148,4.100001",
+        "__guid": "d863c019-a4ea-4ec9-9a40-38c3114b19e5",
+        "Flags": 0,
+        "Name": "handle",
+        "Position": "-4.535,-0.417,-2.723",
         "Enabled": true
       }
     ],

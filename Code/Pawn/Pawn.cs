@@ -118,7 +118,7 @@ public sealed class Pawn : Component, IRespawnable
 
 		if ( !IsProxy && CameraObject.IsValid() )
 		{
-			CameraObject.Components.Get<Deathcam>()?.Destroy();
+			CameraObject.Components.Get<DeathCamera>()?.Destroy();
 			CameraObject.Components.GetOrCreate<LookCamera>();
 		}
 	}
@@ -140,7 +140,7 @@ public sealed class Pawn : Component, IRespawnable
 		if ( !IsProxy )
 		{
 			CameraObject.Components.Get<LookCamera>().Destroy();
-			CameraObject.Components.Create<Deathcam>();
+			CameraObject.Components.Create<DeathCamera>();
 		}
 
 		GameMode.Current?.OnKill( damage.Attacker as Pawn, this );

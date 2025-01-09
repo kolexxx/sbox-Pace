@@ -9,11 +9,21 @@
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
+        "AnimationGraph": null,
         "BodyGroups": 18446744073709551615,
+        "BoneMergeTarget": null,
         "CreateAttachments": true,
-        "CreateBoneObjects": true,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
         "Model": "weapons/rust_pistol/rust_pistol.vmdl",
         "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Parameters": {
           "bools": {},
           "ints": {},
@@ -39,9 +49,19 @@
         "__guid": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
         "DeployTime": 0.6,
         "Handedness": "Both",
+        "Handle": {
+          "_type": "gameobject",
+          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f"
+        },
         "HoldType": "Pistol",
         "Icon": "ui/equipment/usp_01.png",
         "Name": "Pistol",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Renderer": {
           "_type": "component",
           "component_id": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
@@ -67,6 +87,12 @@
           "component_type": "FireComponent"
         },
         "MaxLoadedAmmo": 10,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ReloadTime": 1.6,
         "ReloadType": "Magazine"
       },
@@ -80,7 +106,8 @@
           "component_type": "AmmoComponent"
         },
         "BulletsPerFire": 1,
-        "Damage": 10,
+        "Damage": 100,
+        "EjectionPort": null,
         "Equipment": {
           "_type": "component",
           "component_id": "d5971fc2-3fe1-49b8-9ed1-a8eb36b8573d",
@@ -97,56 +124,18 @@
           "_type": "gameobject",
           "prefab": "effects/muzzle.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ShootSound": "sounds/weapons/pistol/usp_sd.sound",
         "Spread": 5,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
     "Children": [
-      {
-        "__guid": "c078bf20-b8ed-46b1-b4e4-892787e29fe4",
-        "Flags": 4,
-        "Name": "ROOT_pistol",
-        "Position": "2.752901,-0.0000005930261,-3.479736",
-        "Rotation": "0.1620653,0.6882837,0.6882841,-0.1620654",
-        "Enabled": true,
-        "Children": [
-          {
-            "__guid": "d58295eb-2cc4-41b4-972b-950318a2b1c3",
-            "Flags": 4,
-            "Name": "joint2",
-            "Position": "6.821134,-0.00000333786,0.000001554037",
-            "Rotation": "-0.1620654,-0.6882836,-0.1620655,0.6882843",
-            "Enabled": true,
-            "Children": [
-              {
-                "__guid": "a656f7ba-718e-4a79-8065-5374220f3a91",
-                "Flags": 4,
-                "Name": "slide",
-                "Position": "0.00001195189,5.020038,1.959041",
-                "Rotation": "-0.0000004078367,-0.7071063,-0.000000565918,0.7071071",
-                "Enabled": true,
-                "Children": [
-                  {
-                    "__guid": "7db7c1a8-d0cb-42fb-a3cb-ee8eb49645c0",
-                    "Flags": 4,
-                    "Name": "joint4",
-                    "Position": "8.605772,0.000007629395,-0.000006145619",
-                    "Rotation": "-0.0000004296818,0.7071064,0.0000003664614,0.7071072",
-                    "Enabled": true
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "__guid": "8e644af4-d882-49da-934c-d6906e6b5430",
-        "Flags": 4,
-        "Name": "hold_R",
-        "Enabled": true
-      },
       {
         "__guid": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b",
         "Flags": 8,

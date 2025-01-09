@@ -107,7 +107,13 @@ public class PawnController : Component
 		}
 
 		CharacterController.Punch( dir * 600f );
-		AnimationHelper.TriggerJump();
+		JumpEffects();
 		_hasDoubleJumped = true;
+	}
+
+	[Rpc.Broadcast]
+	private void JumpEffects()
+	{
+		AnimationHelper.TriggerJump();
 	}
 }

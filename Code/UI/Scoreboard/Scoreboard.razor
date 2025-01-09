@@ -1,0 +1,32 @@
+@using Sandbox
+@using Sandbox.UI
+@using System
+@using System.Collections.Generic
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="@(Input.Down("score") ? "show" : "") rounded background-color-primary">
+	<ScoreboardInfo />
+	<div class="groups">
+		<ScoreboardGroup />
+		@foreach (var player in GameMode.Current.Players)
+		{
+			<ScoreboardEntry Player=@player />
+		}
+	</div>
+</root>
+
+@code
+{
+	protected override int BuildHash()
+	{
+		var result = 0;
+
+		foreach (var player in GameMode.Current.Players)
+			result = HashCode.Combine(player.Network.Owner.SteamId);
+
+		return HashCode.Combine(Input.Down("score"), result);
+	}
+}

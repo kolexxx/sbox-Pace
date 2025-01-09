@@ -2,9 +2,7 @@
   "RootObject": {
     "__guid": "2b043903-bc9a-4153-a389-5a9177e18cd1",
     "Flags": 0,
-    "Name": "Camera",
-    "Position": "1000,-137.5121,123.9201",
-    "Rotation": "0,0,1,-0.00000004371139",
+    "Name": "camera",
     "Scale": "0,0,0",
     "Tags": "maincamera",
     "Enabled": true,
@@ -14,8 +12,14 @@
         "__guid": "40022b62-454d-41ca-b189-48117ad76aa2",
         "BackgroundColor": "0.33333,0.46275,0.52157,1",
         "ClearFlags": "All",
-        "FieldOfView": 63.176586,
+        "FieldOfView": 30,
         "IsMainCamera": true,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Orthographic": false,
         "OrthographicHeight": 1204,
         "Priority": 1,
@@ -26,11 +30,37 @@
         "ZFar": 10000,
         "ZNear": 10
       }
-    ]
+    ],
+    "Children": [],
+    "__variables": [],
+    "__properties": {
+      "FixedUpdateFrequency": 50,
+      "MaxFixedUpdates": 5,
+      "NetworkFrequency": 30,
+      "NetworkInterpolation": true,
+      "PhysicsSubSteps": 1,
+      "ThreadedAnimation": true,
+      "TimeScale": 1,
+      "UseFixedUpdate": true,
+      "Metadata": {},
+      "NavMesh": {
+        "Enabled": false,
+        "IncludeStaticBodies": true,
+        "IncludeKeyframedBodies": true,
+        "EditorAutoUpdate": true,
+        "AgentHeight": 64,
+        "AgentRadius": 16,
+        "AgentStepSize": 18,
+        "AgentMaxSlope": 40,
+        "ExcludedBodies": "",
+        "IncludedBodies": ""
+      }
+    }
   },
   "ShowInMenu": false,
   "MenuPath": null,
   "MenuIcon": null,
+  "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [],
   "__version": 1

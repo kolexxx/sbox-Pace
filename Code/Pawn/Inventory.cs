@@ -1,5 +1,6 @@
 using Sandbox;
 using Sandbox.Diagnostics;
+using Sandbox.Rendering;
 
 namespace Pace;
 
@@ -186,7 +187,7 @@ public class Inventory : Component, Component.ITriggerListener
 		ammo.RefillReserve();
 	}
 
-	[Rpc.Owner( NetFlags.Unreliable )]
+	[Rpc.Owner]
 	private void PickupEffects()
 	{
 		Sound.Play( PickupSound );

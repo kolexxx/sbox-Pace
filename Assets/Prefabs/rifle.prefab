@@ -8,11 +8,21 @@
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
+        "AnimationGraph": null,
         "BodyGroups": 18446744073709551615,
-        "CreateAttachments": true,
-        "CreateBoneObjects": true,
+        "BoneMergeTarget": null,
+        "CreateAttachments": false,
+        "CreateBoneObjects": false,
+        "MaterialGroup": null,
+        "MaterialOverride": null,
         "Model": "weapons/rust_smg/rust_smg.vmdl",
         "Morphs": {},
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Parameters": {
           "bools": {},
           "ints": {},
@@ -38,9 +48,19 @@
         "__guid": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
         "DeployTime": 0.6,
         "Handedness": "Both",
+        "Handle": {
+          "_type": "gameobject",
+          "go": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc"
+        },
         "HoldType": "Rifle",
         "Icon": "ui/equipment/m4_01.png",
         "Name": "Rifle",
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "Renderer": {
           "_type": "component",
           "component_id": "32bace39-b163-4008-94cf-991f7e322dbd",
@@ -66,6 +86,12 @@
           "component_type": "FireComponent"
         },
         "MaxLoadedAmmo": 30,
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ReloadTime": 1.8,
         "ReloadType": "Magazine"
       },
@@ -80,6 +106,7 @@
         },
         "BulletsPerFire": 1,
         "Damage": 10,
+        "EjectionPort": null,
         "Equipment": {
           "_type": "component",
           "component_id": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
@@ -96,6 +123,12 @@
           "_type": "gameobject",
           "prefab": "effects/muzzle.prefab"
         },
+        "OnComponentDestroy": null,
+        "OnComponentDisabled": null,
+        "OnComponentEnabled": null,
+        "OnComponentFixedUpdate": null,
+        "OnComponentStart": null,
+        "OnComponentUpdate": null,
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
         "Spread": 12,
         "Tracer": "particles/tracer.vpcf"
@@ -103,34 +136,17 @@
     ],
     "Children": [
       {
-        "__guid": "0616afd3-3456-4222-bc69-32cd8b39dec5",
-        "Flags": 4,
-        "Name": "hold_R",
-        "Position": "1.4,5.500001,-1.2",
-        "Rotation": "0,0,-0.7071068,0.7071067",
-        "Enabled": true
-      },
-      {
-        "__guid": "7b1d3e3b-7a00-4c07-bbe5-f43427f3c026",
-        "Flags": 8,
-        "Name": "ejection_point",
-        "Position": "3.294648,-0.03752756,3.672773",
-        "Rotation": "-0.642848,-0.2030699,-0.2815914,0.6827996",
-        "Enabled": true
-      },
-      {
         "__guid": "3716b77b-6897-4b64-8c7f-e76c7034ac25",
         "Flags": 0,
-        "Name": "wa",
+        "Name": "muzzle",
         "Position": "17.30755,1.787172,3.679705",
         "Enabled": true
       },
       {
-        "__guid": "0747658f-7a45-47c7-93db-4da3a7fc1e87",
-        "Flags": 8,
-        "Name": "muzzle",
-        "Position": "1.656545,-17.42515,3.732917",
-        "Rotation": "0,0,-0.6962886,0.7177618",
+        "__guid": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc",
+        "Flags": 0,
+        "Name": "handle",
+        "Position": "4.577,-2.117,1.194",
         "Enabled": true
       }
     ],

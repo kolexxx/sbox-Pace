@@ -1,0 +1,25 @@
+@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="text-shadow">
+	<img src="avatar:@Player.Network.Owner.SteamId" class="avatar circle" />
+	<label class="name">@Player.Network.Owner.DisplayName</label>
+	<label class="stat">@Player.Stats.Kills</label>
+	<label class="stat">@Player.Stats.Deaths</label>
+	<label class="stat">@Player.Network.Owner.Ping</label>
+</root>
+
+@code
+{
+	public Pawn Player { get; set; }
+
+	protected override int BuildHash()
+	{
+		return HashCode.Combine(Player.Network.Owner.Ping);
+	}
+}

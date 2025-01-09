@@ -141,7 +141,7 @@ public sealed class FireComponent : Component
         {
             MuzzleFlash.Clone( new CloneConfig
             {
-                Transform = Equipment.Renderer.GetAttachment( "muzzle" ) ?? global::Transform.Zero,
+                Transform = Muzzle.WorldTransform,
                 StartEnabled = true,
             } );
         }
@@ -156,27 +156,22 @@ public sealed class FireComponent : Component
     }
 
     [Rpc.Broadcast]
-    private async void TracerEffects( Vector3 endPos )
+    private void TracerEffects( Vector3 endPos )
     {
-        if ( !Tracer.IsValid() )
+        if ( !Muzzle.IsValid() || !Tracer.IsValid() )
             return;
-
-        var startPos = Equipment.Renderer.GetAttachment( "muzzle" )?.Position ?? Muzzle.WorldPosition;
 
         var gameObject = Scene.CreateObject();
         gameObject.Name = $"Particle: {Equipment.GameObject}";
-        gameObject.WorldPosition = startPos;
-        gameObject.WorldRotation = Rotation.Identity;
+        gameObject.WorldTransform = Muzzle.WorldTransform;
 
         var p = gameObject.Components.Create<LegacyParticleSystem>();
         p.Particles = Tracer;
         gameObject.Transform.ClearInterpolation();
 
-        p.SceneObject.SetControlPoint( 0, startPos );
+        p.SceneObject.SetControlPoint( 0, Muzzle.WorldPosition );
         p.SceneObject.SetControlPoint( 1, endPos );
 
-        await GameTask.Delay( 100 );
-
-        p.DestroyGameObject();
+        p.Invoke( 0.1f, p.DestroyGameObject );
     }
 }

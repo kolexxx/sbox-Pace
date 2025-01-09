@@ -27,6 +27,11 @@ public sealed class Equipment : Component
     [Property, Group( "Components" )] public SkinnedModelRenderer Renderer { get; private set; }
 
     /// <summary>
+    /// 
+    /// </summary>
+    [Property, Group( "Animation" )] public GameObject Handle { get; private set; }
+
+    /// <summary>
     /// How are we holding this equipment?
     /// </summary>
     [Property, Group( "Animation" )] public CitizenAnimationHelper.HoldTypes HoldType { get; private set; } = CitizenAnimationHelper.HoldTypes.Rifle;
@@ -66,19 +71,17 @@ public sealed class Equipment : Component
     /// </summary>
     public bool IsDeployed => IsActive && TimeSinceDeployed > DeployTime;
 
-    protected override void OnUpdate()
+    protected override void OnPreRender()
     {
         if ( !Owner.IsValid() )
+        {
+            Renderer.Enabled = false;
             return;
+        }
 
-        WorldPosition = Owner.PawnBody.Hand.WorldPosition;
-        WorldRotation = Owner.PawnBody.Hand.WorldRotation;
-    }
-
-    protected override void OnFixedUpdate()
-    {
-        Renderer.Enabled = !Owner.IsValid() || IsActive;
-        Renderer.BoneMergeTarget = Owner.IsValid() ? Owner.PawnBody.Renderer : null;
+        Renderer.Enabled = IsActive;
+        Transform.World = Owner.PawnBody.Hand.Transform.World;
+        WorldPosition = Handle.WorldPosition;
     }
 
     [Rpc.Broadcast]
