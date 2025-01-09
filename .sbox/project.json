@@ -1,12 +1,12 @@
 {
   "scene.lastopened": {
-    "Value": "[\u0022scenes/arena.scene\u0022,\u0022prefabs/shotgun.prefab\u0022]",
-    "Timeout": 1739016729,
+    "Value": "[\u0022scenes/arena.scene\u0022]",
+    "Timeout": 1739021679,
     "DeleteAt": 0
   },
   ".Viewport0": {
-    "Value": "{\u0022CameraPosition\u0022:\u0022-24.87585,-756.9765,392.4276\u0022,\u0022CameraRotation\u0022:\u0022-0.008519042,0.2637518,0.0311383,0.9640502\u0022,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739017270,
+    "Value": "{\u0022CameraPosition\u0022:\u0022171.0262,217.3974,134.4074\u0022,\u0022CameraRotation\u0022:\u0022-0.1134415,0.03082199,0.9583243,0.2603762\u0022,\u0022CameraOrthoHeight\u0022:1000}",
+    "Timeout": 1739022970,
     "DeleteAt": 0
   },
   "gizmo.settings": {
@@ -16,17 +16,17 @@
   },
   "scenes/arena.scene.Viewport0": {
     "Value": "{\u0022CameraPosition\u0022:\u0022561.2493,126.0604,787.7276\u0022,\u0022CameraRotation\u0022:\u0022-0.2782518,0.07821071,0.9216048,0.2590437\u0022,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739017270,
+    "Timeout": 1739022970,
     "DeleteAt": 0
   },
   "prefabs/player.prefab.Viewport0": {
     "Value": "{\u0022CameraPosition\u0022:\u0022-0.1917721,-40.54777,43.53093\u0022,\u0022CameraRotation\u0022:\u0022-0.1105185,0.1427382,0.6021549,0.7777024\u0022,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739015043,
+    "Timeout": 1739021679,
     "DeleteAt": 0
   },
   "prefabs/pistol.prefab.Viewport0": {
     "Value": "{\u0022CameraPosition\u0022:\u002237.69952,-6.737766,10.55247\u0022,\u0022CameraRotation\u0022:\u0022-0.1021546,0.01145846,0.9885035,0.1108783\u0022,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739016448,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "prefabs/rifle.prefab.Viewport0": {
@@ -36,17 +36,17 @@
   },
   "Transform.UseLocal": {
     "Value": "true",
-    "Timeout": 1739017123,
+    "Timeout": 1739022757,
     "DeleteAt": 0
   },
   "expand.16bc2516-44f9-4975-a0a4-fb6f9fc6e60f.AmmoComponent": {
     "Value": "false",
-    "Timeout": 1739016367,
+    "Timeout": 1739021677,
     "DeleteAt": 0
   },
   "prefabs/shotgun.prefab.Viewport0": {
     "Value": "{\u0022CameraPosition\u0022:\u0022-26.66731,0.6831152,34.27161\u0022,\u0022CameraRotation\u0022:\u0022-0.03862742,0.3904341,0.09055986,0.9153513\u0022,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739017270,
+    "Timeout": 1739017649,
     "DeleteAt": 0
   },
   "expand.24e198e1-e2fc-4da0-83dd-86920907acc3.NetworkHelper": {
@@ -61,32 +61,32 @@
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.CharacterController": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
-  "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.Inventory": {
-    "Value": "false",
-    "Timeout": 1739015034,
+  "AssetBrowser.Sound Event.History": {
+    "Value": "[\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022c:\\\\users\\\\novos\\\\documents\\\\s\\u0026box projects\\\\sbox-pace\\\\assets\\\\sounds\u0022,\u0022c:\\\\users\\\\novos\\\\documents\\\\s\\u0026box projects\\\\sbox-pace\\\\assets\\\\sounds\u0022]",
+    "Timeout": 1739021667,
     "DeleteAt": 0
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.HealthComponent": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.StatsTracker": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.CapsuleCollider": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.PawnController": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "expand.8bf15255-47ee-4f88-bab7-d330c2848443.AmmoComponent": {
@@ -100,33 +100,33 @@
     "DeleteAt": 0
   },
   "folder-metadata": {
-    "Value": "{\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\Recents\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\Everything\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022.\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\addons\\\\citizen\\\\assets\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\core\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Effects\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Maps\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Particles\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Prefabs\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Scenes\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\UI\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Localization\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022ProjectSettings\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\Equipment\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\GameModes\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\Pawn\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\World\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\\\\Weapons\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\UI\\\\Equipment\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\GameModes\\\\Deathmatch\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\Components\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\KillFeed\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\TextChat\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022}}",
-    "Timeout": 1739014464,
+    "Value": "{\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\Recents\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\Everything\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022.\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\addons\\\\citizen\\\\assets\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022..\\\\..\\\\..\\\\..\\\\..\\\\Program Files (x86)\\\\Steam\\\\steamapps\\\\common\\\\sbox\\\\core\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Effects\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Maps\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Particles\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Prefabs\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Scenes\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\UI\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Localization\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022ProjectSettings\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\Equipment\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\GameModes\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\Pawn\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\World\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\\\\Weapons\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\UI\\\\Equipment\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\GameModes\\\\Deathmatch\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\Components\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\KillFeed\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Code\\\\UI\\\\TextChat\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022assets\\\\sounds\\\\Weapons\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\\\\Weapons\\\\Pistol\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\\\\Weapons\\\\Rifle\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022},\u0022Assets\\\\Sounds\\\\Weapons\\\\Shotgun\u0022:{\u0022Color\u0022:\u00220.46667,0.73333,1,1\u0022,\u0022Icon\u0022:\u0022\u0022}}",
+    "Timeout": 1739021912,
     "DeleteAt": 0
   },
   "AssetBrowser.History": {
-    "Value": "[\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Prefabs\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Particles\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Prefabs\u0022]",
-    "Timeout": 1739014739,
+    "Value": "[\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Prefabs\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Sounds\\\\Weapons\\\\Pistol\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Sounds\\\\Weapons\\\\Rifle\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Sounds\\\\Weapons\\\\Shotgun\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\\\\Sounds\\\\Weapons\\\\Pistol\u0022]",
+    "Timeout": 1739021919,
     "DeleteAt": 0
   },
   "AssetBrowser.HistoryIdx": {
-    "Value": "4",
-    "Timeout": 1739014739,
+    "Value": "5",
+    "Timeout": 1739021919,
     "DeleteAt": 0
   },
   "SceneView.Viewport0.Settings": {
-    "Value": "{\u0022CameraPosition\u0022:\u0022-24.87585,-756.9765,392.4276\u0022,\u0022CameraRotation\u0022:\u0022-0.008519042,0.2637518,0.0311383,0.9640502\u0022,\u0022View\u0022:0,\u0022RenderMode\u0022:0,\u0022WireframeMode\u0022:false,\u0022EnablePostProcessing\u0022:true,\u0022ShowGrid\u0022:true,\u0022GridOpacity\u0022:0.2,\u0022GridAxis\u0022:0,\u0022CameraOrthoHeight\u0022:1000}",
-    "Timeout": 1739017270,
+    "Value": "{\u0022CameraPosition\u0022:\u0022171.0262,217.3974,134.4074\u0022,\u0022CameraRotation\u0022:\u0022-0.1134415,0.03082199,0.9583243,0.2603762\u0022,\u0022View\u0022:0,\u0022RenderMode\u0022:0,\u0022WireframeMode\u0022:false,\u0022EnablePostProcessing\u0022:true,\u0022ShowGrid\u0022:true,\u0022GridOpacity\u0022:0.2,\u0022GridAxis\u0022:0,\u0022CameraOrthoHeight\u0022:1000}",
+    "Timeout": 1739022970,
     "DeleteAt": 0
   },
   "Window.SboxSceneEditor.Dock": {
-    "Value": "{\u0022floatingWindows\u0022:[],\u0022mainWrapper\u0022:{\u0022geometry\u0022:\u0022AdnQywADAAAAAAAAAAAAAAAAB1IAAAN2AAAAAAAAAAAAAAdSAAADdgAAAAAAAAAAB4AAAAAAAAAAAAAAB1IAAAN2\u0022,\u0022splitter\u0022:{\u0022items\u0022:[{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneTreeWidget\u0022,\u0022name\u0022:\u0022Hierarchy\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022PanelInspectorWidget\u0022,\u0022name\u0022:\u0022UI Panels\u0022}],\u0022type\u0022:\u0022area\u0022},{\u0022items\u0022:[{\u0022items\u0022:[{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022\u0022,\u0022name\u0022:\u0022GameFrame\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneDock\u0022,\u0022name\u0022:\u0022SceneDock:scenes/arena.scene\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneDock\u0022,\u0022name\u0022:\u0022SceneDock:prefabs/shotgun.prefab\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneDock\u0022,\u0022name\u0022:\u0022SceneDock:untitled\u0022}],\u0022type\u0022:\u0022area\u0022},{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022MainAssetBrowser\u0022,\u0022name\u0022:\u0022Asset Browser 2\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022MainCloudBrowser\u0022,\u0022name\u0022:\u0022Cloud Browser\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022ConsoleWidget\u0022,\u0022name\u0022:\u0022Console\u0022}],\u0022type\u0022:\u0022area\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAAD0wAAAjMA/////wEAAAACAA==\u0022,\u0022type\u0022:\u0022splitter\u0022},{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022Inspector\u0022,\u0022name\u0022:\u0022Inspector\u0022}],\u0022type\u0022:\u0022area\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAAEbQAAAdwA/////wEAAAABAA==\u0022,\u0022type\u0022:\u0022splitter\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAABmwAACjQA/////wEAAAABAA==\u0022,\u0022type\u0022:\u0022splitter\u0022}},\u0022toolWindowManagerStateFormat\u0022:1}",
-    "Timeout": 1739017254,
+    "Value": "{\u0022floatingWindows\u0022:[],\u0022mainWrapper\u0022:{\u0022geometry\u0022:\u0022AdnQywADAAAAAAAAAAAAAAAAB1IAAAN2AAAAAAAAAAAAAAdSAAADdgAAAAAAAAAAB4AAAAAAAAAAAAAAB1IAAAN2\u0022,\u0022splitter\u0022:{\u0022items\u0022:[{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneTreeWidget\u0022,\u0022name\u0022:\u0022Hierarchy\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022PanelInspectorWidget\u0022,\u0022name\u0022:\u0022UI Panels\u0022}],\u0022type\u0022:\u0022area\u0022},{\u0022items\u0022:[{\u0022items\u0022:[{\u0022currentIndex\u0022:2,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022\u0022,\u0022name\u0022:\u0022GameFrame\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneDock\u0022,\u0022name\u0022:\u0022SceneDock:scenes/arena.scene\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022SceneDock\u0022,\u0022name\u0022:\u0022SceneDock:untitled\u0022}],\u0022type\u0022:\u0022area\u0022},{\u0022currentIndex\u0022:1,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022MainAssetBrowser\u0022,\u0022name\u0022:\u0022Asset Browser 2\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022MainCloudBrowser\u0022,\u0022name\u0022:\u0022Cloud Browser\u0022},{\u0022data\u0022:null,\u0022managedType\u0022:\u0022ConsoleWidget\u0022,\u0022name\u0022:\u0022Console\u0022}],\u0022type\u0022:\u0022area\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAAD0wAAAjMA/////wEAAAACAA==\u0022,\u0022type\u0022:\u0022splitter\u0022},{\u0022currentIndex\u0022:0,\u0022objects\u0022:[{\u0022data\u0022:null,\u0022managedType\u0022:\u0022Inspector\u0022,\u0022name\u0022:\u0022Inspector\u0022}],\u0022type\u0022:\u0022area\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAAEbQAAAdwA/////wEAAAABAA==\u0022,\u0022type\u0022:\u0022splitter\u0022}],\u0022state\u0022:\u0022AAAA/wAAAAEAAAACAAABmwAACjQA/////wEAAAABAA==\u0022,\u0022type\u0022:\u0022splitter\u0022}},\u0022toolWindowManagerStateFormat\u0022:1}",
+    "Timeout": 1739022721,
     "DeleteAt": 0
   },
   "SceneView.Layout": {
     "Value": "{\u0022Layout\u0022:0,\u0022SplitterState\u0022:[]}",
-    "Timeout": 1739017200,
+    "Timeout": 1739022653,
     "DeleteAt": 0
   },
   "expand.200b90ba-0937-463b-8e93-62d7bc33571d.Dresser": {
@@ -136,7 +136,7 @@
   },
   "expand.be34b6e2-6142-4d15-9ee6-daaa30621570.Voice": {
     "Value": "false",
-    "Timeout": 1739015034,
+    "Timeout": 1739021678,
     "DeleteAt": 0
   },
   "expand.200b90ba-0937-463b-8e93-62d7bc33571d.CitizenAnimationHelper": {
@@ -146,12 +146,12 @@
   },
   "AssetBrowser.Model.History": {
     "Value": "[\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Localization\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\ProjectSettings\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Code\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\\\\Assets\u0022,\u0022C:\\\\Users\\\\novos\\\\Documents\\\\s\\u0026box projects\\\\sbox-Pace\u0022]",
-    "Timeout": 1738079277,
+    "Timeout": 1739021306,
     "DeleteAt": 0
   },
   "AssetBrowser.Model.HistoryIdx": {
     "Value": "7",
-    "Timeout": 1738079277,
+    "Timeout": 1739021306,
     "DeleteAt": 0
   },
   "AssetBrowser.Image.HistoryIdx": {
@@ -201,12 +201,12 @@
   },
   "expand.16bc2516-44f9-4975-a0a4-fb6f9fc6e60f.FireComponent": {
     "Value": "false",
-    "Timeout": 1739016371,
+    "Timeout": 1739021677,
     "DeleteAt": 0
   },
   "expand.16bc2516-44f9-4975-a0a4-fb6f9fc6e60f.Equipment": {
     "Value": "false",
-    "Timeout": 1739016372,
+    "Timeout": 1739021677,
     "DeleteAt": 0
   },
   "expand.88a95a2a-b439-4bc3-b091-0caa567f385f.SkinnedModelRenderer": {
@@ -227,6 +227,16 @@
   "expand.88a95a2a-b439-4bc3-b091-0caa567f385f.FireComponent": {
     "Value": "false",
     "Timeout": 1739016799,
+    "DeleteAt": 0
+  },
+  "AssetBrowser.Sound Event.HistoryIdx": {
+    "Value": "2",
+    "Timeout": 1739021667,
+    "DeleteAt": 0
+  },
+  "expand.7518af70-d5d0-48f4-b8ca-b6be82df4cf3.Rigidbody": {
+    "Value": "false",
+    "Timeout": 1739022119,
     "DeleteAt": 0
   }
 }

@@ -12,7 +12,7 @@
         "AnimationGraph": null,
         "BodyGroups": 18446744073709551615,
         "BoneMergeTarget": null,
-        "CreateAttachments": true,
+        "CreateAttachments": false,
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
@@ -138,7 +138,7 @@
     "Children": [
       {
         "__guid": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b",
-        "Flags": 8,
+        "Flags": 0,
         "Name": "muzzle",
         "Position": "9.656152,0.272987,4.158353",
         "Enabled": true

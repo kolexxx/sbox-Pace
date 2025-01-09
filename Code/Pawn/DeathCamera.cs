@@ -27,7 +27,7 @@ public sealed class DeathCamera : Component
             return;
 
         var frac = (_timeSinceDeath.Relative - HoldTime) / ArrivalTime;
-        var targetPos = _killer.Head.WorldPosition + Settings.Plane.Normal * 750f;
+        var targetPos = _killer.Head.WorldPosition + Settings.Plane.Normal * 500f;
 
         if ( frac >= 1 )
         {

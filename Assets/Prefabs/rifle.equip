@@ -7,8 +7,6 @@
     "_type": "gameobject",
     "prefab": "prefabs/rifle.prefab"
   },
-  "__references": [
-    "roomfield.rust_smg"
-  ],
+  "__references": [],
   "__version": 0
 }

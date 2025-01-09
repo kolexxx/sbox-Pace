@@ -1,6 +1,5 @@
 using Sandbox;
 using Sandbox.Diagnostics;
-using Sandbox.Rendering;
 
 namespace Pace;
 
@@ -185,6 +184,7 @@ public class Inventory : Component, Component.ITriggerListener
 
 		pickup.OnPickedUp();
 		ammo.RefillReserve();
+		PickupEffects();
 	}
 
 	[Rpc.Owner]
