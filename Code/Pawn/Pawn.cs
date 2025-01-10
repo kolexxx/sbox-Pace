@@ -1,3 +1,4 @@
+using Pace.UI;
 using Sandbox;
 using Sandbox.Citizen;
 using System;
@@ -12,18 +13,7 @@ public enum LifeState
 	Respawning
 }
 
-/// <summary>
-/// A GameObject that can respawn and be killed.
-/// </summary>
-public interface IRespawnable
-{
-	public LifeState LifeState { get; }
-
-	public void Respawn() { }
-	public void OnKilled() { }
-}
-
-public sealed class Pawn : Component, IRespawnable
+public sealed class Pawn : Component, IMinimapElement
 {
 	/// <summary>
 	/// A reference to the local pawn. Returns null if one does not exist (headless server or something).
@@ -87,6 +77,12 @@ public sealed class Pawn : Component, IRespawnable
 	/// The direction and position from where we are aiming.
 	/// </summary>
 	public Ray AimRay { get; private set; }
+
+	Color IMinimapElement.Color => Local == this ? Color.White : Color.Red;
+
+	Vector3 IMinimapElement.WorldPosition => WorldPosition;
+
+	bool IMinimapElement.IsVisible => IsAlive;
 
 	protected override void OnStart()
 	{
