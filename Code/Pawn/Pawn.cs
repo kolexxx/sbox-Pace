@@ -1,7 +1,5 @@
-using Pace.UI;
 using Sandbox;
 using Sandbox.Citizen;
-using System;
 using System.Linq;
 
 namespace Pace;
@@ -13,7 +11,8 @@ public enum LifeState
 	Respawning
 }
 
-public sealed class Pawn : Component, IMinimapElement
+
+public sealed class Pawn : Component, UI.IMinimapElement
 {
 	/// <summary>
 	/// A reference to the local pawn. Returns null if one does not exist (headless server or something).
@@ -78,11 +77,11 @@ public sealed class Pawn : Component, IMinimapElement
 	/// </summary>
 	public Ray AimRay { get; private set; }
 
-	Color IMinimapElement.Color => Local == this ? Color.White : Color.Red;
+	Color UI.IMinimapElement.Color => Local == this ? Color.White : Color.Red;
 
-	Vector3 IMinimapElement.WorldPosition => WorldPosition;
+	Vector3 UI.IMinimapElement.WorldPosition => WorldPosition;
 
-	bool IMinimapElement.IsVisible => IsAlive;
+	bool UI.IMinimapElement.IsVisible => IsAlive;
 
 	protected override void OnStart()
 	{
