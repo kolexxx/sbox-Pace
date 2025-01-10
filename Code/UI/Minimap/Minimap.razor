@@ -1,0 +1,48 @@
+@using Sandbox
+@using Sandbox.UI
+@using System
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+<root class="circle background-color-primary">
+    @foreach (var element in Scene.GetAll<IMinimapElement>())
+    {
+        if (!element.IsVisible)
+            continue;
+
+        if (Vector3.DistanceBetween(Pawn.Local.WorldPosition, element.WorldPosition) >= Radius + EntryRadius)
+            continue;
+
+        <div class="circle" style=@GetStyle(element)></div>
+    }
+</root>
+
+@code
+{
+    private const float Radius = 800f;
+    private const float EntryRadius = 30f;
+
+    private string GetStyle(IMinimapElement element)
+    {
+        var position = element.WorldPosition - Pawn.Local.WorldPosition;
+
+        var up = Vector3.Up;
+        var right = up.Cross(Settings.Plane.Normal);
+
+        var y = ((Vector3.Dot(up, position) - EntryRadius) / Radius + 1) / 2;
+        var x = ((Vector3.Dot(right, position) - EntryRadius) / Radius + 1) / 2;
+
+        var left = Length.Fraction(x);
+        var bottom = Length.Fraction(y);
+        var radius = Length.Fraction(EntryRadius / Radius);
+
+        return $"left:{left}; bottom:{bottom}; width:{radius}; height:{radius}; background-color:{element.Color}";
+    }
+
+    protected override int BuildHash()
+    {
+        return HashCode.Combine(Time.Now);
+    }
+}

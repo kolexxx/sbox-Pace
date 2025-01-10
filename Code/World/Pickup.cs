@@ -1,9 +1,10 @@
+using Pace.UI;
 using Sandbox;
 using System;
 
 namespace Pace;
 
-public abstract class Pickup : Component, ICleanup
+public abstract class Pickup : Component, ICleanup, IMinimapElement
 {
     [RequireComponent] public BoxCollider Collider { get; private set; }
 
@@ -18,6 +19,12 @@ public abstract class Pickup : Component, ICleanup
 	[Sync( SyncFlags.FromHost )] public TimeUntil TimeUntilRespawn { get; private set; } = 0f;
 
     protected SceneObject Preview { get; set; }
+
+    Color IMinimapElement.Color => Color.Yellow;
+
+    Vector3 IMinimapElement.WorldPosition => WorldPosition;
+
+    bool IMinimapElement.IsVisible => TimeUntilRespawn <= 0f;
 
     public void OnCleanup()
     {
