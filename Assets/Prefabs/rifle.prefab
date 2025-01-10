@@ -3,19 +3,20 @@
     "__guid": "8bf15255-47ee-4f88-bab7-d330c2848443",
     "Flags": 0,
     "Name": "rifle",
+    "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
         "AnimationGraph": null,
-        "BodyGroups": 18446744073709551615,
+        "BodyGroups": 171,
         "BoneMergeTarget": null,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "weapons/rust_smg/rust_smg.vmdl",
+        "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
         "Morphs": {},
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -68,7 +69,7 @@
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "prefabs/rifle.equip",
-        "Slot": 2
+        "Slot": 3
       },
       {
         "__type": "Pace.AmmoComponent",
@@ -105,7 +106,7 @@
           "component_type": "AmmoComponent"
         },
         "BulletsPerFire": 1,
-        "Damage": 10,
+        "Damage": 15,
         "EjectionPort": null,
         "Equipment": {
           "_type": "component",
@@ -114,15 +115,12 @@
           "component_type": "Equipment"
         },
         "FireMode": "Automatic",
-        "FireRate": 10,
+        "FireRate": 8,
         "Muzzle": {
           "_type": "gameobject",
           "go": "3716b77b-6897-4b64-8c7f-e76c7034ac25"
         },
-        "MuzzleFlash": {
-          "_type": "gameobject",
-          "prefab": "effects/muzzle.prefab"
-        },
+        "MuzzleFlash": null,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -130,7 +128,7 @@
         "OnComponentStart": null,
         "OnComponentUpdate": null,
         "ShootSound": "sounds/weapons/rifle/m4_shot.sound",
-        "Spread": 12,
+        "Spread": 6,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
@@ -139,14 +137,15 @@
         "__guid": "3716b77b-6897-4b64-8c7f-e76c7034ac25",
         "Flags": 0,
         "Name": "muzzle",
-        "Position": "17.30755,1.787172,3.679705",
+        "Position": "19.43735,-0.4244391,7.355",
         "Enabled": true
       },
       {
         "__guid": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc",
         "Flags": 0,
         "Name": "handle",
-        "Position": "4.577,-2.117,1.194",
+        "Position": "2.406245,0.2122628,-5.54448",
+        "Rotation": "-0.00000001490116,0.0000002980232,0.00000005960464,0.9999961",
         "Enabled": true
       }
     ],
@@ -181,7 +180,7 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "rust.rust_smg#43967"
+    "facepunch.w_m4a1#60166"
   ],
   "__version": 1
 }

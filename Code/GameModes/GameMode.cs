@@ -101,7 +101,7 @@ public abstract class GameMode : Component, Component.INetworkListener
 
 	public void OnDisconnected( Connection connection )
 	{
-		Players.RemoveAll( x => !x.IsValid() );
+		Players.RemoveAll( x => !x.IsValid() || x.Network.Owner == connection );
 		VerifyEnoughPlayers();
 
 		UI.TextChat.AddInfo( $"{connection.DisplayName} has left the game" );

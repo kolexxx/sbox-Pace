@@ -1,0 +1,14 @@
+{
+  "Name": "SMG",
+  "Icon": "ui/equipment/mp5_01.png",
+  "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
+  "Slot": 2,
+  "Prefab": {
+    "_type": "gameobject",
+    "prefab": "prefabs/smg.prefab"
+  },
+  "__references": [
+    "facepunch.w_mp5#33703"
+  ],
+  "__version": 0
+}

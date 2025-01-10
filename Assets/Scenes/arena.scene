@@ -114,7 +114,7 @@
     {
       "__guid": "8ee37e82-964f-4a36-a02f-aebe905ef952",
       "Flags": 0,
-      "Name": "SMG Pickup",
+      "Name": "Rifle Pickup",
       "Position": "0,199.7361,351.933",
       "Enabled": true,
       "NetworkMode": 1,
@@ -157,7 +157,7 @@
     {
       "__guid": "510b2841-1c3c-41fc-9348-bf2072e53215",
       "Flags": 0,
-      "Name": "SMG Pickup (1)",
+      "Name": "SMG Pickup",
       "Position": "0,1185.792,367.8752",
       "Enabled": true,
       "NetworkMode": 1,
@@ -165,7 +165,7 @@
         {
           "__type": "Pace.WeaponPickup",
           "__guid": "7aa683e2-a5ce-405e-92eb-08aab75f2b34",
-          "EquipmentToSpawn": "prefabs/rifle.equip",
+          "EquipmentToSpawn": "prefabs/smg.equip",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,

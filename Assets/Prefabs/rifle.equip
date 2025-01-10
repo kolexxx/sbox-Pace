@@ -1,12 +1,14 @@
 {
   "Name": "Rifle",
   "Icon": "ui/equipment/m4_01.png",
-  "Model": "weapons/rust_smg/rust_smg.vmdl",
-  "Slot": 2,
+  "Model": "models/weapons/sbox_assault_m4a1/w_m4a1.vmdl",
+  "Slot": 3,
   "Prefab": {
     "_type": "gameobject",
     "prefab": "prefabs/rifle.prefab"
   },
-  "__references": [],
+  "__references": [
+    "facepunch.w_m4a1#60166"
+  ],
   "__version": 0
 }

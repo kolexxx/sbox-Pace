@@ -39,7 +39,7 @@ public class Inventory : Component, Component.ITriggerListener
 
 	protected override void OnAwake()
 	{
-		for ( var i = 0; i < 4; i++ )
+		for ( var i = 0; i < 5; i++ )
 			Equipment.Add( null );
 	}
 

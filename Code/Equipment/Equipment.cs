@@ -79,7 +79,7 @@ public sealed class Equipment : Component
         }
 
         Renderer.Enabled = IsActive;
-        Transform.World = Owner.PawnBody.Hand.Transform.World;
+        Transform.World = Owner.PawnBody.Hand.Transform.World.WithScale( WorldScale );
         WorldPosition = Handle.WorldPosition;
     }
 

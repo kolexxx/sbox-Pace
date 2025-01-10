@@ -3,6 +3,7 @@
     "__guid": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f",
     "Flags": 0,
     "Name": "pistol",
+    "Scale": "2,2,2",
     "Tags": "particles",
     "Enabled": true,
     "Components": [
@@ -10,13 +11,13 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
         "AnimationGraph": null,
-        "BodyGroups": 18446744073709551615,
+        "BodyGroups": 39,
         "BoneMergeTarget": null,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+        "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
         "Morphs": {},
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -51,7 +52,7 @@
         "Handedness": "Both",
         "Handle": {
           "_type": "gameobject",
-          "go": "16bc2516-44f9-4975-a0a4-fb6f9fc6e60f"
+          "go": "3456bb86-ad03-45d2-b3c9-2a7174eee6e3"
         },
         "HoldType": "Pistol",
         "Icon": "ui/equipment/usp_01.png",
@@ -120,10 +121,7 @@
           "_type": "gameobject",
           "go": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b"
         },
-        "MuzzleFlash": {
-          "_type": "gameobject",
-          "prefab": "effects/muzzle.prefab"
-        },
+        "MuzzleFlash": null,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -140,7 +138,14 @@
         "__guid": "b002e8ee-1a9e-4a6f-a10f-48a767c81b6b",
         "Flags": 0,
         "Name": "muzzle",
-        "Position": "9.656152,0.272987,4.158353",
+        "Position": "3.785461,0,5",
+        "Enabled": true
+      },
+      {
+        "__guid": "3456bb86-ad03-45d2-b3c9-2a7174eee6e3",
+        "Flags": 0,
+        "Name": "handle",
+        "Position": "1.892106,0.07488191,-2.735518",
         "Enabled": true
       }
     ],
@@ -175,7 +180,7 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "rust.rust_pistol#43964"
+    "facepunch.w_usp#77979"
   ],
   "__version": 1
 }

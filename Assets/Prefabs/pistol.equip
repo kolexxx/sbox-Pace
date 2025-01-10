@@ -1,14 +1,14 @@
 {
   "Name": "Pistol",
   "Icon": "ui/equipment/usp_01.png",
-  "Model": "weapons/rust_pistol/rust_pistol.vmdl",
+  "Model": "models/weapons/sbox_pistol_usp/w_usp.vmdl",
   "Slot": 1,
   "Prefab": {
     "_type": "gameobject",
     "prefab": "prefabs/pistol.prefab"
   },
   "__references": [
-    "rust.rust_pistol"
+    "facepunch.w_usp#77979"
   ],
   "__version": 0
 }

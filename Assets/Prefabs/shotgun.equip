@@ -1,14 +1,14 @@
 {
   "Name": "Shotgun",
   "Icon": "ui/equipment/spaghellim4_01.png",
-  "Model": "weapons/rust_pumpshotgun/rust_pumpshotgun.vmdl",
-  "Slot": 3,
+  "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
+  "Slot": 4,
   "Prefab": {
     "_type": "gameobject",
     "prefab": "prefabs/shotgun.prefab"
   },
   "__references": [
-    "rust.rust_pumpshotgun"
+    "facepunch.w_spaghellim4#58057"
   ],
   "__version": 0
 }

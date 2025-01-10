@@ -1,14 +1,14 @@
 {
   "RootObject": {
-    "__guid": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+    "__guid": "8bf15255-47ee-4f88-bab7-d330c2848443",
     "Flags": 0,
-    "Name": "shotgun",
+    "Name": "smg",
     "Scale": "1.5,1.5,1.5",
     "Enabled": true,
     "Components": [
       {
         "__type": "Sandbox.SkinnedModelRenderer",
-        "__guid": "36758130-c8f2-4363-8a84-8c801c103b0b",
+        "__guid": "32bace39-b163-4008-94cf-991f7e322dbd",
         "AnimationGraph": null,
         "BodyGroups": 3,
         "BoneMergeTarget": null,
@@ -16,7 +16,7 @@
         "CreateBoneObjects": false,
         "MaterialGroup": null,
         "MaterialOverride": null,
-        "Model": "models/weapons/sbox_shotgun_spaghellim4/w_spaghellim4.vmdl",
+        "Model": "models/weapons/sbox_smg_mp5/w_mp5.vmdl",
         "Morphs": {},
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
@@ -46,16 +46,16 @@
       },
       {
         "__type": "Pace.Equipment",
-        "__guid": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
+        "__guid": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
         "DeployTime": 0.6,
-        "Handedness": "Right",
+        "Handedness": "Both",
         "Handle": {
           "_type": "gameobject",
-          "go": "d863c019-a4ea-4ec9-9a40-38c3114b19e5"
+          "go": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc"
         },
-        "HoldType": "Shotgun",
-        "Icon": "ui/equipment/spaghellim4_01.png",
-        "Name": "Shotgun",
+        "HoldType": "Rifle",
+        "Icon": "ui/equipment/mp5_01.png",
+        "Name": "SMG",
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
@@ -64,61 +64,61 @@
         "OnComponentUpdate": null,
         "Renderer": {
           "_type": "component",
-          "component_id": "36758130-c8f2-4363-8a84-8c801c103b0b",
-          "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+          "component_id": "32bace39-b163-4008-94cf-991f7e322dbd",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "SkinnedModelRenderer"
         },
-        "Resource": "prefabs/shotgun.equip",
-        "Slot": 3
+        "Resource": "prefabs/smg.equip",
+        "Slot": 2
       },
       {
         "__type": "Pace.AmmoComponent",
-        "__guid": "f6052ea8-dea6-46c4-9039-b1e93c7cdd53",
+        "__guid": "9a7a3107-b208-46d1-a5de-5282bc07cdd9",
         "Equipment": {
           "_type": "component",
-          "component_id": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
-          "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+          "component_id": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "Equipment"
         },
         "FireComponent": {
           "_type": "component",
-          "component_id": "c47cd1a3-601e-4474-a819-3240d7958be4",
-          "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+          "component_id": "19e7088d-7ffb-4326-926f-3edf59ab769e",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "FireComponent"
         },
-        "MaxLoadedAmmo": 5,
+        "MaxLoadedAmmo": 30,
         "OnComponentDestroy": null,
         "OnComponentDisabled": null,
         "OnComponentEnabled": null,
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "ReloadTime": 0.5,
-        "ReloadType": "Sequential"
+        "ReloadTime": 1.8,
+        "ReloadType": "Magazine"
       },
       {
         "__type": "Pace.FireComponent",
-        "__guid": "c47cd1a3-601e-4474-a819-3240d7958be4",
+        "__guid": "19e7088d-7ffb-4326-926f-3edf59ab769e",
         "Ammo": {
           "_type": "component",
-          "component_id": "f6052ea8-dea6-46c4-9039-b1e93c7cdd53",
-          "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+          "component_id": "9a7a3107-b208-46d1-a5de-5282bc07cdd9",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "AmmoComponent"
         },
-        "BulletsPerFire": 8,
-        "Damage": 7.5,
+        "BulletsPerFire": 1,
+        "Damage": 10,
         "EjectionPort": null,
         "Equipment": {
           "_type": "component",
-          "component_id": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
-          "go": "c58f9604-4ae6-4fe5-8777-284ca36ae1ab",
+          "component_id": "7ebcc902-7b41-46bc-b45a-4cc997551f5f",
+          "go": "8bf15255-47ee-4f88-bab7-d330c2848443",
           "component_type": "Equipment"
         },
-        "FireMode": "Semi",
-        "FireRate": 1,
+        "FireMode": "Automatic",
+        "FireRate": 15,
         "Muzzle": {
           "_type": "gameobject",
-          "go": "3ddf0602-e896-4d82-84dd-9ad61dfa6ee4"
+          "go": "3716b77b-6897-4b64-8c7f-e76c7034ac25"
         },
         "MuzzleFlash": null,
         "OnComponentDestroy": null,
@@ -127,25 +127,25 @@
         "OnComponentFixedUpdate": null,
         "OnComponentStart": null,
         "OnComponentUpdate": null,
-        "ShootSound": "sounds/weapons/shotgun/shotgun1_shoot.sound",
-        "Spread": 16,
+        "ShootSound": "sounds/weapons/smg/mp5_shot.sound",
+        "Spread": 30,
         "Tracer": "particles/tracer.vpcf"
       }
     ],
     "Children": [
       {
-        "__guid": "3ddf0602-e896-4d82-84dd-9ad61dfa6ee4",
+        "__guid": "3716b77b-6897-4b64-8c7f-e76c7034ac25",
         "Flags": 0,
         "Name": "muzzle",
-        "Position": "20.20912,0,6.1",
+        "Position": "13.03639,-0.4244391,8.099816",
         "Enabled": true
       },
       {
-        "__guid": "d863c019-a4ea-4ec9-9a40-38c3114b19e5",
+        "__guid": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc",
         "Flags": 0,
         "Name": "handle",
-        "Position": "5.548622,0.08321889,-4.494198",
-        "Rotation": "-0.0000006407499,0.00000002235174,0.0000001192093,0.9999968",
+        "Position": "2.406245,0.2122628,-5.54448",
+        "Rotation": "-0.00000001490116,0.0000002980232,0.00000005960464,0.9999961",
         "Enabled": true
       }
     ],
@@ -180,7 +180,7 @@
   "DontBreakAsTemplate": false,
   "ResourceVersion": 1,
   "__references": [
-    "facepunch.w_spaghellim4#58057"
+    "facepunch.w_mp5#33703"
   ],
   "__version": 1
 }

@@ -547,7 +547,8 @@
 			{
 				m_nType = "PVEC_TYPE_LITERAL_COLOR"
 				m_vLiteralValue = [ 0.0, 0.0, 0.0 ]
-				m_LiteralColor = [ 253, 249, 142, 255 ]
+				m_NamedValue = ""
+				m_LiteralColor = [ 255, 140, 0, 255 ]
 				m_nVectorAttribute = 6
 				m_vVectorAttributeScale = [ 1.0, 1.0, 1.0 ]
 				m_nControlPoint = 0
@@ -558,6 +559,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -603,6 +605,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -648,6 +651,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -693,6 +697,7 @@
 				{
 					m_nType = "PF_TYPE_LITERAL"
 					m_nMapType = "PF_MAP_TYPE_DIRECT"
+					m_NamedValue = ""
 					m_flLiteralValue = 0.0
 					m_nControlPoint = 0
 					m_nScalarAttribute = 3
@@ -788,6 +793,7 @@
 					m_vDomainMaxs = [ 0.0, 0.0 ]
 				}
 			}
+			m_nColorBlendType = "PARTICLE_COLOR_BLEND_ADD"
 		},
 		{
 			_class = "C_OP_RenderRopes"
