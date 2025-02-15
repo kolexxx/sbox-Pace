@@ -1,6 +1,7 @@
 using Sandbox;
 using Sandbox.Citizen;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace Pace;
@@ -90,11 +91,14 @@ public class PlayerController : Component
         if ( IsProxy || IsRagdoll || Player.IsFrozen )
             return;
 
+        UpdateCrouch();
+        CalculateWishVelocity();
+
         WorldPosition = Settings.Plane.SnapToPlane( WorldPosition );
         Head.LocalPosition = Vector3.Up * (IsCrouching ? 32f : 64f);
 
-        UpdateCrouch();
-        CalculateWishVelocity();
+        if ( TryUnstuck() )
+            return;
 
         if ( Input.Pressed( "jump" ) )
             Jump();
@@ -173,6 +177,34 @@ public class PlayerController : Component
 
         Velocity = velocity;
         WorldPosition = position;
+    }
+
+    private int _stuckTries;
+
+    private bool TryUnstuck()
+    {
+        if ( !TraceBody( WorldPosition, WorldPosition ).StartedSolid )
+        {
+            _stuckTries = 0;
+            return false;
+        }
+
+        for ( var i = 0; i < 20; i++ )
+        {
+            var vector = WorldPosition + Vector3.VectorPlaneProject( Vector3.Random, Settings.Plane.Normal ).Normal * (_stuckTries / 2f);
+
+            if ( i == 0 )
+                vector = WorldPosition + Vector3.Up * 2f;
+
+            if ( !TraceBody( vector, vector ).StartedSolid )
+            {
+                WorldPosition = vector;
+                return false;
+            }
+        }
+
+        _stuckTries++;
+        return true;
     }
 
     private void CategorizePosition()
