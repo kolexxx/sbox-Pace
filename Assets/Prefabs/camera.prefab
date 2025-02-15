@@ -6,6 +6,7 @@
     "Scale": "0,0,0",
     "Tags": "maincamera",
     "Enabled": true,
+    "NetworkMode": 0,
     "Components": [
       {
         "__type": "Sandbox.CameraComponent",

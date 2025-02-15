@@ -9,17 +9,17 @@ public sealed class LookCamera : Component
 
     protected override void OnAwake()
     {
-        WorldPosition = Pawn.Local.Head.WorldPosition + Settings.Plane.Normal * 1000f;
+        WorldPosition = Player.Local.WorldPosition + Vector3.Up * 64f + Settings.Plane.Normal * 1000f;
     }
 
     protected override void OnPreRender()
     {
-        var position = Pawn.Local.Head.WorldPosition;
-        var offset = (Pawn.Local.MousePosition - position) / 2f;
+        var position = Player.Local.WorldPosition + Vector3.Up * 64f;
+        var offset = (Player.Local.MousePosition - position) / 2f;
         var targetPosition = position + offset.ClampLength( 150f ) + Settings.Plane.Normal * 1000f;
 
         Camera.FieldOfView = Screen.CreateVerticalFieldOfView( 30f );
-        WorldRotation = (-Settings.Plane.Normal).EulerAngles;
+        WorldRotation = Rotation.LookAt( -Settings.Plane.Normal );
         WorldPosition = Vector3.Lerp( targetPosition, WorldPosition, MathF.Exp( -25f * Time.Delta ) );
     }
 }

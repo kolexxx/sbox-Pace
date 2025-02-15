@@ -12,7 +12,7 @@
         if (!element.IsVisible)
             continue;
 
-        if (Vector3.DistanceBetween(Pawn.Local.WorldPosition, element.WorldPosition) >= Radius + EntryRadius)
+        if (Vector3.DistanceBetween(Player.Local.WorldPosition, element.WorldPosition) >= Radius + EntryRadius)
             continue;
 
         <div class="circle" style=@GetStyle(element)></div>
@@ -26,7 +26,7 @@
 
     private string GetStyle(IMinimapElement element)
     {
-        var position = element.WorldPosition - Pawn.Local.WorldPosition;
+        var position = element.WorldPosition - Player.Local.WorldPosition;
 
         var up = Vector3.Up;
         var right = up.Cross(Settings.Plane.Normal);

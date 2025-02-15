@@ -99,7 +99,7 @@ public class AmmoComponent : Component
             IsReloading = true;
         }
 
-        Equipment.Owner.PawnBody.Renderer.Set( "b_reload", true );
+        Equipment.Owner.Renderer.Set( "b_reload", true );
     }
 
     protected bool CanReload()
@@ -145,7 +145,7 @@ public class AmmoComponent : Component
     {
         _requestCancel = false;
         IsReloading = false;
-        Equipment.Owner.PawnBody.Renderer.Set( "b_reload", false );
+        Equipment.Owner.Renderer.Set( "b_reload", false );
     }
 
     [Rpc.Owner]

@@ -20,7 +20,7 @@
 
     public override void Tick()
     {
-        if (!Pawn.Local.IsValid())
+        if (!Player.Local.IsValid())
             return;
 
         if (_timeUntilUpdate)
@@ -30,9 +30,9 @@
     private void Update()
     {
         _timeUntilUpdate = 0.1f;
-        var players = new List<Pawn>(GameMode.Current.Players.Where(x => x.IsValid()));
+        var players = new List<Player>(GameMode.Current.Players.Where(x => x.IsValid()));
 
-        players.Sort(delegate (Pawn x, Pawn y)
+        players.Sort(delegate (Player x, Player y)
         {
             return y.Stats.Kills.CompareTo(x.Stats.Kills);
         });
@@ -55,24 +55,24 @@
             if (i > 0 && players[i - 1].Stats.Kills != players[i].Stats.Kills)
                 place++;
 
-            if (j == 3 && !localInTop3 && players[i] != Pawn.Local)
+            if (j == 3 && !localInTop3 && players[i] != Player.Local)
                 continue;
 
             label.Text = GetFormatString(players[i], place);
-            label.SetClass("local", players[i] == Pawn.Local);
+            label.SetClass("local", players[i] == Player.Local);
             label.SetClass("first", place == 1);
             label.SetClass("second", place == 2);
             label.SetClass("third", place == 3);
 
-            if (players[i] == Pawn.Local)
+            if (players[i] == Player.Local)
                 localInTop3 = true;
 
             j++;
         }
     }
 
-    private string GetFormatString(Pawn pawn, int place)
+    private string GetFormatString(Player player, int place)
     {
-        return $"{place}. {pawn.Network.Owner.DisplayName} - {pawn.Stats.Kills}";
+        return $"{place}. {player.Network.Owner.DisplayName} - {player.Stats.Kills}";
     }
 }

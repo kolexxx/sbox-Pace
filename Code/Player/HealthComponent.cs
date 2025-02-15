@@ -5,7 +5,7 @@ namespace Pace;
 
 public sealed class HealthComponent : Component, Component.ITriggerListener
 {
-    [Property] public Pawn Pawn { get; private set; }
+    [Property] public Player Player { get; private set; }
     [Property, ReadOnly, Sync( SyncFlags.FromHost )] public float Health { get; set; } = 100f;
     [Property] public SoundEvent DamageTakenSound { get; private set; }
     public DamageInfo LastDamage { get; private set; }
@@ -22,11 +22,14 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
             return;
         }
 
+        if ( info.Flags.HasFlag( DamageFlags.Critical ) )
+            info.Damage *= 1.5f;
+
         Health = MathF.Max( 0f, Health - info.Damage );
         BroadcastDamage( info.Attacker, info.Weapon, info.Damage, info.Flags, info.Position, info.Force );
 
         if ( Health <= 0f )
-            Pawn.OnKilled();
+            Player.OnKilled();
     }
 
     [Rpc.Host]
@@ -52,7 +55,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
         {
             Attacker = attacker,
             Weapon = weapon,
-            Victim = Pawn,
+            Victim = Player,
             Damage = damage,
             Flags = flags,
             Position = position,

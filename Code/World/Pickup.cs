@@ -5,7 +5,7 @@ namespace Pace;
 
 public abstract class Pickup : Component, ICleanup, UI.IMinimapElement
 {
-    [RequireComponent] public BoxCollider Collider { get; private set; }
+    [RequireComponent] public BoxCollider Collider { get; protected set; }
 
     /// <summary>
     /// The time it takes for our item to respawn.

@@ -10,13 +10,13 @@ public sealed class DeathCamera : Component
 {
     private const float HoldTime = 0.5f;
     private const float ArrivalTime = 2f;
-    private Pawn _killer;
+    private Player _killer;
     private Vector3 _startPos;
     private RealTimeSince _timeSinceDeath;
 
     protected override void OnStart()
     {
-        _killer = Pawn.Local.HealthComponent.LastDamage.Attacker as Pawn;
+        _killer = Player.Local.HealthComponent.LastDamage.Attacker as Player;
         _startPos = WorldPosition;
         _timeSinceDeath = 0f;
     }

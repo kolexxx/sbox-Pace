@@ -6,9 +6,9 @@ namespace Pace;
 public class Inventory : Component, Component.ITriggerListener
 {
 	/// <summary>
-	/// A reference to our Pawn component.
+	/// A reference to our Player component.
 	/// </summary>
-	[Property] public Pawn Pawn { get; private set; }
+	[Property] public Player Player { get; private set; }
 
 	/// <summary>
 	/// A sound that will be played when we pick up a weapon.
@@ -80,14 +80,14 @@ public class Inventory : Component, Component.ITriggerListener
 		var go = eq.Prefab.Clone( new CloneConfig()
 		{
 			Name = eq.Name,
-			Parent = GameObject,
+			Parent = Player.Hand,
 			Transform = new Transform(),
 		} );
 
 		go.NetworkSpawn( Network.Owner );
 
 		Equipment[eq.Slot] = go.Components.Get<Equipment>();
-		Equipment[eq.Slot].CarryStart( Pawn, makeActive );
+		Equipment[eq.Slot].CarryStart( Player, makeActive );
 
 		return true;
 	}

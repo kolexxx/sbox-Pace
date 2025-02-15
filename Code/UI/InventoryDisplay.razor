@@ -7,7 +7,7 @@
 @inherits Panel
 
 @{
-	var player = Pawn.Local;
+	var player = Player.Local;
 
 	if (!player.IsValid())
 		return;
@@ -43,14 +43,14 @@
 
 	protected override int BuildHash()
 	{
-		if (!Pawn.Local.IsValid())
+		if (!Player.Local.IsValid())
 			return 0;
 
 		var result = 0;
 
-		foreach (var eq in Pawn.Local.Inventory.Equipment)
+		foreach (var eq in Player.Local.Inventory.Equipment)
 			result = HashCode.Combine(result, eq.IsValid(), eq?.IsActive);
 
-		return HashCode.Combine(Pawn.Local.IsAlive, result);
+		return HashCode.Combine(Player.Local.IsAlive, result);
 	}
 }
