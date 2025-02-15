@@ -10,7 +10,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "36758130-c8f2-4363-8a84-8c801c103b0b",
         "AnimationGraph": null,
-        "BodyGroups": 3,
+        "BodyGroups": 7,
         "BoneMergeTarget": null,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
@@ -39,7 +39,8 @@
         },
         "RenderType": "On",
         "Sequence": {
-          "Name": null
+          "Name": null,
+          "PlaybackRate": 1
         },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -48,7 +49,7 @@
         "__type": "Pace.Equipment",
         "__guid": "000742e6-2dd2-4d73-b54e-dcf2f4a68765",
         "DeployTime": 0.6,
-        "Handedness": "Right",
+        "Handedness": "Both",
         "Handle": {
           "_type": "gameobject",
           "go": "d863c019-a4ea-4ec9-9a40-38c3114b19e5"
@@ -69,7 +70,7 @@
           "component_type": "SkinnedModelRenderer"
         },
         "Resource": "prefabs/shotgun.equip",
-        "Slot": 3
+        "Slot": 4
       },
       {
         "__type": "Pace.AmmoComponent",
@@ -144,7 +145,7 @@
         "__guid": "d863c019-a4ea-4ec9-9a40-38c3114b19e5",
         "Flags": 0,
         "Name": "handle",
-        "Position": "5.548622,0.08321889,-4.494198",
+        "Position": "8.710884,-0.4558315,-7.913849",
         "Rotation": "-0.0000006407499,0.00000002235174,0.0000001192093,0.9999968",
         "Enabled": true
       }

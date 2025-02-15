@@ -16,7 +16,7 @@
 
 	public override void Tick()
 	{
-		if (!Pawn.Local.IsValid())
+		if (!Player.Local.IsValid())
 			return;
 
 		var mousePosition = Mouse.Position / Screen.Size;
@@ -27,7 +27,7 @@
 		if (Label is null)
 			return;
 
-		var inventory = Pawn.Local.Inventory;
+		var inventory = Player.Local.Inventory;
 
 		if (!inventory.ActiveEquipment.IsValid())
 		{

@@ -1,3 +1,4 @@
+using System.Dynamic;
 using Sandbox;
 using Sandbox.Citizen;
 
@@ -13,12 +14,12 @@ public sealed class Equipment : Component
     /// <summary>
     /// A name that will be used in UI elements.
     /// </summary>
-    [Property, ReadOnly] public string Name => Resource.Name;
+    [Property, ReadOnly] public string Name { get; private set; }
 
     /// <summary>
     /// An image that will be used in UI elements.
     /// </summary>
-    [Property, ReadOnly, ImageAssetPath] public string Icon => Resource.Icon;
+    [Property, ReadOnly, ImageAssetPath] public string Icon { get; private set; }
 
     /// <summary>
     /// A reference to our model renderer.
@@ -53,7 +54,7 @@ public sealed class Equipment : Component
     /// <summary>
     /// The holder of this equipment.
     /// </summary>
-    [Sync( SyncFlags.FromHost )] public Pawn Owner { get; set; }
+    [Sync( SyncFlags.FromHost )] public Player Owner { get; set; }
 
     /// <summary>
     /// Is this equipment currently equiped by the player?
@@ -70,6 +71,12 @@ public sealed class Equipment : Component
     /// </summary>
     public bool IsDeployed => IsActive && TimeSinceDeployed > DeployTime;
 
+    protected override void OnStart()
+    {
+        Name = Resource.Name;
+        Icon = Resource.Icon;
+    }
+
     protected override void OnPreRender()
     {
         if ( !Owner.IsValid() )
@@ -78,16 +85,15 @@ public sealed class Equipment : Component
             return;
         }
 
+        LocalPosition = Handle.LocalPosition;
         Renderer.Enabled = IsActive;
-        Transform.World = Owner.PawnBody.Hand.Transform.World.WithScale( WorldScale );
-        WorldPosition = Handle.WorldPosition;
     }
 
     [Rpc.Broadcast]
     public void Deploy()
     {
         TimeSinceDeployed = 0f;
-        Owner?.PawnBody.Renderer.Set( "b_deploy", true );
+        Owner.Renderer.Set( "b_deploy", true );
     }
 
     public void Holster() { }
@@ -96,7 +102,7 @@ public sealed class Equipment : Component
     /// Called when added to a player's inventory.
     /// </summary>
     [Rpc.Broadcast]
-    public void CarryStart( Pawn owner, bool makeActive = false )
+    public void CarryStart( Player owner, bool makeActive = false )
     {
         if ( !IsProxy && makeActive )
             owner.Inventory.InputEquipment = this;

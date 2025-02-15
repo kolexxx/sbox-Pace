@@ -105,6 +105,9 @@ public sealed class FireComponent : Component
                 Force = tr.Direction * Damage * 100
             };
 
+            if ( tr.Hitbox is not null )
+                damage.Flags = damage.Flags.WithFlag( DamageFlags.Critical, tr.Hitbox.Tags.Has( "head" ) );
+
             foreach ( var damageable in tr.GameObject.Components.GetAll<HealthComponent>() )
             {
                 damageable.TakeDamage( damage );
@@ -119,7 +122,7 @@ public sealed class FireComponent : Component
     private IEnumerable<SceneTraceResult> TraceBullet( Ray ray, float distance, float radius = 2.0f )
     {
         var trace = Scene.Trace.Ray( ray, distance )
-            .IgnoreGameObjectHierarchy( GameObject.Parent )
+            .IgnoreGameObjectHierarchy( Equipment.Owner.GameObject )
             .UseHitboxes()
             .Radius( radius );
 
@@ -146,7 +149,7 @@ public sealed class FireComponent : Component
             } );
         }
 
-        Equipment.Owner.PawnBody.Renderer.Set( "b_attack", true );
+        Equipment.Owner.Renderer.Set( "b_attack", true );
     }
 
     [Rpc.Broadcast]

@@ -39,7 +39,8 @@
         },
         "RenderType": "On",
         "Sequence": {
-          "Name": null
+          "Name": null,
+          "PlaybackRate": 1
         },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -144,7 +145,7 @@
         "__guid": "e085dde4-8527-4fbe-a54c-7814ba1ee3cc",
         "Flags": 0,
         "Name": "handle",
-        "Position": "2.406245,0.2122628,-5.54448",
+        "Position": "3.919983,0.5506576,-7.777592",
         "Rotation": "-0.00000001490116,0.0000002980232,0.00000005960464,0.9999961",
         "Enabled": true
       }

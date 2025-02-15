@@ -11,7 +11,7 @@
           "__type": "Sandbox.SceneInformation",
           "__guid": "0b5aa25e-6c6f-4a2c-99b9-d9722d517469",
           "Author": null,
-          "Changes": null,
+          "Changes": "",
           "Description": "",
           "Group": null,
           "OnComponentDestroy": null,

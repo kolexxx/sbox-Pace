@@ -36,14 +36,14 @@ public sealed class Deathmatch : GameMode
         }
     }
 
-    public override void OnRespawn( Pawn pawn )
+    public override void OnRespawn( Player player )
     {
-        pawn.Inventory.Add( DefaultWeapon, true );
+        player.Inventory.Add( DefaultWeapon, true );
 
-        base.OnRespawn( pawn );
+        base.OnRespawn( player );
     }
 
-    public override void OnKill( Pawn attacker, Pawn victim )
+    public override void OnKill( Player attacker, Player victim )
     {
         if ( State != GameState.Playing )
             return;
@@ -103,9 +103,9 @@ public sealed class Deathmatch : GameMode
 
     private void ShowBestPlayer()
     {
-        var players = new List<Pawn>( Players );
+        var players = new List<Player>( Players );
 
-        players.Sort( delegate ( Pawn x, Pawn y )
+        players.Sort( delegate ( Player x, Player y )
         {
             return y.Stats.Kills.CompareTo( x.Stats.Kills );
         } );

@@ -11,7 +11,7 @@
         "__type": "Sandbox.SkinnedModelRenderer",
         "__guid": "0cafd8dc-39b8-474a-8395-f892f7a8da08",
         "AnimationGraph": null,
-        "BodyGroups": 39,
+        "BodyGroups": 75,
         "BoneMergeTarget": null,
         "CreateAttachments": false,
         "CreateBoneObjects": false,
@@ -40,7 +40,8 @@
         },
         "RenderType": "On",
         "Sequence": {
-          "Name": null
+          "Name": null,
+          "PlaybackRate": 1
         },
         "Tint": "1,1,1,1",
         "UseAnimGraph": true
@@ -107,7 +108,7 @@
           "component_type": "AmmoComponent"
         },
         "BulletsPerFire": 1,
-        "Damage": 100,
+        "Damage": 15,
         "EjectionPort": null,
         "Equipment": {
           "_type": "component",
@@ -145,7 +146,7 @@
         "__guid": "3456bb86-ad03-45d2-b3c9-2a7174eee6e3",
         "Flags": 0,
         "Name": "handle",
-        "Position": "1.892106,0.07488191,-2.735518",
+        "Position": "4.853716,0.1277411,-5.669416",
         "Enabled": true
       }
     ],
