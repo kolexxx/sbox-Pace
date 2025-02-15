@@ -173,9 +173,9 @@ public abstract class GameMode : Component, Component.INetworkListener
 		foreach ( var other in Players )
 		{
 			if ( player == other ) continue;
-			if ( !player.IsAlive ) continue;
+			if ( !other.IsAlive ) continue;
 
-			var spawnDist = (spawnpoint.WorldPosition - player.WorldPosition).LengthSquared;
+			var spawnDist = (spawnpoint.WorldPosition - other.WorldPosition).LengthSquared;
 			distance = MathF.Min( distance, spawnDist );
 		}
 

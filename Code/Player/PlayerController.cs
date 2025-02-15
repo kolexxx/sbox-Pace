@@ -1,6 +1,6 @@
 using Sandbox;
 using Sandbox.Citizen;
-using System.Diagnostics;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Pace;
@@ -9,7 +9,11 @@ public class PlayerController : Component
 {
     [Property, Group( "Game Objects" )] public GameObject Head { get; private set; }
     [Property, Group( "Game Objects" )] public GameObject Body { get; private set; }
-    [Property] public CitizenAnimationHelper AnimationHelper { get; private set; }
+    [Property, Group( "Components" )] public Player Player { get; private set; }
+    [Property, Group( "Components" )] public CitizenAnimationHelper AnimationHelper { get; private set; }
+    [Property, Group( "Components" )] public ModelPhysics Physics { get; private set; }
+    [Property, Group( "Components" )] public List<Component> ComponentsToEnable { get; private set; }
+    [Property, Group( "Components" )] public List<Component> ComponentsToDisable { get; private set; }
     [Property] public bool UseBuiltInCC { get; private set; }
     [Property] public float WalkSpeed { get; private set; } = 280f;
     [Property] public float CrouchSpeed { get; private set; } = 150f;
@@ -22,6 +26,8 @@ public class PlayerController : Component
     [Property, ReadOnly, Sync] public Vector3 GroundNormal { get; private set; } = Vector3.Up;
     [Property, ReadOnly] public bool HasDoubleJumped { get; private set; }
     [Sync] public Vector3 MousePosition { get; private set; }
+    [Property, ReadOnly] public bool IsRagdoll { get; private set; } = false;
+
     public Capsule Capsule
     {
         get => new( new Vector3( 0f, 0f, 8f ), new Vector3( 0f, 0f, IsCrouching ? 32f : 64f ), 7f );
@@ -34,6 +40,38 @@ public class PlayerController : Component
     {
         WorldPosition = new( position );
         Velocity = Vector3.Zero;
+    }
+
+    public void SetRagdoll( bool ragdoll, DamageInfo damage = null )
+    {
+        IsRagdoll = ragdoll;
+        Tags.Set( "ragdoll", IsRagdoll );
+        Transform.ClearInterpolation();
+
+        foreach ( var component in ComponentsToEnable )
+        {
+            component.Enabled = !IsRagdoll;
+        }
+
+        foreach ( var component in ComponentsToDisable )
+        {
+            component.Enabled = IsRagdoll;
+        }
+
+        if ( !IsRagdoll )
+        {
+            Physics.LocalPosition = Vector3.Zero;
+            Physics.LocalRotation = Rotation.Identity;
+            return;
+        }
+
+        if ( damage is null || !Physics.IsValid() || !Physics.PhysicsGroup.IsValid() )
+            return;
+
+        foreach ( var body in Physics.PhysicsGroup.Bodies )
+        {
+            body.ApplyImpulseAt( damage.Position, damage.Force );
+        }
     }
 
     protected override void OnPreRender()
@@ -49,7 +87,7 @@ public class PlayerController : Component
 
     protected override void OnFixedUpdate()
     {
-        if ( IsProxy )
+        if ( IsProxy || IsRagdoll || Player.IsFrozen )
             return;
 
         WorldPosition = Settings.Plane.SnapToPlane( WorldPosition );
@@ -265,10 +303,11 @@ public class PlayerController : Component
     {
         var equipment = Components.Get<Inventory>()?.ActiveEquipment ?? null;
 
-        AnimationHelper.WithWishVelocity( WishVelocity );
-        AnimationHelper.WithVelocity( Velocity.ClampLength( 240f ) );
+        AnimationHelper.Target.UseAnimGraph = !IsRagdoll;
+        AnimationHelper.WithWishVelocity( Player.IsFrozen ? Vector3.Zero : WishVelocity );
+        AnimationHelper.WithVelocity( Player.IsFrozen ? Vector3.Zero : Velocity.ClampLength( 240f ) );
         AnimationHelper.AimAngle = Head.WorldRotation;
-        AnimationHelper.IsGrounded = IsGrounded;
+        AnimationHelper.IsGrounded = IsGrounded || Player.IsFrozen;
         AnimationHelper.WithLook( Head.WorldRotation.Forward, 1f, 0.5f, 0.5f );
         AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
         AnimationHelper.HoldType = equipment.IsValid() ? equipment.HoldType : CitizenAnimationHelper.HoldTypes.None;

@@ -1,5 +1,4 @@
 using Sandbox;
-using Sandbox.Citizen;
 using System.Linq;
 
 namespace Pace;
@@ -100,7 +99,6 @@ public sealed class Player : Component, UI.IMinimapElement
 	public void Respawn()
 	{
 		LifeState = LifeState.Alive;
-		Renderer.Enabled = true;
 
 		if ( Networking.IsHost )
 		{
@@ -114,6 +112,8 @@ public sealed class Player : Component, UI.IMinimapElement
 			CameraObject.Components.Get<DeathCamera>()?.Destroy();
 			CameraObject.Components.GetOrCreate<LookCamera>();
 		}
+
+		Controller.SetRagdoll( false );
 	}
 
 	[Rpc.Broadcast]
@@ -122,7 +122,6 @@ public sealed class Player : Component, UI.IMinimapElement
 		var damage = HealthComponent.LastDamage;
 
 		LifeState = LifeState.Dead;
-		Renderer.Enabled = false;
 		TimeSinceDeath = 0f;
 
 		if ( Networking.IsHost )
@@ -133,6 +132,8 @@ public sealed class Player : Component, UI.IMinimapElement
 			CameraObject.Components.Get<LookCamera>().Destroy();
 			CameraObject.Components.Create<DeathCamera>();
 		}
+
+		Controller.SetRagdoll( true, HealthComponent.LastDamage );
 
 		GameMode.Current?.OnKill( damage.Attacker as Player, this );
 	}

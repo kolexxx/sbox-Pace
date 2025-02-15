@@ -93,7 +93,7 @@ public sealed class Equipment : Component
     public void Deploy()
     {
         TimeSinceDeployed = 0f;
-        Owner.Renderer.Set( "b_deploy", true );
+        Owner?.Renderer?.Set( "b_deploy", true );
     }
 
     public void Holster() { }
