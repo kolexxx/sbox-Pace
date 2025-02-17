@@ -3,7 +3,7 @@ using System;
 
 namespace Pace;
 
-public abstract class Pickup : Component, ICleanup, UI.IMinimapElement
+public abstract class Pickup : Component, IRoundEvent, UI.IMinimapElement
 {
     [RequireComponent] public BoxCollider Collider { get; protected set; }
 
@@ -25,11 +25,6 @@ public abstract class Pickup : Component, ICleanup, UI.IMinimapElement
 
     bool UI.IMinimapElement.IsVisible => TimeUntilRespawn <= 0f;
 
-    public void OnCleanup()
-    {
-        TimeUntilRespawn = 0f;
-    }
-
     protected override void OnFixedUpdate()
     {
         Collider.Enabled = TimeUntilRespawn;
@@ -49,5 +44,10 @@ public abstract class Pickup : Component, ICleanup, UI.IMinimapElement
     public void OnPickedUp()
     {
         TimeUntilRespawn = RespawnTime;
+    }
+
+    void IRoundEvent.OnStart()
+    {
+        TimeUntilRespawn = 0f;
     }
 }

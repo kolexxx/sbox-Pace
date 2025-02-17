@@ -52,14 +52,6 @@ public sealed class Deathmatch : GameMode
 
         if ( victim.HealthComponent.LastDamage.Weapon is Equipment eq )
             UI.KillFeed.AddEntry( attacker.SteamName, eq.Icon, victim.SteamName );
-
-        if ( !Networking.IsHost )
-            return;
-
-        if ( attacker.IsValid() && attacker != victim )
-            attacker.Stats.Kills++;
-
-        victim.Stats.Deaths++;
     }
 
     protected override void OnStateChanged( GameState before, GameState after )

@@ -15,11 +15,6 @@ public enum GameState
 	GameOver
 }
 
-public interface ICleanup
-{
-	public void OnCleanup();
-}
-
 public abstract class GameMode : Component, Component.INetworkListener
 {
 	/// <summary>
@@ -143,11 +138,10 @@ public abstract class GameMode : Component, Component.INetworkListener
 	/// </summary>
 	protected void RoundReset()
 	{
+		IRoundEvent.Post( x => x.OnStart() );
+
 		foreach ( var player in Players )
-		{
 			player.Respawn();
-			player.Stats.Clear();
-		}
 	}
 
 	protected void MoveToSpawnpoint( Player player )

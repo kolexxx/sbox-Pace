@@ -1,0 +1,28 @@
+DeathInfo
+{
+    position: absolute;
+    min-height: 15%;
+    min-width: 12%;
+    bottom: 10%;
+    left: 50%;
+    padding: 10px;
+    opacity: 1;
+    transform: translateX(-50%);
+    flex-direction: column;
+    transition: opacity 0.1s linear;
+    justify-content: space-between;
+
+    .avatar
+    {
+        margin-top: 5px;
+        margin-right: 10px;
+        height: 50px;
+        width: 50px;
+    }
+
+    &:intro
+    {
+        opacity: 0;
+    }
+    
+}

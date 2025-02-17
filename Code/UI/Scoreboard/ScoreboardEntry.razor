@@ -11,7 +11,7 @@
 	<label class="name">@Player.Network.Owner.DisplayName</label>
 	<label class="stat">@Player.Stats.Kills</label>
 	<label class="stat">@Player.Stats.Deaths</label>
-	<label class="stat">@Player.Network.Owner.Ping</label>
+	<label class="stat">@Player.Network.Owner.Ping.FloorToInt()</label>
 </root>
 
 @code
@@ -20,6 +20,6 @@
 
 	protected override int BuildHash()
 	{
-		return HashCode.Combine(Player.Network.Owner.Ping);
+		return HashCode.Combine(Player.Network.Owner.Ping, Player.Stats.Kills, Player.Stats.Deaths);
 	}
 }

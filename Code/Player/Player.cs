@@ -114,6 +114,7 @@ public sealed class Player : Component, UI.IMinimapElement
 		}
 
 		Controller.SetRagdoll( false );
+		IPlayerEvent.PostToGameObject( GameObject, x => x.OnPlayerSpawned( this ) );
 	}
 
 	[Rpc.Broadcast]
@@ -135,6 +136,7 @@ public sealed class Player : Component, UI.IMinimapElement
 
 		Controller.SetRagdoll( true, HealthComponent.LastDamage );
 
+		IPlayerEvent.PostToGameObject( GameObject, x => x.OnPlayerKilled( this ) );
 		GameMode.Current?.OnKill( damage.Attacker as Player, this );
 	}
 }

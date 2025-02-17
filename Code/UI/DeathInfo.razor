@@ -1,0 +1,28 @@
+@using Sandbox
+@using Sandbox.UI
+
+@namespace Pace.UI
+@attribute [StyleSheet]
+@inherits Panel
+
+@{
+	var damage = Player.Local.HealthComponent.LastDamage;
+	var attacker = damage.Attacker as Player;
+
+	if (damage is null)
+		return;
+}
+
+<root class="rounded background-color-primary">
+	<label style="color:#b44646; font-size: 35; font-weight: bold;">Killed by</label>
+	<div style="align-items: center; font-size: 30; font-weight: lighter;">
+		<img src="avatar:@attacker.Network.Owner.SteamId" class="avatar" />
+		<label>@attacker.Network.Owner.DisplayName</label>
+	</div>
+	@{
+		var x = Player.Local.Stats.KillsAgainstPlayer[attacker.Network.Owner.SteamId];
+		var y = attacker.Stats.KillsAgainstPlayer[Connection.Local.SteamId];
+
+		<label style="font-weight: 200;">YOU VS. FOE: @x - @y</label>
+	}
+</root>
