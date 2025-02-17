@@ -49,9 +49,7 @@ public sealed class Deathmatch : GameMode
             return;
 
         victim.LifeState = LifeState.Respawning;
-
-        if ( victim.HealthComponent.LastDamage.Weapon is Equipment eq )
-            UI.KillFeed.AddEntry( attacker.SteamName, eq.Icon, victim.SteamName );
+        UI.KillFeed.AddEntry( victim.HealthComponent.LastDamage );
     }
 
     protected override void OnStateChanged( GameState before, GameState after )

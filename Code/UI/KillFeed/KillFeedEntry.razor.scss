@@ -34,7 +34,9 @@ KillFeedEntry
         width: 64px;
         height: 64px;
         border-radius: 100px;
-        background-size: cover;
+        background-size: 70px;
+        background-position: center center;
+        background-repeat: no-repeat;
         opacity: 0.4;
         transform: rotateY(180);
     }

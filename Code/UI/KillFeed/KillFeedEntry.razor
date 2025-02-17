@@ -6,24 +6,27 @@
 @inherits Panel
 
 <root>
-    <label class=@IsMe(Left)>@Left</label>
-    <img src=@Weapon />
-    <label class=@IsMe(Right)>@Right</label>
+    @{
+        var left = _damage.Attacker.Network.Owner.DisplayName;
+        var weapon = _damage.Weapon is Equipment eq ? eq.Icon : "";
+        var right = _damage.Victim.Network.Owner.DisplayName;
+    }
+
+    <label class=@IsMe(left)>@left</label>
+    <img src=@weapon />
+    @if (_damage.Flags.HasFlag(DamageFlags.Critical))
+    {
+        <img style="background-size: 40px;" src="ui/headshot.png" />
+    }
+    <label class=@IsMe(right)>@right</label>
 </root>
 
 @code
 {
-    public string Left { get; set; }
-    public string Weapon { get; set; }
-    public string Right { get; set; }
+    private Pace.DamageInfo _damage;
     private RealTimeSince _timeSinceCreated = 0;
 
-    public KillFeedEntry(string left, string weapon, string right)
-    {
-        Left = left;
-        Weapon = weapon;
-        Right = right;
-    }
+    public KillFeedEntry(Pace.DamageInfo damage) => _damage = damage;
 
     public override void Tick()
     {

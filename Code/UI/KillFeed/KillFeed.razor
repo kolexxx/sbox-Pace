@@ -13,8 +13,8 @@
     public static KillFeed Instance { get; private set; }
     public KillFeed() => Instance = this;
 
-    public static void AddEntry(string left, string weapon, string right)
+    public static void AddEntry(Pace.DamageInfo damage)
     {
-        Instance.AddChild(new KillFeedEntry(left, weapon, right));
+        Instance.AddChild(new KillFeedEntry(damage));
     }
 }
