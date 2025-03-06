@@ -82,7 +82,7 @@ public sealed class FireComponent : Component
 
     private void ShootBullet()
     {
-        var ray = Equipment.Owner.AimRay;
+        var ray = new Ray( Muzzle.WorldPosition, (Equipment.Owner.MousePosition - Muzzle.WorldPosition).Normal );
         ray.Forward *= Rotation.FromAxis( Settings.Plane.Normal, Game.Random.Float( -0.5f, 0.5f ) * Spread );
 
         foreach ( var tr in TraceBullet( ray, 5000f, 1f ) )

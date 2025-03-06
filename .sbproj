@@ -14,7 +14,7 @@
     "rust.ui-pickup-gun-3"
   ],
   "EditorReferences": null,
-  "IsWhitelistDisabled": false,
+  "IsStandaloneOnly": false,
   "Metadata": {
     "MaxPlayers": 16,
     "MinPlayers": 1,

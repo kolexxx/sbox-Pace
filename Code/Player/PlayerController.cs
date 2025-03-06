@@ -1,7 +1,6 @@
 using Sandbox;
 using Sandbox.Citizen;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
 namespace Pace;

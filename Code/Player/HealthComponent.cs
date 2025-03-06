@@ -63,7 +63,8 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
             TimeSince = 0
         };
 
-        Sound.Play( DamageTakenSound, position );
+        if ( attacker == Player.Local )
+            Sound.Play( DamageTakenSound );
     }
 
     void ITriggerListener.OnTriggerEnter( Collider other )

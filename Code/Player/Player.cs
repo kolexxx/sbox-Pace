@@ -69,11 +69,6 @@ public sealed class Player : Component, UI.IMinimapElement
 	/// </summary>
 	public Vector3 MousePosition => Controller.MousePosition;
 
-	/// <summary>
-	/// The direction and position from where we are aiming.
-	/// </summary>
-	public Ray AimRay => new( Head.WorldPosition, Head.WorldRotation.Forward );
-
 	Color UI.IMinimapElement.Color => Local == this ? Color.White : Color.Red;
 
 	Vector3 UI.IMinimapElement.WorldPosition => WorldPosition;
