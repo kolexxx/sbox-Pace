@@ -325,9 +325,9 @@ public class PlayerController : Component
         var targetAngles = Head.LocalRotation.Angles().WithPitch( 0 ).WithRoll( 0 ).ToRotation();
         var currAngles = Body.LocalRotation.Angles().WithPitch( 0 ).WithRoll( 0 ).ToRotation();
 
-        WorldRotation = WorldRotation.LerpTo( rotation, 10f * Time.Delta );
+        WorldRotation = WorldRotation.SlerpTo( rotation, 10f * Time.Delta );
         Head.WorldRotation = Rotation.LookAt( MousePosition - Head.WorldPosition, GroundNormal );
-        Body.LocalRotation = Rotation.Lerp( currAngles, targetAngles, 10f * Time.Delta );
+        Body.LocalRotation = Rotation.Slerp( currAngles, targetAngles, 10f * Time.Delta );
     }
 
     private void Animate()
