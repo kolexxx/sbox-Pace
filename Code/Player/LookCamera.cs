@@ -7,7 +7,7 @@ public sealed class LookCamera : Component
 {
     [RequireComponent] public CameraComponent Camera { get; private set; }
 
-    protected override void OnAwake()
+    protected override void OnStart()
     {
         WorldPosition = Player.Local.WorldPosition + Vector3.Up * 64f + Settings.Plane.Normal * 1000f;
     }

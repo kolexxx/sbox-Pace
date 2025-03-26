@@ -1,4 +1,5 @@
 using Sandbox;
+using Sandbox.Diagnostics;
 using System;
 
 namespace Pace;
@@ -6,9 +7,15 @@ namespace Pace;
 public sealed class HealthComponent : Component, Component.ITriggerListener
 {
     [Property] public Player Player { get; private set; }
-    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public float Health { get; set; } = 100f;
+    [Property] public float MaxHealth { get; private set; } = 100f;
+    [Property, ReadOnly, Sync( SyncFlags.FromHost )] public float Health { get; private set; } = 100f;
     [Property] public SoundEvent DamageTakenSound { get; private set; }
     public DamageInfo LastDamage { get; private set; }
+
+    protected override void OnAwake()
+    {
+        Health = MaxHealth;
+    }
 
     public void TakeDamage( DamageInfo info )
     {
@@ -29,7 +36,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
         BroadcastDamage( info.Attacker, info.Weapon, info.Damage, info.Flags, info.Position, info.Force );
 
         if ( Health <= 0f )
-            Player.OnKilled();
+            Player?.OnKilled();
     }
 
     [Rpc.Host]
@@ -67,6 +74,13 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
             Sound.Play( DamageTakenSound );
     }
 
+    public void Heal( float amount )
+    {
+        Assert.True( Networking.IsHost );
+
+        Health = MathF.Min( Health + amount, MaxHealth );
+    }
+
     void ITriggerListener.OnTriggerEnter( Collider other )
     {
         if ( !Networking.IsHost )
@@ -78,9 +92,7 @@ public sealed class HealthComponent : Component, Component.ITriggerListener
         if ( Health >= 100f )
             return;
 
-        Health += pickup.HealAmount;
-        Health = MathF.Min( Health, 100f );
-
+        Heal( pickup.HealAmount );
         pickup.OnPickedUp();
     }
 }

@@ -343,6 +343,7 @@ public class PlayerController : Component
         AnimationHelper.MoveStyle = CitizenAnimationHelper.MoveStyles.Run;
         AnimationHelper.HoldType = equipment.IsValid() ? equipment.HoldType : CitizenAnimationHelper.HoldTypes.None;
         AnimationHelper.Handedness = equipment.IsValid() ? equipment.Handedness : CitizenAnimationHelper.Hand.Both;
+        AnimationHelper.IsWeaponLowered = false;
         AnimationHelper.DuckLevel = IsCrouching ? 1f : 0f;
     }
 }

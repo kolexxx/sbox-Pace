@@ -1,6 +1,5 @@
 using Sandbox;
 using System.Collections.Generic;
-using System.Numerics;
 
 namespace Pace;
 
@@ -13,24 +12,60 @@ public enum FireMode
 
 public sealed class FireComponent : Component
 {
+    /// <summary>
+    /// A reference to our Equipment component.
+    /// </summary>
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
+
+    /// <summary>
+    /// A reference to our Ammo component, if we have it.
+    /// </summary>
     [Property, Group( "Components" )] public AmmoComponent Ammo { get; private set; }
+
+    /// <summary>
+    /// Default fire mode.
+    /// </summary>
     [Property, Group( "Stats" )] public FireMode FireMode { get; set; } = FireMode.Semi;
+
     /// <summary>
     /// How many shots are fired per second?
     /// </summary>
     [Property, Group( "Stats" )] public float FireRate { get; set; } = 10f;
-    [Property, Group( "Stats" )] public float Damage { get; set; } = 20;
+
     /// <summary>
-    /// The angle of the cone in which shots can be fired.
+    /// How much damage a single bullet does.
+    /// </summary>
+    [Property, Group( "Stats" )] public float Damage { get; set; } = 20;
+
+    /// <summary>
+    /// The angle of the cone in which shots will deviate.
     /// </summary>
     [Property, Group( "Stats" )] public float Spread { get; set; } = 0f;
+
+    /// <summary>
+    /// How many bullets are fired per shot.
+    /// </summary>
     [Property, Group( "Stats" )] public int BulletsPerFire { get; set; } = 1;
+
+    /// <summary>
+    /// Played when firing.
+    /// </summary>
     [Property, Group( "Effects" )] public SoundEvent ShootSound { get; set; }
+
+    /// <summary>
+    /// Visual representation of a bullet.
+    /// </summary>
     [Property, Group( "Effects" )] public ParticleSystem Tracer { get; set; }
+
+    /// <summary>
+    /// Created from the muzzle when shooting.
+    /// </summary>
     [Property, Group( "Effects" )] public GameObject MuzzleFlash { get; set; }
+
+    /// <summary>
+    /// We will fire our tracers and muzzle flashes from here.
+    /// </summary>
     [Property, Group( "GameObjects" )] public GameObject Muzzle { get; set; }
-    [Property, Group( "GameObjects" )] public GameObject EjectionPort { get; set; }
 
     /// <summary>
     /// How long since we last shot this weapon.
@@ -108,7 +143,7 @@ public sealed class FireComponent : Component
             if ( tr.Hitbox is not null )
                 damage.Flags = damage.Flags.WithFlag( DamageFlags.Critical, tr.Hitbox.Tags.Has( "head" ) );
 
-            foreach ( var damageable in tr.GameObject.Components.GetAll<HealthComponent>() )
+            foreach ( var damageable in tr.GameObject.Components.GetAll<HealthComponent>( FindMode.InSelf ) )
             {
                 damageable.TakeDamage( damage );
             }
@@ -127,6 +162,9 @@ public sealed class FireComponent : Component
             .Radius( radius );
 
         var tr = trace.Run();
+
+        if ( tr.StartedSolid && tr.GameObject.Tags.Has( "barrier" ) )
+            tr = trace.IgnoreGameObject( tr.GameObject ).Run();
 
         if ( tr.Hit )
             yield return tr;

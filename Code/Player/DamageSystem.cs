@@ -7,10 +7,6 @@ namespace Pace;
 public enum DamageFlags
 {
     None = 0,
-
-    /// <summary>
-    /// This is a critical attack.
-    /// </summary>
     Bullet = 1 << 1,
     Explosive = 1 << 2,
     Burn = 1 << 3,
@@ -58,7 +54,7 @@ public record class DamageInfo
     /// <summary>
     /// How long since this damage info event happened?
     /// </summary>
-    public RealTimeSince TimeSince { get; init; } = 0;
+    public TimeSince TimeSince { get; init; } = 0;
 
     public override string ToString()
     {
