@@ -68,7 +68,7 @@
           "OnComponentStart": null,
           "OnComponentUpdate": null,
           "SkyIndirectLighting": true,
-          "SkyMaterial": "materials/skybox/skybox_day_01.vmat",
+          "SkyMaterial": "materials/skybox/skybox_dark_01.vmat",
           "Tint": "1,1,1,1"
         },
         {
@@ -170,6 +170,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "1.960532,-216.7052,33.77555",
+            "Rotation": "0.4178664,-0.0000000004230572,0.0000000001945842,0.9085085",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -286,6 +288,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -311,6 +314,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "1.507678,-283.7723,108.1032",
+            "Rotation": "0.3247433,0,0,0.9458022",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -427,6 +432,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -452,6 +458,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "5.730806,-334.7868,186.2938",
+            "Rotation": "0.2537588,0.000000000450419,-0.0000000001181657,0.9672675",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -568,6 +576,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -593,6 +602,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "3.680953,-376.0743,278.8312",
+            "Rotation": "0.1727893,-0.0000000002293286,0.00000000004023064,0.9849588",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -709,6 +720,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -734,6 +746,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "7.637733,-408.012,358.191",
+            "Rotation": "0.1088673,-0.0000000002314468,0.00000000002534764,0.9940563",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -850,6 +864,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -867,7 +882,7 @@
         {
           "__type": "Pace.Deathmatch",
           "__guid": "b7263f3b-26c1-4253-a38a-5f24860aa27f",
-          "DefaultWeapon": "prefabs/pistol.equip",
+          "DefaultWeapon": "prefabs/smg.equip",
           "OnComponentDestroy": null,
           "OnComponentDisabled": null,
           "OnComponentEnabled": null,
@@ -912,6 +927,7 @@
           "Opacity": 1,
           "Scale": 1,
           "ScaleStrategy": "ConsistentHeight",
+          "TargetCamera": null,
           "ZIndex": 100
         }
       ]
@@ -934,6 +950,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "0,-111.7626,-38.49007",
+            "Rotation": "0.5157856,0,0,0.8567177",
             "Positions": [
               "-55.20987,-76.69054,64",
               "55.20987,-76.69054,64",
@@ -1050,6 +1068,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1075,6 +1094,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-3.394753,345.9814,10.14447",
+            "Rotation": "0.258819,0,0,0.9659258",
             "Positions": [
               "-44.59829,-141.0078,63.9999",
               "44.59829,-141.0078,63.9999",
@@ -1191,6 +1212,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1215,6 +1237,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-3.394756,576.5544,47.13808",
+            "Rotation": "0,0,0,1",
             "Positions": [
               "-44.59829,-141.0078,63.9999",
               "44.59829,-141.0078,63.9999",
@@ -1331,6 +1355,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1356,6 +1381,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-4.908082,929.3313,136.6101",
+            "Rotation": "-0.258819,0,0,0.9659258",
             "Positions": [
               "-42.20538,-161.1223,33.72369",
               "42.20538,-161.1223,33.72369",
@@ -1472,6 +1499,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1497,6 +1525,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-4.908081,803.6985,12.04911",
+            "Rotation": "-0.258819,0,0,0.9659258",
             "Positions": [
               "-42.20538,-134.1481,33.72369",
               "42.20538,-134.1481,33.72369",
@@ -1613,6 +1643,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1637,6 +1668,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-3.406128,562.6582,118.0765",
+            "Rotation": "0,0,0,1",
             "Positions": [
               "-44.54742,-9.661255,6.935822",
               "44.54742,-9.661255,6.935822",
@@ -1753,6 +1786,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1777,6 +1811,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "1.70186,588.1802,124.1931",
+            "Rotation": "0,0,0,1",
             "Positions": [
               "-39.63266,-17.32562,15.69395",
               "39.63266,-17.32562,15.69395",
@@ -1893,6 +1929,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -1917,6 +1954,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "-4.332275,104.5424,228.8595",
+            "Rotation": "0,0,0,1",
             "Positions": [
               "-55.50162,-89.63469,64",
               "55.50162,-89.63469,64",
@@ -2033,6 +2072,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,
@@ -2058,6 +2098,8 @@
           "IsTrigger": false,
           "Mesh": {
             "Topology": "H4sIAAAAAAAACl2QCQ7CMAwEp4Qj3NBy/f+laMRGsohUVbFn1+t04ANs+Z0VsM69AwfgBFyAKZ9MPXdgk3qLnsI+Um/h/me9i2ZXfFvYOazafTJN0XRgKZmPyWtfXvYVL73PZRd52WdYPa7xtC8veys7u6t17/7t6Tn0ZtFjvIXZR895zjKjPWf4NiOrGt+ivpXZ3XnozaOndVn9vvVkkTjEAQAA",
+            "Position": "0.06098938,1013.315,-109.4365",
+            "Rotation": "0.1305262,0,0,0.9914449",
             "Positions": [
               "-31.00743,-103.8772,64",
               "31.00743,-103.8772,64",
@@ -2174,6 +2216,7 @@
           "OnObjectTriggerExit": null,
           "OnTriggerEnter": null,
           "OnTriggerExit": null,
+          "RenderType": "On",
           "SmoothingAngle": 40,
           "Static": true,
           "Surface": null,

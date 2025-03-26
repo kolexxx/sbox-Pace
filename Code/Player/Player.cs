@@ -50,11 +50,6 @@ public sealed class Player : Component, UI.IMinimapElement
 	public TimeSince TimeSinceDeath { get; private set; }
 
 	/// <summary>
-	/// The position we last spawned at.
-	/// </summary>
-	public Vector3? SpawnPosition { get; set; }
-
-	/// <summary>
 	/// Whether or not this player is alive.
 	/// </summary>
 	public bool IsAlive => LifeState == LifeState.Alive;
@@ -98,7 +93,7 @@ public sealed class Player : Component, UI.IMinimapElement
 		if ( Networking.IsHost )
 		{
 			Inventory.Clear();
-			HealthComponent.Health = 100f;
+			HealthComponent.Heal( 100f );
 			GameMode.Current?.OnRespawn( this );
 		}
 

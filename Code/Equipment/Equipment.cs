@@ -9,6 +9,9 @@ namespace Pace;
 /// </summary>
 public sealed class Equipment : Component
 {
+    /// <summary>
+    /// Containts base information about the equipment.
+    /// </summary>
     [Property] public EquipmentResource Resource { get; private set; }
 
     /// <summary>
@@ -27,7 +30,7 @@ public sealed class Equipment : Component
     [Property, Group( "Components" )] public SkinnedModelRenderer Renderer { get; private set; }
 
     /// <summary>
-    /// 
+    /// Point on the equipment where the hand will be placed.
     /// </summary>
     [Property, Group( "Animation" )] public GameObject Handle { get; private set; }
 

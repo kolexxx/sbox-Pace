@@ -1,0 +1,14 @@
+// THIS FILE IS AUTO-GENERATED
+
+Layer0
+{
+	shader "shaders/barrier.shader"
+
+	//---- Fog ----
+	g_bFogEnabled "1"
+
+	//---- My Material ----
+	g_flFresnelPower "2.000"
+	g_flInnerAlpha "0.400"
+	PatternMap "materials/hexagon_grid.jpg"
+}

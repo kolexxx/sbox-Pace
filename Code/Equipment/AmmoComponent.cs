@@ -10,16 +10,35 @@ public enum ReloadType
     NoReload
 }
 
-public class AmmoComponent : Component
+public sealed class AmmoComponent : Component
 {
+    /// <summary>
+    /// A reference to our Equipment component.
+    /// </summary>
     [Property, Group( "Components" )] public Equipment Equipment { get; private set; }
+
+    /// <summary>
+    /// A reference to our Fire component.
+    /// </summary>
     [Property, Group( "Components" )] public FireComponent FireComponent { get; private set; }
-    [Property] public ReloadType ReloadType { get; private set; }
+
+    /// <summary>
+    /// How do we load our ammo.
+    /// </summary>
+    [Property, Group( "Stats" )] public ReloadType ReloadType { get; private set; }
+
+    /// <summary>
+    /// How much time it takes for us to reload.
+    /// </summary>
     [Property, Group( "Stats" )] public float ReloadTime { get; private set; } = 0.6f;
+
+    /// <summary>
+    /// Maximum amount of ammo loaded at a time (clip size).
+    /// </summary>
     [Property, Group( "Stats" )] public int MaxLoadedAmmo { get; private set; } = 30;
 
     /// <summary>
-    /// How much ammo is currently in the clip.
+    /// How much ammo is currently loaded.
     /// </summary>
     public int LoadedAmmo { get; set; }
 
@@ -88,7 +107,7 @@ public class AmmoComponent : Component
     }
 
     [Rpc.Broadcast]
-    protected void Reload()
+    private void Reload()
     {
         if ( IsReloading )
             return;
@@ -102,7 +121,7 @@ public class AmmoComponent : Component
         Equipment.Owner.Renderer.Set( "b_reload", true );
     }
 
-    protected bool CanReload()
+    private bool CanReload()
     {
         if ( ReloadType == ReloadType.NoReload )
             return false;
@@ -113,7 +132,7 @@ public class AmmoComponent : Component
         if ( LoadedAmmo >= MaxLoadedAmmo || ReserveAmmo <= 0 )
             return false;
 
-        if ( FireComponent.IsOnCooldown )
+        if ( FireComponent.IsValid() && FireComponent.IsOnCooldown )
             return false;
 
         if ( LoadedAmmo == 0 )
@@ -122,7 +141,7 @@ public class AmmoComponent : Component
         return Input.Pressed( "reload" );
     }
 
-    protected void FinishReload()
+    private void FinishReload()
     {
         IsReloading = false;
 
@@ -141,7 +160,7 @@ public class AmmoComponent : Component
     }
 
     [Rpc.Broadcast]
-    protected void CancelReload()
+    private void CancelReload()
     {
         _requestCancel = false;
         IsReloading = false;
@@ -161,7 +180,7 @@ public class AmmoComponent : Component
     /// Takes ammo from the reserve and adds it in our clip.
     /// </summary>
     /// <param name="amount"></param>
-    protected void TakeAmmo( int amount )
+    private void TakeAmmo( int amount )
     {
         var ammo = Math.Min( ReserveAmmo, amount );
 
